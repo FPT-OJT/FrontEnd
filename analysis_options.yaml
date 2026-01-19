@@ -49,7 +49,6 @@ linter:
 
     # Style Rules - Consistent code style
     - always_declare_return_types
-    - always_put_control_body_on_new_line
     - always_put_required_named_parameters_first
     - annotate_overrides
     - avoid_annotating_with_dynamic
@@ -78,7 +77,6 @@ linter:
     - await_only_futures
     - camel_case_extensions
     - camel_case_types
-    - cascade_invocations
     - cast_nullable_to_non_nullable
     - constant_identifier_names
     - curly_braces_in_flow_control_structures
@@ -87,7 +85,6 @@ linter:
     - empty_constructor_bodies
     - exhaustive_cases
     - file_names
-    - flutter_style_todos
     - implementation_imports
     - join_return_with_assignment
     - leading_newlines_in_multiline_strings
@@ -119,7 +116,6 @@ linter:
     - prefer_final_in_for_each
     - prefer_final_locals
     - prefer_for_elements_to_map_fromIterable
-    - prefer_foreach
     - prefer_generic_function_type_aliases
     - prefer_if_elements_to_conditional_expressions
     - prefer_if_null_operators
