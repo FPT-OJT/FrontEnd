@@ -17,7 +17,7 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
     try {
       await _dataSource.setSeen();
       return right<Failure, Unit>(unit);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(Failure(e.toString()));
     }
   }
