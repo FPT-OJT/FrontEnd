@@ -1,4 +1,4 @@
-import 'package:fpdart/src/either.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
 import 'package:fpt_ojt/features/intro/domain/repositories/onboarding_repository.dart';
