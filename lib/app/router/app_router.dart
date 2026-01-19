@@ -5,7 +5,7 @@ import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart'
 import 'package:go_router/go_router.dart';
 
 final goRouter = GoRouter(
-  initialLocation: RouteNames.onboarding,
+  initialLocation: RouteNames.splash,
   routes: [
     GoRoute(
       path: RouteNames.onboarding,
