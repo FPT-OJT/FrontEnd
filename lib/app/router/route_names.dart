@@ -5,4 +5,7 @@ class RouteNames {
   static const String home = '/';
   static const String onboarding = '/onboarding';
   static const String welcome = '/welcome';
+  static const String loginOptions = '/login-options';
+  static const String loginDetails = '/login-details';
+  static const String registerDetails = '/register-details';
 }
