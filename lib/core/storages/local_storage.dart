@@ -32,11 +32,21 @@ class LocalStore implements KeyValueStorage {
   Future<T?> get<T extends Object>(String key) async {
     final prefs = await instance;
 
-    if (T == String) return prefs.getString(key) as T?;
-    if (T == int) return prefs.getInt(key) as T?;
-    if (T == bool) return prefs.getBool(key) as T?;
-    if (T == double) return prefs.getDouble(key) as T?;
-    if (T == List<String>) return prefs.getStringList(key) as T?;
+    if (T == String) {
+      return prefs.getString(key) as T?;
+    }
+    if (T == int) {
+      return prefs.getInt(key) as T?;
+    }
+    if (T == bool) {
+      return prefs.getBool(key) as T?;
+    }
+    if (T == double) {
+      return prefs.getDouble(key) as T?;
+    }
+    if (T == List<String>) {
+      return prefs.getStringList(key) as T?;
+    }
 
     throw Exception('Unsupported type: $T');
   }

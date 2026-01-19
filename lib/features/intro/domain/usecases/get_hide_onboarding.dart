@@ -5,7 +5,7 @@ import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
 class GetIsOnboardingUseCase implements UseCase<bool, NoParams> {
   @override
   Future<Either<Failure, bool>> call(NoParams params) async {
-    //TODO: Implement the logic to get onboarding status
+    //TODO(hoang): Implement the logic to get onboarding status
     throw UnimplementedError();
   }
 }

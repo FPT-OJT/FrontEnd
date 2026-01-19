@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-// TODO: Add interceptors, logging, error handling, etc.
+// TODO(hoang): Add interceptors, logging, and error handling.
 class HttpClient {
   Dio createDioClient(String baseUrl) => Dio(
     BaseOptions(
