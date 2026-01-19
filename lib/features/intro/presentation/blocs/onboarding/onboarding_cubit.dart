@@ -1,14 +1,28 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
+import 'package:fpt_ojt/features/intro/domain/usecases/end_onboarding.dart';
+import 'package:fpt_ojt/features/intro/domain/usecases/get_is_completed_onboarding.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_state.dart';
 import 'package:fpt_ojt/features/intro/presentation/constants/onboarding_constants.dart';
 
 class OnboardingCubit extends Cubit<OnboardingState> {
-  OnboardingCubit() : super(const OnboardingInitial());
+  OnboardingCubit({
+    required this.endOnboardingUseCase,
+    required this.getIsOnboardingUseCase,
+  }) : super(const OnboardingInitial());
+  final EndOnboardingUseCase endOnboardingUseCase;
+  final GetIsCompletedOnboardingUseCase getIsOnboardingUseCase;
 
   Future<void> initialize() async {
     emit(const OnboardingLoading());
-    //TODO: check if onboarding completed
-    emit(const OnboardingSession(0, onboardingItems));
+    final res = await getIsOnboardingUseCase.call(NoParams());
+    res.fold((failure) => emit(OnboardingError(failure.message)), (seen) {
+      if (seen) {
+        emit(const OnboardingCompleted());
+      } else {
+        emit(const OnboardingSession(0, onboardingItems));
+      }
+    });
   }
 
   Future<void> pageChanged(double page) async {
@@ -16,6 +30,10 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   }
 
   Future<void> complete() async {
-    // TODO: mark onboarding as completed in local storage
+    final res = await endOnboardingUseCase.call(NoParams());
+    res.fold(
+      (failure) => emit(OnboardingError(failure.message)),
+      (_) => emit(const OnboardingCompleted()),
+    );
   }
 }

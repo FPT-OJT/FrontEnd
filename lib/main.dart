@@ -11,7 +11,7 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider<OnboardingCubit>(
-          create: (context) => serviceLocator<OnboardingCubit>(),
+          create: (context) => serviceLocator<OnboardingCubit>()..initialize(),
         ),
       ],
       child: const MainApp(),

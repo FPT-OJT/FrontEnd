@@ -12,7 +12,30 @@ Future<void> initDependencies() async {
 }
 
 void _initIntro() {
-  serviceLocator.registerFactory(OnboardingCubit.new);
+  // Data sources
+
+  serviceLocator
+    ..registerLazySingleton<OnboardingDataSource>(
+      () => OnboardingLocalDataSource(serviceLocator()),
+    )
+    // Repositories
+    ..registerLazySingleton<OnboardingRepository>(
+      () => OnboardingRepositoryImpl(serviceLocator()),
+    )
+    // Use cases
+    ..registerLazySingleton<EndOnboardingUseCase>(
+      () => EndOnboardingUseCase(serviceLocator()),
+    )
+    ..registerLazySingleton<GetIsCompletedOnboardingUseCase>(
+      () => GetIsCompletedOnboardingUseCase(serviceLocator()),
+    )
+    // cubits
+    ..registerFactory<OnboardingCubit>(
+      () => OnboardingCubit(
+        endOnboardingUseCase: serviceLocator(),
+        getIsOnboardingUseCase: serviceLocator(),
+      ),
+    );
 }
 
 Future<void> _initAuth() async {}

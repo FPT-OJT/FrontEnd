@@ -21,7 +21,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   void initState() {
-    context.read<OnboardingCubit>().initialize();
     super.initState();
     _controller.addListener(() {
       context.read<OnboardingCubit>().pageChanged(_controller.page ?? 0);
@@ -35,7 +34,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _getStarted() {
-    context.go(RouteNames.home);
+    context.read<OnboardingCubit>().complete();
+    context.go(RouteNames.welcome);
   }
 
   @override
