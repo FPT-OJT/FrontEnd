@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
+import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -15,14 +16,14 @@ class LoginOptionsScreen extends StatelessWidget {
       backgroundColor: AppColors.neutralEggShell60,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
               const SizedBox(height: 40),
               _buildTitle(theme),
-              const SizedBox(height: 40),
+              const SizedBox(height: 32),
               _buildIllustration(),
-              const Spacer(),
+              const SizedBox(height: 32),
               _buildEmailLoginButton(context, theme),
               const SizedBox(height: 24),
               _buildOrDivider(theme),
@@ -33,8 +34,12 @@ class LoginOptionsScreen extends StatelessWidget {
               const SizedBox(height: 32),
               _buildSignUpPrompt(context, theme),
               const SizedBox(height: 32),
-              _buildBrand(theme),
-              const SizedBox(height: 24),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [_buildBrand(theme), const SizedBox(height: 32)],
+                ),
+              ),
             ],
           ),
         ),
@@ -42,25 +47,19 @@ class LoginOptionsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(ThemeData theme) => Text(
-    'Login to Minstant',
-    style: theme.textTheme.headlineLarge?.copyWith(
-      color: AppColors.secondaryNavy,
-      fontWeight: FontWeight.bold,
-      fontSize: 32,
-    ),
-  );
+  Widget _buildTitle(ThemeData theme) =>
+      Text('Login to Minstant', style: AppTextStyles.h2);
 
   Widget _buildIllustration() => Image.asset(
     'assets/images/welcome_image.png',
-    height: 280,
+    height: 210,
     fit: BoxFit.contain,
   );
 
   Widget _buildEmailLoginButton(BuildContext context, ThemeData theme) =>
       SizedBox(
         width: double.infinity,
-        height: 56,
+        height: 48,
         child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
@@ -71,14 +70,7 @@ class LoginOptionsScreen extends StatelessWidget {
             ),
             elevation: 0,
           ),
-          child: Text(
-            'Login with email address',
-            style: theme.textTheme.titleMedium?.copyWith(
-              color: AppColors.neutralWhite,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
-          ),
+          child: Text('Login with email address', style: AppTextStyles.button),
         ),
       );
 
@@ -101,7 +93,7 @@ class LoginOptionsScreen extends StatelessWidget {
   Widget _buildFacebookButton(BuildContext context, ThemeData theme) =>
       SizedBox(
         width: double.infinity,
-        height: 56,
+        height: 48,
         child: ElevatedButton.icon(
           onPressed: () {
             context.push(RouteNames.loginDetails);
@@ -115,20 +107,13 @@ class LoginOptionsScreen extends StatelessWidget {
             elevation: 0,
           ),
           icon: const Icon(Icons.facebook, size: 24),
-          label: Text(
-            'Continue with Facebook',
-            style: theme.textTheme.titleMedium?.copyWith(
-              color: AppColors.neutralWhite,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
-          ),
+          label: Text('Continue with Facebook', style: AppTextStyles.button),
         ),
       );
 
   Widget _buildGoogleButton(BuildContext context, ThemeData theme) => SizedBox(
     width: double.infinity,
-    height: 56,
+    height: 48,
     child: ElevatedButton(
       onPressed: () {},
       style: ElevatedButton.styleFrom(
@@ -143,14 +128,7 @@ class LoginOptionsScreen extends StatelessWidget {
         children: [
           Brand(Brands.google, size: 24),
           const SizedBox(width: 12),
-          Text(
-            'Continue with Google',
-            style: theme.textTheme.titleMedium?.copyWith(
-              color: AppColors.neutralBlack,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
-          ),
+          Text('Continue with Google', style: AppTextStyles.button),
         ],
       ),
     ),

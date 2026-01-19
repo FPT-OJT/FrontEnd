@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
+import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 
 class CustomTextField extends StatelessWidget {
-
   const CustomTextField({
-    required this.label, required this.controller, super.key,
+    required this.label,
+    required this.controller,
+    super.key,
     this.hintText,
     this.validator,
     this.keyboardType,
@@ -20,65 +22,46 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return TextFormField(
-      controller: controller,
-      validator: validator,
-      keyboardType: keyboardType,
-      enabled: enabled,
-      maxLines: maxLines,
-      style: theme.textTheme.bodyLarge?.copyWith(
-        color: AppColors.secondaryNavy,
+  Widget build(BuildContext context) => TextFormField(
+    controller: controller,
+    validator: validator,
+    keyboardType: keyboardType,
+    enabled: enabled,
+    maxLines: maxLines,
+    cursorColor: AppColors.secondaryCoral,
+    style: AppTextStyles.bodyLarge,
+    decoration: InputDecoration(
+      labelText: label,
+      hintText: hintText,
+      filled: true,
+      fillColor: Colors.transparent,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      labelStyle: AppTextStyles.bodyLarge.copyWith(
+        color: AppColors.neutralGrey,
       ),
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hintText,
-        filled: true,
-        fillColor: Colors.transparent,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
-        ),
-        labelStyle: theme.textTheme.bodyMedium?.copyWith(
-          color: AppColors.secondaryNavy.withOpacity(0.6),
-          fontSize: 16,
-        ),
-        floatingLabelStyle: theme.textTheme.bodyMedium?.copyWith(
-          color: AppColors.secondaryNavy,
-          fontSize: 16,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: AppColors.neutralGrey,
-            width: 1.5,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: AppColors.neutralGrey,
-            width: 1.5,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primaryMint, width: 2),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: AppColors.notifyError,
-            width: 1.5,
-          ),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.notifyError, width: 2),
-        ),
+      floatingLabelStyle: AppTextStyles.bodyLarge.copyWith(
+        color: AppColors.secondaryCoral,
       ),
-    );
-  }
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: AppColors.neutralGrey),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: AppColors.neutralGrey),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: AppColors.secondaryCoral, width: 2),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: AppColors.notifyError),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: AppColors.notifyError, width: 2),
+      ),
+    ),
+  );
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
+import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/auth_bottom_section.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/password_text_field.dart';
@@ -83,7 +84,7 @@ class _SignupDetailsScreenState extends State<SignupDetailsScreen> {
                 ),
                 const SizedBox(height: 20),
                 PasswordTextField(
-                  label: 'Repead password',
+                  label: 'Repeat password',
                   controller: _repeatPasswordController,
                   validator: _validateRepeatPassword,
                 ),
@@ -106,17 +107,13 @@ class _SignupDetailsScreenState extends State<SignupDetailsScreen> {
 
   Widget _buildTitle(ThemeData theme) => Text(
     'Create new account:',
-    style: theme.textTheme.headlineLarge?.copyWith(
-      color: AppColors.secondaryNavy,
-      fontWeight: FontWeight.bold,
-      fontSize: 28,
-    ),
+    style: AppTextStyles.h2,
     textAlign: TextAlign.center,
   );
 
   Widget _buildCreateAccountButton(ThemeData theme) => SizedBox(
     width: double.infinity,
-    height: 56,
+    height: 48,
     child: ElevatedButton(
       onPressed: _handleCreateAccount,
       style: ElevatedButton.styleFrom(
@@ -125,14 +122,7 @@ class _SignupDetailsScreenState extends State<SignupDetailsScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 0,
       ),
-      child: Text(
-        'Create account',
-        style: theme.textTheme.titleMedium?.copyWith(
-          color: AppColors.neutralWhite,
-          fontWeight: FontWeight.w600,
-          fontSize: 18,
-        ),
-      ),
+      child: Text('Create account', style: AppTextStyles.button),
     ),
   );
 

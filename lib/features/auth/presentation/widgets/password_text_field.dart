@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
+import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 
 class PasswordTextField extends StatefulWidget {
-
   const PasswordTextField({
-    required this.label, required this.controller, super.key,
+    required this.label,
+    required this.controller,
+    super.key,
     this.hintText,
     this.validator,
   });
@@ -34,6 +36,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       controller: widget.controller,
       validator: widget.validator,
       obscureText: _obscureText,
+      cursorColor: AppColors.secondaryCoral,
+
       style: theme.textTheme.bodyLarge?.copyWith(
         color: AppColors.secondaryNavy,
       ),
@@ -46,18 +50,16 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           horizontal: 16,
           vertical: 16,
         ),
-        labelStyle: theme.textTheme.bodyMedium?.copyWith(
-          color: AppColors.secondaryNavy.withOpacity(0.6),
-          fontSize: 16,
+        labelStyle: AppTextStyles.bodyLarge.copyWith(
+          color: AppColors.neutralGrey,
         ),
-        floatingLabelStyle: theme.textTheme.bodyMedium?.copyWith(
-          color: AppColors.secondaryNavy,
-          fontSize: 16,
+        floatingLabelStyle: AppTextStyles.bodyLarge.copyWith(
+          color: AppColors.secondaryCoral,
         ),
         suffixIcon: IconButton(
           icon: Icon(
             _obscureText ? Icons.visibility_off : Icons.visibility,
-            color: AppColors.secondaryNavy.withOpacity(0.6),
+            color: AppColors.secondaryNavy.withValues(alpha: 135),
             size: 20,
           ),
           onPressed: _toggleVisibility,
@@ -78,7 +80,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primaryMint, width: 2),
+          borderSide: const BorderSide(
+            color: AppColors.secondaryCoral,
+            width: 2,
+          ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

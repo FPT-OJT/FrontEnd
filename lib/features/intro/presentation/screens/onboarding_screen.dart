@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
+import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/features/intro/domain/entities/onboarding_item.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_state.dart';
@@ -47,7 +48,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         }
         final onboardingSessionState = state;
         return Container(
-          color: Theme.of(context).colorScheme.surface,
+          color: AppColors.neutralEggShell60,
           padding: const EdgeInsets.only(
             top: 48,
             bottom: 20,
