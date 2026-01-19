@@ -62,8 +62,7 @@ class LoginOptionsScreen extends StatelessWidget {
         width: double.infinity,
         height: 56,
         child: ElevatedButton(
-          onPressed: () {
-          },
+          onPressed: () {},
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.secondaryCoral,
             foregroundColor: AppColors.neutralWhite,
@@ -131,8 +130,7 @@ class LoginOptionsScreen extends StatelessWidget {
     width: double.infinity,
     height: 56,
     child: ElevatedButton(
-      onPressed: () {
-      },
+      onPressed: () {},
       style: ElevatedButton.styleFrom(
         foregroundColor: AppColors.neutralBlack,
         backgroundColor: AppColors.neutralWhite,
