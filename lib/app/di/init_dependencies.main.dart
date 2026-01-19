@@ -11,6 +11,8 @@ Future<void> initDependencies() async {
   await _initAuth();
 }
 
-void _initIntro() {}
+void _initIntro() {
+  serviceLocator.registerFactory(OnboardingCubit.new);
+}
 
 Future<void> _initAuth() async {}
