@@ -8,9 +8,10 @@ class LoginDetailsEvent extends Equatable {
 }
 
 class LoginSubmitted extends LoginDetailsEvent {
-  const LoginSubmitted({required this.email, required this.password});
+  const LoginSubmitted({required this.email, required this.password, this.rememberMe = false});
   final String email;
   final String password;
+  final bool rememberMe;
   @override
   List<Object?> get props => [email, password];
 }

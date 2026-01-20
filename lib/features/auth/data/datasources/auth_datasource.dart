@@ -6,6 +6,7 @@ abstract interface class AuthDataSource {
   Future<ApiResponse<TokenResponse>> loginWithEmail(
     String email,
     String password,
+    {bool rememberMe = false}
   );
   Future<ApiResponse<TokenResponse>> loginWithGoogle(String idToken);
   Future<UserModel?> getCurrentUser(String token);
@@ -18,4 +19,6 @@ abstract interface class AuthDataSource {
     required String repeatPassword,
     required String email,
   });
+  Future<ApiResponse<void>> forgotPassword(String email);
+  Future<ApiResponse<void>> resetPassword(String email, String otp, String newPassword);
 }

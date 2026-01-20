@@ -10,11 +10,12 @@ class LoginWithEmailUseCase implements UseCase<User, LoginWithEmailParams> {
   final AuthRepository _authRepository;
   @override
   Future<Either<Failure, User>> call(LoginWithEmailParams params) async =>
-      _authRepository.loginWithEmail(params.email, params.password);
+      _authRepository.loginWithEmail(params.email, params.password, rememberMe: params.rememberMe);
 }
 
 class LoginWithEmailParams {
-  LoginWithEmailParams({required this.email, required this.password});
+  LoginWithEmailParams({required this.email, required this.password, this.rememberMe = false});
   final String email;
   final String password;
+  final bool rememberMe;
 }

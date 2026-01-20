@@ -10,11 +10,12 @@ class AuthDataSourceImpl implements AuthDataSource {
   @override
   Future<ApiResponse<TokenResponse>> loginWithEmail(
     String email,
-    String password,
-  ) async {
+    String password, {
+    bool rememberMe = false,
+  }) async {
     final response = await _dio.post<Map<String, dynamic>>(
       '/public/auth/login',
-      data: {'username': email, 'password': password},
+      data: {'username': email, 'password': password, 'rememberMe': rememberMe},
     );
     return ApiResponse.fromJson(
       response.data ?? {},
@@ -74,6 +75,33 @@ class AuthDataSourceImpl implements AuthDataSource {
     return ApiResponse.fromJson(
       response.data ?? {},
       (json) => TokenResponse.fromJson(json! as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  Future<ApiResponse<void>> forgotPassword(String email) async {
+    final response = await _dio.post<Map<String, dynamic>>(
+      '/public/auth/password/forgot?email=$email',
+    );
+    return ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => json! as Map<String, dynamic>,
+    );
+  }
+
+  @override
+  Future<ApiResponse<void>> resetPassword(
+    String email,
+    String otp,
+    String newPassword,
+  ) async {
+    final response = await _dio.post<Map<String, dynamic>>(
+      '/public/auth/password/reset',
+      data: {'email': email, 'otp': otp, 'newPassword': newPassword},
+    );
+    return ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => json! as Map<String, dynamic>,
     );
   }
 }

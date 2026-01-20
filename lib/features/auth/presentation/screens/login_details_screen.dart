@@ -30,6 +30,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+  bool _rememberMe = false;
 
   @override
   void dispose() {
@@ -51,6 +52,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
         LoginSubmitted(
           email: _usernameController.text.trim(),
           password: _passwordController.text,
+          rememberMe: _rememberMe,
         ),
       );
     }
@@ -77,42 +79,50 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
       child: Scaffold(
         backgroundColor: AppColors.neutralEggShell60,
         body: SafeArea(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Form(
-              key: _formKey,
-              autovalidateMode: _autovalidateMode,
-              child: Column(
-                children: [
-                  const SizedBox(height: 40),
-                  _buildTitle(theme),
-                  const SizedBox(height: 32),
-                  Expanded(child: Container(child: _buildIllustration())),
-                  const SizedBox(height: 40),
-                  CustomTextField(
-                    label: 'Username',
-                    controller: _usernameController,
-                    validator: _validateUsername,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  const SizedBox(height: 20),
-                  PasswordTextField(
-                    label: 'Password',
-                    controller: _passwordController,
-                    validator: _validatePassword,
-                  ),
-                  const SizedBox(height: 12),
-                  _buildForgotPasswordLink(theme),
-                  const SizedBox(height: 32),
-                  _buildLoginButton(theme),
-                  const SizedBox(height: 32),
-                  const AuthBottomSection(
-                    promptText: "Don't have an account?",
-                    actionText: 'Sign up now',
-                    routeName: RouteNames.registerDetails,
-                  ),
-                  const SizedBox(height: 24),
-                ],
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Form(
+                key: _formKey,
+                autovalidateMode: _autovalidateMode,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 40),
+                    _buildTitle(theme),
+                    const SizedBox(height: 32),
+                    _buildIllustration(),
+                    const SizedBox(height: 40),
+                    CustomTextField(
+                      label: 'Username',
+                      controller: _usernameController,
+                      validator: _validateUsername,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 20),
+                    PasswordTextField(
+                      label: 'Password',
+                      controller: _passwordController,
+                      validator: _validatePassword,
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildRememberMeCheckbox(theme),
+                        _buildForgotPasswordLink(theme),
+                      ],
+                    ),
+                    const SizedBox(height: 32),
+                    _buildLoginButton(theme),
+                    const SizedBox(height: 32),
+                    const AuthBottomSection(
+                      promptText: "Don't have an account?",
+                      actionText: 'Sign up now',
+                      routeName: RouteNames.registerDetails,
+                    ),
+                    const SizedBox(height: 24),
+                  ],
+                ),
               ),
             ),
           ),
@@ -136,21 +146,55 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
     child: Image.asset('assets/images/welcome_image.png', fit: BoxFit.contain),
   );
 
-  Widget _buildForgotPasswordLink(ThemeData theme) => Align(
-    alignment: Alignment.centerRight,
-    child: TextButton(
-      onPressed: _showForgotPasswordBottomSheet,
-      style: TextButton.styleFrom(
-        padding: EdgeInsets.zero,
-        minimumSize: Size.zero,
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      ),
-      child: Text(
-        'Forgot password?',
-        style: theme.textTheme.bodyMedium?.copyWith(
-          color: AppColors.secondaryCoral,
-          fontWeight: FontWeight.w600,
+  Widget _buildRememberMeCheckbox(ThemeData theme) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      SizedBox(
+        height: 24,
+        width: 24,
+        child: Checkbox(
+          value: _rememberMe,
+          onChanged: (value) {
+            setState(() {
+              _rememberMe = value ?? false;
+            });
+          },
+          activeColor: AppColors.secondaryCoral,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+          ),
         ),
+      ),
+      const SizedBox(width: 8),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            _rememberMe = !_rememberMe;
+          });
+        },
+        child: Text(
+          'Remember me',
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: AppColors.secondaryNavy,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    ],
+  );
+
+  Widget _buildForgotPasswordLink(ThemeData theme) => TextButton(
+    onPressed: _showForgotPasswordBottomSheet,
+    style: TextButton.styleFrom(
+      padding: EdgeInsets.zero,
+      minimumSize: Size.zero,
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    ),
+    child: Text(
+      'Forgot password?',
+      style: theme.textTheme.bodyMedium?.copyWith(
+        color: AppColors.secondaryCoral,
+        fontWeight: FontWeight.w600,
       ),
     ),
   );

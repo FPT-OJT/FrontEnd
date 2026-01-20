@@ -20,10 +20,15 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, User>> loginWithEmail(
     String email,
-    String password,
-  ) async {
+    String password, {
+    bool rememberMe = false,
+  }) async {
     try {
-      final response = await _authDataSource.loginWithEmail(email, password);
+      final response = await _authDataSource.loginWithEmail(
+        email,
+        password,
+        rememberMe: rememberMe,
+      );
       await _tokenDataSource.saveAccessToken(response.data!.accessToken);
       await _tokenDataSource.saveRefreshToken(response.data!.refreshToken);
       return Right(
@@ -127,6 +132,30 @@ class AuthRepositoryImpl implements AuthRepository {
           email: 'test@test.com',
         ),
       );
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> forgotPassword(String email) async {
+    try {
+      await _authDataSource.forgotPassword(email);
+      return const Right(null);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> resetPassword(
+    String email,
+    String otp,
+    String newPassword,
+  ) async {
+    try {
+      await _authDataSource.resetPassword(email, otp, newPassword);
+      return const Right(null);
     } on Exception catch (e) {
       return Left(Failure.fromException(e));
     }

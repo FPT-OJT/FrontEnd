@@ -17,7 +17,7 @@ class LoginDetailsBloc extends Bloc<LoginDetailsEvent, LoginDetailsState> {
   ) async {
     emit(const LoginSubmitting());
     final result = await _loginWithEmailUseCase.call(
-      LoginWithEmailParams(email: event.email, password: event.password),
+        LoginWithEmailParams(email: event.email, password: event.password,rememberMe: event.rememberMe),
     );
     result.fold(
       (failure) => emit(LoginFailure(failure.message)),
