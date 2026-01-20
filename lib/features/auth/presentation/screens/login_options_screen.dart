@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_cubit.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_state.dart';
+import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -19,30 +23,61 @@ class LoginOptionsScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              const SizedBox(height: 40),
-              _buildTitle(theme),
-              const SizedBox(height: 32),
-              _buildIllustration(),
-              const SizedBox(height: 32),
-              _buildEmailLoginButton(context, theme),
-              const SizedBox(height: 24),
-              _buildOrDivider(theme),
-              const SizedBox(height: 24),
-              _buildFacebookButton(context, theme),
-              const SizedBox(height: 16),
-              _buildGoogleButton(context, theme),
-              const SizedBox(height: 32),
-              _buildSignUpPrompt(context, theme),
-              const SizedBox(height: 32),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [_buildBrand(theme), const SizedBox(height: 32)],
+          child: BlocConsumer<LoginOptionsCubit, LoginOptionsState>(
+            listener: (context, state) {
+              switch (state) {
+                case LoginWithFacebookLoading _:
+                  return;
+                case LoginWithFacebookSuccess _:
+                  return;
+                case final LoginWithFacebookError loginWithFacebookError:
+                  SnackBarUtils.showError(
+                    context,
+                    loginWithFacebookError.message,
+                  );
+                  return;
+                case LoginWithGoogleLoading _:
+                  return;
+                case final LoginWithGoogleSuccess loginWithGoogleSuccess:
+                  SnackBarUtils.showSuccess(context, 'Login successful!');
+                  context.read<AuthBloc>().add(
+                    AuthLoggedInEvent(user: loginWithGoogleSuccess.user),
+                  );
+                  context.go(RouteNames.home);
+                  return;
+                case final LoginWithGoogleError loginWithGoogleError:
+                  SnackBarUtils.showError(
+                    context,
+                    loginWithGoogleError.message,
+                  );
+                  return;
+              }
+            },
+            builder: (context, state) => Column(
+              children: [
+                const SizedBox(height: 40),
+                _buildTitle(theme),
+                const SizedBox(height: 32),
+                _buildIllustration(),
+                const SizedBox(height: 32),
+                _buildEmailLoginButton(context, theme),
+                const SizedBox(height: 24),
+                _buildOrDivider(theme),
+                const SizedBox(height: 24),
+                _buildFacebookButton(context, theme),
+                const SizedBox(height: 16),
+                _buildGoogleButton(context, theme),
+                const SizedBox(height: 32),
+                _buildSignUpPrompt(context, theme),
+                const SizedBox(height: 32),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [_buildBrand(theme), const SizedBox(height: 32)],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:fpt_ojt/features/auth/domain/entites/user.dart';
 
 class RegisterState extends Equatable {
   const RegisterState();
@@ -19,10 +20,11 @@ class RegisterSubmitting extends RegisterState {
 }
 
 class RegisterSuccess extends RegisterState {
-  const RegisterSuccess();
+  const RegisterSuccess({required this.user});
+  final User user;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [user];
 }
 
 class RegisterFailure extends RegisterState {

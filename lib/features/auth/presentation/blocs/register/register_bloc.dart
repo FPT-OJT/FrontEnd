@@ -29,7 +29,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     );
     result.fold(
       (failure) => emit(RegisterFailure(failure.message)),
-      (ok) => emit(const RegisterSuccess()),
+      (user) => emit(RegisterSuccess(user: user)),
     );
   }
 }

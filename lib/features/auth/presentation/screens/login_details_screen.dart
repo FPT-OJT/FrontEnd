@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_state.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/auth_bottom_section.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/password_text_field.dart';
+import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginDetailsScreen extends StatefulWidget {
@@ -46,28 +49,16 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
 
     return BlocListener<LoginDetailsBloc, LoginDetailsState>(
       listener: (context, state) {
-        if (state is LoginSubmitting) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Logging in...'),
-              duration: Duration(seconds: 1),
-            ),
-          );
-        } else if (state is LoginSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Login successful!'),
-              backgroundColor: Colors.green,
-            ),
-          );
-          context.go(RouteNames.home);
-        } else if (state is LoginFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.red,
-            ),
-          );
+        switch (state) {
+          case LoginSubmitting _:
+            return;
+          case final LoginSuccess loginSuccess:
+            final user = loginSuccess.user;
+            SnackBarUtils.showSuccess(context, 'Login successful!');
+            context.read<AuthBloc>().add(AuthLoggedInEvent(user: user));
+            context.go(RouteNames.home);
+          case final LoginFailure loginFailure:
+            SnackBarUtils.showError(context, loginFailure.message);
         }
       },
       child: Scaffold(
@@ -177,7 +168,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
     if (value == null || value.trim().isEmpty) {
       return 'Username is required';
     }
-   
+
     return null;
   }
 

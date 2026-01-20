@@ -4,12 +4,15 @@ import 'package:fpt_ojt/app/di/init_dependencies.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_state.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/auth_bottom_section.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/password_text_field.dart';
+import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
 import 'package:go_router/go_router.dart';
 
 class SignupDetailsScreen extends StatelessWidget {
@@ -71,27 +74,14 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
     return BlocListener<RegisterBloc, RegisterState>(
       listener: (context, state) {
         if (state is RegisterSubmitting) {
-          // Show loading indicator
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Creating account...'),
-              duration: Duration(seconds: 1),
-            ),
-          );
+         
         } else if (state is RegisterSuccess) {
-          // Show success message and navigate
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Account created successfully!'),
-              backgroundColor: Colors.green,
-            ),
-          );
+          final user = state.user;
+          SnackBarUtils.showSuccess(context, 'Account created successfully!');
+          context.read<AuthBloc>().add(AuthLoggedInEvent(user: user));
           context.go(RouteNames.home);
         } else if (state is RegisterFailure) {
-          // Show error message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
-          );
+          SnackBarUtils.showError(context, state.message);
         }
       },
       child: Scaffold(

@@ -2,6 +2,7 @@ import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/login_details_screen.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/login_options_screen.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/signup_details_screen.dart';
+import 'package:fpt_ojt/features/home/presentation/screens/home_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/onboarding_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/splash_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart';
@@ -33,6 +34,10 @@ final goRouter = GoRouter(
     GoRoute(
       path: RouteNames.registerDetails,
       builder: (context, state) => const SignupDetailsScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.home,
+      builder: (context, state) => const HomeScreen(),
     ),
   ],
 );
