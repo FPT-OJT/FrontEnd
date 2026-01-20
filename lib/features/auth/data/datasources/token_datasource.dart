@@ -1,4 +1,3 @@
-
 abstract interface class TokenDataSource {
   Future<String> getAccessToken();
   Future<String> getRefreshToken();

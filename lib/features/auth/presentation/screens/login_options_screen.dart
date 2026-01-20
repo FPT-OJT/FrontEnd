@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -115,7 +117,10 @@ class LoginOptionsScreen extends StatelessWidget {
     width: double.infinity,
     height: 48,
     child: ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        print('login with google');
+        context.read<LoginOptionsCubit>().loginWithGoogle();
+      },
       style: ElevatedButton.styleFrom(
         foregroundColor: AppColors.neutralBlack,
         backgroundColor: AppColors.neutralWhite,
