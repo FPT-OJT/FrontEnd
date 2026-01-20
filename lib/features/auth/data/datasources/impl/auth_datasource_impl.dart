@@ -1,7 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/auth_datasource.dart';
 import 'package:fpt_ojt/features/auth/data/models/login_reponse.dart';
 
 class AuthDataSourceImpl implements AuthDataSource {
+  AuthDataSourceImpl({required Dio dio}) : _dio = dio;
+  final Dio _dio;
   @override
   Future<LoginResponse> loginWithEmail(String email, String password) async {
     await Future.delayed(const Duration(seconds: 1));

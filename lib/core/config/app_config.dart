@@ -12,6 +12,9 @@ class AppConfig {
     'ANDROID_GOOGLE_CLIENT_ID',
     defaultValue: 'android_client_id',
   );
+  static String apiUrl = const String.fromEnvironment(
+    'API_URL',
+    defaultValue: 'http://localhost:8090',
+  );
 }
 
-// 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

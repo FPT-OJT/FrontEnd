@@ -1,3 +1,6 @@
 {
-  "env": "dev"
+  "env": "dev",
+  "web_google_client_id": "491901238876-7qe2b7iivr3mo347ddsbc7dm29gfeoa3.apps.googleusercontent.com",
+  "android_google_client_id": "491901238876-kf90db4hclr8qqj6mav7vt8sc39a9voc.apps.googleusercontent.com",
+  "api_url": "http://localhost:8090"
 }

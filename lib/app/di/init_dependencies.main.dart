@@ -53,7 +53,7 @@ Future<void> _initAuth() async {
     ..registerLazySingleton<TokenDataSource>(
       () => TokenDataSourceImpl(localStorage: serviceLocator()),
     )
-    ..registerLazySingleton<AuthDataSource>(AuthDataSourceImpl.new)
+    ..registerLazySingleton<AuthDataSource>(() => AuthDataSourceImpl(dio: serviceLocator()))
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(
         authDataSource: serviceLocator(),
