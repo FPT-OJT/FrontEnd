@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
 import 'package:fpt_ojt/features/intro/domain/usecases/end_onboarding.dart';
-import 'package:fpt_ojt/features/intro/domain/usecases/get_is_completed_onboarding.dart';
+import 'package:fpt_ojt/features/intro/domain/usecases/get_onboarding_completion_status.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_state.dart';
 import 'package:fpt_ojt/features/intro/presentation/constants/onboarding_constants.dart';
 
@@ -11,7 +11,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     required this.getIsOnboardingUseCase,
   }) : super(const OnboardingInitial());
   final EndOnboardingUseCase endOnboardingUseCase;
-  final GetIsCompletedOnboardingUseCase getIsOnboardingUseCase;
+  final GetOnboardingCompletionStatusUseCase getIsOnboardingUseCase;
 
   Future<void> initialize() async {
     emit(const OnboardingLoading());

@@ -1,4 +1,6 @@
-class OnboardingItem {
+import 'package:equatable/equatable.dart';
+
+class OnboardingItem extends Equatable {
   const OnboardingItem({
     required this.image,
     required this.title,
@@ -9,4 +11,6 @@ class OnboardingItem {
   final String title;
   final String subtitle;
   final bool showGetStarted;
+  @override
+  List<Object?> get props => [image, title, subtitle, showGetStarted];
 }

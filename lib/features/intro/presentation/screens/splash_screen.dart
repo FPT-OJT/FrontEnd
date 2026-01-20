@@ -12,11 +12,19 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) =>
       BlocListener<OnboardingCubit, OnboardingState>(
         listener: (_, state) {
-          if (state is OnboardingSession) {
-            context.go(RouteNames.onboarding);
-          }
-          if (state is OnboardingCompleted) {
-            context.go(RouteNames.welcome);
+          switch (state) {
+            case OnboardingSession():
+              context.go(RouteNames.onboarding);
+            case OnboardingCompleted():
+              context.go(RouteNames.welcome);
+            case OnboardingError():
+              context.go(RouteNames.welcome);
+            case OnboardingInitial():
+              break;
+            case OnboardingLoading():
+              break;
+            default:
+              break;
           }
         },
         child: Scaffold(

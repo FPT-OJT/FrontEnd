@@ -26,8 +26,8 @@ void _initIntro() {
     ..registerLazySingleton<EndOnboardingUseCase>(
       () => EndOnboardingUseCase(serviceLocator()),
     )
-    ..registerLazySingleton<GetIsCompletedOnboardingUseCase>(
-      () => GetIsCompletedOnboardingUseCase(serviceLocator()),
+    ..registerLazySingleton<GetOnboardingCompletionStatusUseCase>(
+      () => GetOnboardingCompletionStatusUseCase(serviceLocator()),
     )
     // cubits
     ..registerFactory<OnboardingCubit>(

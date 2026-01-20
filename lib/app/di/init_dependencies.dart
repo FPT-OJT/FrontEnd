@@ -6,7 +6,7 @@ import 'package:fpt_ojt/features/intro/data/datasources/onboarding_datasource.da
 import 'package:fpt_ojt/features/intro/data/repository/onboarding_repository_impl.dart';
 import 'package:fpt_ojt/features/intro/domain/repositories/onboarding_repository.dart';
 import 'package:fpt_ojt/features/intro/domain/usecases/end_onboarding.dart';
-import 'package:fpt_ojt/features/intro/domain/usecases/get_is_completed_onboarding.dart';
+import 'package:fpt_ojt/features/intro/domain/usecases/get_onboarding_completion_status.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:get_it/get_it.dart';
 
