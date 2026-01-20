@@ -57,9 +57,7 @@ class LoginOptionsScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 40),
                 _buildTitle(theme),
-                const SizedBox(height: 32),
-                _buildIllustration(),
-                const SizedBox(height: 32),
+                Expanded(child: Container(child: _buildIllustration())),
                 _buildEmailLoginButton(context, theme),
                 const SizedBox(height: 24),
                 _buildOrDivider(theme),
@@ -70,12 +68,11 @@ class LoginOptionsScreen extends StatelessWidget {
                 const SizedBox(height: 32),
                 _buildSignUpPrompt(context, theme),
                 const SizedBox(height: 32),
-                Expanded(
-                  child: Column(
+                Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [_buildBrand(theme), const SizedBox(height: 32)],
                   ),
-                ),
+                
               ],
             ),
           ),
@@ -89,7 +86,8 @@ class LoginOptionsScreen extends StatelessWidget {
 
   Widget _buildIllustration() => Image.asset(
     'assets/images/welcome_image.png',
-    height: 210,
+    height: 230,
+    width: 230,
     fit: BoxFit.contain,
   );
 

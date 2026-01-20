@@ -1,8 +1,8 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:fpt_ojt/core/common/token/token_store.dart';
 import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/auth_datasource.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/google_auth_data_source.dart';
-import 'package:fpt_ojt/features/auth/data/datasources/token_datasource.dart';
 import 'package:fpt_ojt/features/auth/domain/entites/user.dart';
 import 'package:fpt_ojt/features/auth/domain/repository/auth_repository.dart';
 
@@ -10,13 +10,13 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({
     required AuthDataSource authDataSource,
     required GoogleAuthDataSource googleAuthDataSource,
-    required TokenDataSource tokenDataSource,
+    required TokenStore tokenDataSource,
   }) : _authDataSource = authDataSource,
        _googleAuthDataSource = googleAuthDataSource,
        _tokenDataSource = tokenDataSource;
   final AuthDataSource _authDataSource;
   final GoogleAuthDataSource _googleAuthDataSource;
-  final TokenDataSource _tokenDataSource;
+  final TokenStore _tokenDataSource;
   @override
   Future<Either<Failure, User>> loginWithEmail(
     String email,

@@ -1,8 +1,8 @@
+import 'package:fpt_ojt/core/common/token/token_store.dart';
 import 'package:fpt_ojt/core/storages/key_value_storage.dart';
-import 'package:fpt_ojt/features/auth/data/datasources/token_datasource.dart';
 
-class TokenDataSourceImpl implements TokenDataSource {
-  TokenDataSourceImpl({required KeyValueStorage localStorage})
+class TokenStoreImpl implements TokenStore {
+  TokenStoreImpl({required KeyValueStorage localStorage})
     : _localStorage = localStorage;
   final KeyValueStorage _localStorage;
   static const String _accessTokenKey = 'accessToken';

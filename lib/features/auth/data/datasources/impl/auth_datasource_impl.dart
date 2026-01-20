@@ -34,24 +34,20 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<UserModel?> getCurrentUser(String token) async {
-    return UserModel(
-      id: '1',
-      name: 'Laffy',
-      email: 'test@test.com',
-      phone: '1234567890',
-      address: '1234567890',
-      avatar: 'https://via.placeholder.com/150',
-      role: 'admin',
-      status: 'active',
-    );
-  }
+  Future<UserModel?> getCurrentUser(String token) async => UserModel(
+    id: '1',
+    name: 'Laffy',
+    email: 'test@test.com',
+    phone: '1234567890',
+    address: '1234567890',
+    avatar: 'https://via.placeholder.com/150',
+    role: 'admin',
+    status: 'active',
+  );
 
   @override
   Future<void> logout() async {
-    // Mock delay cho logout API call
-    // Simulate successful logout
-    return;
+    await _dio.post<Map<String, dynamic>>('/auth/logout');
   }
 
   @override

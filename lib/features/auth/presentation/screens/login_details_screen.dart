@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpt_ojt/app/di/init_dependencies.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
+import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_bloc.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_state.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/auth_bottom_section.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/custom_text_field.dart';
+import 'package:fpt_ojt/features/auth/presentation/widgets/forgot_password_bottom_sheet.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/password_text_field.dart';
 import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
 import 'package:go_router/go_router.dart';
@@ -64,7 +69,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
       child: Scaffold(
         backgroundColor: AppColors.neutralEggShell60,
         body: SafeArea(
-          child: SingleChildScrollView(
+          child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Form(
               key: _formKey,
@@ -73,7 +78,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                   const SizedBox(height: 40),
                   _buildTitle(theme),
                   const SizedBox(height: 32),
-                  _buildIllustration(),
+                  Expanded(child: Container(child: _buildIllustration())),
                   const SizedBox(height: 40),
                   CustomTextField(
                     label: 'Username',
@@ -87,7 +92,9 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                     controller: _passwordController,
                     validator: _validatePassword,
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 12),
+                  _buildForgotPasswordLink(theme),
+                  const SizedBox(height: 32),
                   _buildLoginButton(theme),
                   const SizedBox(height: 32),
                   const AuthBottomSection(
@@ -120,6 +127,38 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
     child: Image.asset('assets/images/welcome_image.png', fit: BoxFit.contain),
   );
 
+  Widget _buildForgotPasswordLink(ThemeData theme) => Align(
+    alignment: Alignment.centerRight,
+    child: TextButton(
+      onPressed: _showForgotPasswordBottomSheet,
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero,
+        minimumSize: Size.zero,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
+      child: Text(
+        'Forgot password?',
+        style: theme.textTheme.bodyMedium?.copyWith(
+          color: AppColors.secondaryCoral,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    ),
+  );
+
+  void _showForgotPasswordBottomSheet() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => BlocProvider(
+        create: (context) => serviceLocator<ForgotPasswordBloc>()
+          ..add(ResetForgotPasswordFlow()),
+        child: const ForgotPasswordBottomSheet(),
+      ),
+    );
+  }
+
   Widget _buildLoginButton(ThemeData theme) =>
       BlocBuilder<LoginDetailsBloc, LoginDetailsState>(
         builder: (context, state) {
@@ -137,7 +176,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                 ),
                 elevation: 0,
                 disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
-                  135
+                  135,
                 ),
               ),
               child: isLoading
@@ -153,11 +192,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                     )
                   : Text(
                       'Log in',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: AppColors.neutralWhite,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
+                      style: AppTextStyles.button,
                     ),
             ),
           );

@@ -185,7 +185,7 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
                 ),
                 elevation: 0,
                 disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
-                135
+                  135,
                 ),
               ),
               child: isLoading

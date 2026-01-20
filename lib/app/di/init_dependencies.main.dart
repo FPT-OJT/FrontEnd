@@ -12,7 +12,10 @@ Future<void> initDependencies() async {
       instanceName: 'secure_storage',
     )
     ..registerLazySingleton<Dio>(
-      () => HttpClient().createDioClient(AppConfig.apiUrl),
+      () => HttpClient(
+        tokenStore: serviceLocator(),
+        refreshTokenDataSource: serviceLocator(),
+      ).createDioClient(AppConfig.apiUrl),
     );
   _initIntro();
   await _initAuth();
@@ -59,9 +62,21 @@ Future<void> _initAuth() async {
     ..registerLazySingleton<GoogleAuthDataSource>(
       () => GoogleAuthDataSourceImpl(googleSignIn: serviceLocator()),
     )
-    ..registerLazySingleton<TokenDataSource>(
-      () => TokenDataSourceImpl(
+    ..registerLazySingleton<TokenStore>(
+      () => TokenStoreImpl(
         localStorage: serviceLocator(instanceName: 'secure_storage'),
+      ),
+    )
+    ..registerLazySingleton<RefreshTokenDataSource>(
+      () => RefreshTokenDataSourceImpl(
+        dio: Dio(
+          BaseOptions(
+            baseUrl: AppConfig.apiUrl,
+            connectTimeout: const Duration(seconds: 10),
+            receiveTimeout: const Duration(seconds: 10),
+            headers: {'Content-Type': 'application/json'},
+          ),
+        ),
       ),
     )
     ..registerLazySingleton<AuthDataSource>(
@@ -104,5 +119,8 @@ Future<void> _initAuth() async {
     )
     ..registerFactory<RegisterBloc>(
       () => RegisterBloc(registerUseCase: serviceLocator()),
+    )
+    ..registerFactory<ForgotPasswordBloc>(
+      ForgotPasswordBloc.new,
     );
 }

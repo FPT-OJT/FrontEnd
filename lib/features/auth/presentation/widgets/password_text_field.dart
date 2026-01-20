@@ -9,11 +9,13 @@ class PasswordTextField extends StatefulWidget {
     super.key,
     this.hintText,
     this.validator,
+    this.enabled = true,
   });
   final String label;
   final String? hintText;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final bool enabled;
 
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
@@ -36,6 +38,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       controller: widget.controller,
       validator: widget.validator,
       obscureText: _obscureText,
+      enabled: widget.enabled,
       cursorColor: AppColors.secondaryCoral,
 
       style: theme.textTheme.bodyLarge?.copyWith(

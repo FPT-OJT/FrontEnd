@@ -1,4 +1,4 @@
-abstract interface class TokenDataSource {
+abstract interface class TokenStore {
   Future<String> getAccessToken();
   Future<String> getRefreshToken();
   Future<void> saveAccessToken(String accessToken);
