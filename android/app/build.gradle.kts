@@ -20,6 +20,18 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+        flavorDimensions += "env"
+
+    productFlavors {
+        create("dev") {
+            dimension = "env"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+        }
+        create("prod") {
+            dimension = "env"
+        }
+    }
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
