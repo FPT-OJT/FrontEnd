@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/auth_datasource.dart';
+import 'package:fpt_ojt/features/auth/data/models/auth_models.dart';
 import 'package:fpt_ojt/features/auth/data/models/login_reponse.dart';
 import 'package:fpt_ojt/features/shared/models/api_response.dart';
 
@@ -7,50 +8,28 @@ class AuthDataSourceImpl implements AuthDataSource {
   AuthDataSourceImpl({required Dio dio}) : _dio = dio;
   final Dio _dio;
   @override
-  Future<LoginResponse> loginWithEmail(String email, String password) async {
-    await Future.delayed(const Duration(seconds: 1));
-    if (email == 'test@test.com' && password == '123456') {
-      return LoginResponse(
-        user: UserModel(
-          id: '1',
-          name: 'Laffy',
-          email: 'test@test.com',
-          phone: '1234567890',
-          address: '1234567890',
-          avatar: 'https://via.placeholder.com/150',
-          role: 'admin',
-          status: 'active',
-        ),
-        token: 'token',
-        refreshToken: 'refreshToken',
-        tokenType: 'tokenType',
-        scope: 'scope',
-        idToken: 'idToken',
-      );
-    } else {
-      throw Exception('Invalid email or password');
-    }
+  Future<ApiResponse<TokenResponse>> loginWithEmail(
+    String email,
+    String password,
+  ) async {
+    final response = await _dio.post<Map<String, dynamic>>(
+      '/public/auth/login',
+      data: {'username': email, 'password': password},
+    );
+    return ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => TokenResponse.fromJson(json! as Map<String, dynamic>),
+    );
   }
 
   @override
-  Future<LoginResponse> loginWithGoogle(String idToken) async {
-    await Future.delayed(const Duration(seconds: 1));
-    return LoginResponse(
-      user: UserModel(
-        id: '1',
-        name: 'Laffy',
-        email: 'test@test.com',
-        phone: '1234567890',
-        address: '1234567890',
-        avatar: 'https://via.placeholder.com/150',
-        role: 'admin',
-        status: 'active',
-      ),
-      token: 'token',
-      refreshToken: 'refreshToken',
-      tokenType: 'tokenType',
-      scope: 'scope',
-      idToken: 'idToken',
+  Future<ApiResponse<TokenResponse>> loginWithGoogle(String idToken) async {
+    final response = await _dio.post<Map<String, dynamic>>(
+      '/public/auth/google?googleToken=$idToken',
+    );
+    return ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => TokenResponse.fromJson(json! as Map<String, dynamic>),
     );
   }
 

@@ -3,7 +3,14 @@ part of 'init_dependencies.dart';
 final serviceLocator = GetIt.instance;
 Future<void> initDependencies() async {
   serviceLocator
-    ..registerLazySingleton<KeyValueStorage>(LocalStore.new)
+    ..registerLazySingleton<KeyValueStorage>(
+      LocalStore.new,
+      instanceName: 'local_storage',
+    )
+    ..registerLazySingleton<KeyValueStorage>(
+      SecureStore.new,
+      instanceName: 'secure_storage',
+    )
     ..registerLazySingleton<Dio>(
       () => HttpClient().createDioClient(AppConfig.apiUrl),
     );
@@ -16,7 +23,7 @@ void _initIntro() {
 
   serviceLocator
     ..registerLazySingleton<OnboardingDataSource>(
-      () => OnboardingLocalDataSource(serviceLocator()),
+      () => OnboardingLocalDataSource(serviceLocator(instanceName: 'local_storage')),
     )
     // Repositories
     ..registerLazySingleton<OnboardingRepository>(
@@ -51,7 +58,9 @@ Future<void> _initAuth() async {
       () => GoogleAuthDataSourceImpl(googleSignIn: serviceLocator()),
     )
     ..registerLazySingleton<TokenDataSource>(
-      () => TokenDataSourceImpl(localStorage: serviceLocator()),
+      () => TokenDataSourceImpl(
+        localStorage: serviceLocator(instanceName: 'secure_storage'),
+      ),
     )
     ..registerLazySingleton<AuthDataSource>(
       () => AuthDataSourceImpl(dio: serviceLocator()),

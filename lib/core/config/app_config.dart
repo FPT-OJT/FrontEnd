@@ -14,7 +14,6 @@ class AppConfig {
   );
   static String apiUrl = const String.fromEnvironment(
     'API_URL',
-    defaultValue: 'http://localhost:8090',
+    defaultValue: 'http://192.168.36.194:8090',
   );
 }
-

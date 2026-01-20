@@ -63,7 +63,9 @@ class LoginOptionsScreen extends StatelessWidget {
         width: double.infinity,
         height: 48,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            context.push(RouteNames.loginDetails);
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.secondaryCoral,
             foregroundColor: AppColors.neutralWhite,

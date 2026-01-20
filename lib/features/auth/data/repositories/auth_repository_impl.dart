@@ -24,18 +24,18 @@ class AuthRepositoryImpl implements AuthRepository {
   ) async {
     try {
       final response = await _authDataSource.loginWithEmail(email, password);
-      await _tokenDataSource.saveAccessToken(response.token);
-      await _tokenDataSource.saveRefreshToken(response.refreshToken);
+      await _tokenDataSource.saveAccessToken(response.data!.accessToken);
+      await _tokenDataSource.saveRefreshToken(response.data!.refreshToken);
       return Right(
         User(
-          id: response.user.id,
-          name: response.user.name,
-          avatar: response.user.avatar,
-          email: response.user.email,
+          id: response.data!.userId,
+          name: response.data!.role,
+          avatar: 'https://via.placeholder.com/150',
+          email: 'test@test.com',
         ),
       );
-    } on Exception catch (e) {
-      return Left(Failure(e.toString()));
+    }  on Exception catch (e) {
+      return Left(Failure.fromException(e));
     }
   }
 
@@ -44,18 +44,18 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final idToken = await _googleAuthDataSource.getIdToken();
       final response = await _authDataSource.loginWithGoogle(idToken);
-      await _tokenDataSource.saveAccessToken(response.token);
-      await _tokenDataSource.saveRefreshToken(response.refreshToken);
+      await _tokenDataSource.saveAccessToken(response.data!.accessToken);
+      await _tokenDataSource.saveRefreshToken(response.data!.refreshToken);
       return Right(
         User(
-          id: response.user.id,
-          name: response.user.name,
-          avatar: response.user.avatar,
-          email: response.user.email,
+          id: response.data!.userId,
+          name: response.data!.role,
+          avatar: 'https://via.placeholder.com/150',
+          email: 'test@test.com',
         ),
       );
     } on Exception catch (e) {
-      return Left(Failure(e.toString()));
+      return Left(Failure.fromException(e));
     }
   }
 
@@ -81,7 +81,7 @@ class AuthRepositoryImpl implements AuthRepository {
         ),
       );
     } on Exception catch (e) {
-      return Left(Failure(e.toString()));
+      return Left(Failure.fromException(e));
     }
   }
 
@@ -97,7 +97,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
       return const Right(null);
     } on Exception catch (e) {
-      return Left(Failure(e.toString()));
+      return Left(Failure.fromException(e));
     }
   }
 
@@ -119,7 +119,7 @@ class AuthRepositoryImpl implements AuthRepository {
       );
       return const Right(null);
     } on Exception catch (e) {
-      return Left(Failure(e.toString()));
+      return Left(Failure.fromException(e));
     }
   }
 }
