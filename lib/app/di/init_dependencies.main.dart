@@ -38,4 +38,52 @@ void _initIntro() {
     );
 }
 
-Future<void> _initAuth() async {}
+Future<void> _initAuth() async {
+  final googleSignIn = GoogleSignIn.instance;
+  await googleSignIn.initialize(
+    serverClientId: AppConfig.webGoogleClientId,
+    clientId: AppConfig.androidGoogleClientId,
+  );
+  serviceLocator.registerLazySingleton<GoogleSignIn>(() => googleSignIn);
+
+  serviceLocator
+    ..registerLazySingleton<GoogleAuthDataSource>(
+      () => GoogleAuthDataSourceImpl(googleSignIn: serviceLocator()),
+    )
+    ..registerLazySingleton<TokenDataSource>(
+      () => TokenDataSourceImpl(localStorage: serviceLocator()),
+    )
+    ..registerLazySingleton<AuthDataSource>(AuthDataSourceImpl.new)
+    ..registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(
+        authDataSource: serviceLocator(),
+        googleAuthDataSource: serviceLocator(),
+        tokenDataSource: serviceLocator(),
+      ),
+    )
+    ..registerLazySingleton<CurrentUserUseCase>(
+      () => CurrentUserUseCase(authRepository: serviceLocator()),
+    )
+    ..registerFactory<LoginWithEmailUseCase>(
+      () => LoginWithEmailUseCase(authRepository: serviceLocator()),
+    )
+    ..registerFactory<LoginWithGoogleUseCase>(
+      () => LoginWithGoogleUseCase(authRepository: serviceLocator()),
+    )
+    ..registerFactory<LogoutUseCase>(
+      () => LogoutUseCase(authRepository: serviceLocator()),
+    )
+    // cubits & blocs
+    ..registerFactory<AuthBloc>(
+      () => AuthBloc(
+        currentUserUseCase: serviceLocator(),
+        logoutUseCase: serviceLocator(),
+      ),
+    )
+    ..registerFactory<LoginOptionsCubit>(
+      () => LoginOptionsCubit(loginWithGoogleUseCase: serviceLocator()),
+    )
+    ..registerFactory<LoginDetailsBloc>(
+      () => LoginDetailsBloc(loginWithEmailUseCase: serviceLocator()),
+    );
+}
