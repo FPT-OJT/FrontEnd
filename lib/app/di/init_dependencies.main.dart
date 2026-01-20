@@ -11,6 +11,31 @@ Future<void> initDependencies() async {
   await _initAuth();
 }
 
-void _initIntro() {}
+void _initIntro() {
+  // Data sources
+
+  serviceLocator
+    ..registerLazySingleton<OnboardingDataSource>(
+      () => OnboardingLocalDataSource(serviceLocator()),
+    )
+    // Repositories
+    ..registerLazySingleton<OnboardingRepository>(
+      () => OnboardingRepositoryImpl(serviceLocator()),
+    )
+    // Use cases
+    ..registerLazySingleton<EndOnboardingUseCase>(
+      () => EndOnboardingUseCase(serviceLocator()),
+    )
+    ..registerLazySingleton<GetOnboardingCompletionStatusUseCase>(
+      () => GetOnboardingCompletionStatusUseCase(serviceLocator()),
+    )
+    // cubits
+    ..registerFactory<OnboardingCubit>(
+      () => OnboardingCubit(
+        endOnboardingUseCase: serviceLocator(),
+        getIsOnboardingUseCase: serviceLocator(),
+      ),
+    );
+}
 
 Future<void> _initAuth() async {}
