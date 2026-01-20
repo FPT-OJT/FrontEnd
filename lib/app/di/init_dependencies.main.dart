@@ -64,7 +64,7 @@ Future<void> _initAuth() async {
     )
     ..registerLazySingleton<TokenStore>(
       () => TokenStoreImpl(
-        localStorage: serviceLocator(instanceName: 'secure_storage'),
+        secureKVStorage: serviceLocator(instanceName: 'secure_storage'),
       ),
     )
     ..registerLazySingleton<RefreshTokenDataSource>(

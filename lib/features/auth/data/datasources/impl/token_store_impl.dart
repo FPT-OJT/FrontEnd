@@ -2,34 +2,46 @@ import 'package:fpt_ojt/core/common/token/token_store.dart';
 import 'package:fpt_ojt/core/storages/key_value_storage.dart';
 
 class TokenStoreImpl implements TokenStore {
-  TokenStoreImpl({required KeyValueStorage localStorage})
-    : _localStorage = localStorage;
-  final KeyValueStorage _localStorage;
+  TokenStoreImpl({required KeyValueStorage secureKVStorage})
+    : _secureKVStorage = secureKVStorage;
+  final KeyValueStorage _secureKVStorage;
+  final Map<String, String> _memoryTokenStore = {};
   static const String _accessTokenKey = 'accessToken';
   static const String _refreshTokenKey = 'refreshToken';
   @override
   Future<String> getAccessToken() async =>
-      await _localStorage.get<String>(_accessTokenKey) ?? '';
+      _memoryTokenStore[_accessTokenKey] ??
+      '';
   @override
   Future<String> getRefreshToken() async =>
-      await _localStorage.get<String>(_refreshTokenKey) ?? '';
+      _memoryTokenStore[_refreshTokenKey] ??
+      await _secureKVStorage.get<String>(_refreshTokenKey) ??
+      '';
   @override
   Future<void> saveAccessToken(String accessToken) async {
-    await _localStorage.set(_accessTokenKey, accessToken);
+    _memoryTokenStore[_accessTokenKey] = accessToken;
   }
 
   @override
-  Future<void> saveRefreshToken(String refreshToken) async {
-    await _localStorage.set(_refreshTokenKey, refreshToken);
+  Future<void> saveRefreshToken(
+    String refreshToken, {
+    bool rememberMe = false,
+  }) async {
+    if (rememberMe) {
+      await _secureKVStorage.set(_refreshTokenKey, refreshToken);
+      _memoryTokenStore[_refreshTokenKey] = refreshToken;
+    }
   }
 
   @override
   Future<void> deleteAccessToken() async {
-    await _localStorage.remove(_accessTokenKey);
+    await _secureKVStorage.remove(_accessTokenKey);
+    _memoryTokenStore.remove(_accessTokenKey);
   }
 
   @override
   Future<void> deleteRefreshToken() async {
-    await _localStorage.remove(_refreshTokenKey);
+    await _secureKVStorage.remove(_refreshTokenKey);
+    _memoryTokenStore.remove(_refreshTokenKey);
   }
 }
