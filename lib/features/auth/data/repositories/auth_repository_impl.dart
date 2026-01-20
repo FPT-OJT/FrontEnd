@@ -102,22 +102,31 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, void>> register({
+  Future<Either<Failure, User>> register({
     required String firstName,
     required String lastName,
     required String username,
     required String password,
     required String repeatPassword,
+    required String email,
   }) async {
     try {
-      await _authDataSource.register(
+      final response = await _authDataSource.register(
         firstName: firstName,
         lastName: lastName,
         username: username,
         password: password,
         repeatPassword: repeatPassword,
+        email: email,
       );
-      return const Right(null);
+      return Right(
+        User(
+          id: response.data!.userId,
+          name: response.data!.role,
+          avatar: 'https://via.placeholder.com/150',
+          email: 'test@test.com',
+        ),
+      );
     } on Exception catch (e) {
       return Left(Failure.fromException(e));
     }

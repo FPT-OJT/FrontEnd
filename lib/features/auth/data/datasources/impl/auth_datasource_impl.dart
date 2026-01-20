@@ -57,12 +57,13 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<ApiResponse<String>> register({
+  Future<ApiResponse<TokenResponse>> register({
     required String firstName,
     required String lastName,
     required String username,
     required String password,
     required String repeatPassword,
+    required String email,
   }) async {
     final payload = {
       'firstName': firstName,
@@ -70,11 +71,12 @@ class AuthDataSourceImpl implements AuthDataSource {
       'username': username,
       'password': password,
       'repeatPassword': repeatPassword,
+      'email': email,
     };
     final response = await _dio.post<Map<String, dynamic>>(
       '/public/auth/register',
       data: payload,
     );
-    return ApiResponse.fromJson(response.data ?? {}, (json) => json! as String);
+    return ApiResponse.fromJson(response.data ?? {}, (json) => TokenResponse.fromJson(json! as Map<String, dynamic>));
   }
 }

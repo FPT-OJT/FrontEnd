@@ -24,6 +24,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         username: event.username,
         password: event.password,
         repeatPassword: event.repeatPassword,
+        email: event.email,
       ),
     );
     result.fold(

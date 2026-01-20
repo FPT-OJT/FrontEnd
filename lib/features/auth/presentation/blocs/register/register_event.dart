@@ -12,6 +12,7 @@ class RegisterSubmitted extends RegisterEvent {
     required this.firstName,
     required this.lastName,
     required this.username,
+    required this.email,
     required this.password,
     required this.repeatPassword,
   });
@@ -19,6 +20,7 @@ class RegisterSubmitted extends RegisterEvent {
   final String firstName;
   final String lastName;
   final String username;
+  final String email;
   final String password;
   final String repeatPassword;
 
@@ -27,6 +29,7 @@ class RegisterSubmitted extends RegisterEvent {
     firstName,
     lastName,
     username,
+    email,
     password,
     repeatPassword,
   ];

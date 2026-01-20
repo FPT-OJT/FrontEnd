@@ -36,6 +36,7 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _repeatPasswordController = TextEditingController();
+  final _emailController = TextEditingController();
 
   @override
   void dispose() {
@@ -44,6 +45,7 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
     _usernameController.dispose();
     _passwordController.dispose();
     _repeatPasswordController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
@@ -56,6 +58,7 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
           username: _usernameController.text.trim(),
           password: _passwordController.text,
           repeatPassword: _repeatPasswordController.text,
+          email: _emailController.text.trim(),
         ),
       );
     }
@@ -121,6 +124,13 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
                     label: 'Username',
                     controller: _usernameController,
                     validator: _validateUsername,
+                    keyboardType: TextInputType.text,
+                  ),
+                  const SizedBox(height: 20),
+                   CustomTextField(
+                    label: 'Email',
+                    controller: _emailController,
+                    validator: _validateEmail,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 20),
@@ -151,6 +161,16 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
         ),
       ),
     );
+  }
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Email is required';
+    }
+    if (!value.trim().contains('@')) {
+      return 'Email is invalid';
+    }
+    return null;
   }
 
   Widget _buildTitle(ThemeData theme) => Text(
