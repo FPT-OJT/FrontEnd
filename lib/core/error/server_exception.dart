@@ -5,15 +5,14 @@ part 'server_exception.g.dart';
 
 @freezed
 abstract class ServerException with _$ServerException implements Exception {
-  const ServerException._();
-
   const factory ServerException({
-    int? statusCode,
     required String message,
-    dynamic data,
+    int? statusCode,
+    data,
     String? code,
-    dynamic raw,
+    raw,
   }) = _ServerException;
+  const ServerException._();
 
   factory ServerException.fromMap(Map<String, dynamic> json) => ServerException(
     statusCode: json['statusCode'] as int?,

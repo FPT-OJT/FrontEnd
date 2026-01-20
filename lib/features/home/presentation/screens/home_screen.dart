@@ -13,12 +13,12 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) => BlocConsumer<AuthBloc, AuthState>(
     listener: (context, state) {
       if (state is AuthFailure || state is AuthUnAuthenticated) {
-        SnackBarUtils.showError(context, "Please login to continue");
+        SnackBarUtils.showError(context, 'Please login to continue');
         context.go(RouteNames.loginOptions);
         return;
       }
       if (state is AuthLoggedIn) {
-        SnackBarUtils.showSuccess(context, "Welcome back ${state.user.name}");
+        SnackBarUtils.showSuccess(context, 'Welcome back ${state.user.name}');
         return;
       }
     },

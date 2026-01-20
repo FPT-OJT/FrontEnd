@@ -10,7 +10,6 @@ class LoginOptionsCubit extends Cubit<LoginOptionsState> {
   final LoginWithGoogleUseCase _loginWithGoogleUseCase;
   Future<void> loginWithFacebook() async {
     emit(const LoginWithFacebookLoading());
-    await Future.delayed(const Duration(seconds: 1));
     emit(const LoginWithFacebookSuccess());
   }
 

@@ -3,6 +3,7 @@ import 'package:fpt_ojt/core/config/app_config.dart';
 import 'package:fpt_ojt/core/network/http_client.dart';
 import 'package:fpt_ojt/core/storages/key_value_storage.dart';
 import 'package:fpt_ojt/core/storages/local_storage.dart';
+import 'package:fpt_ojt/core/storages/secure_storage.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/auth_datasource.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/google_auth_data_source.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/impl/auth_datasource_impl.dart';
@@ -28,6 +29,5 @@ import 'package:fpt_ojt/features/intro/domain/usecases/get_onboarding_completion
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:fpt_ojt/core/storages/secure_storage.dart';
 
 part 'init_dependencies.main.dart';

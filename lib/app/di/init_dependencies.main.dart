@@ -23,7 +23,9 @@ void _initIntro() {
 
   serviceLocator
     ..registerLazySingleton<OnboardingDataSource>(
-      () => OnboardingLocalDataSource(serviceLocator(instanceName: 'local_storage')),
+      () => OnboardingLocalDataSource(
+        serviceLocator(instanceName: 'local_storage'),
+      ),
     )
     // Repositories
     ..registerLazySingleton<OnboardingRepository>(

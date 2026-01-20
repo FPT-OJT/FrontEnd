@@ -32,7 +32,8 @@ ApiResponse<String> apiResponseStringFromJson(Map<String, dynamic> json) =>
 ApiResponse<T> apiResponseObjectFromJson<T>(
   Map<String, dynamic> json,
   T Function(Map<String, dynamic> json) fromJsonT,
-) => ApiResponse<T>.fromJson(json, (v) => fromJsonT(v! as Map<String, dynamic>));
+) =>
+    ApiResponse<T>.fromJson(json, (v) => fromJsonT(v! as Map<String, dynamic>));
 
 ApiResponse<T?> apiResponseNullableObjectFromJson<T>(
   Map<String, dynamic> json,

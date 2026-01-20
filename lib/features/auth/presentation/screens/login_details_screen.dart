@@ -136,8 +136,8 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 elevation: 0,
-                disabledBackgroundColor: AppColors.secondaryCoral.withOpacity(
-                  0.6,
+                disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
+                  135
                 ),
               ),
               child: isLoading

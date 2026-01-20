@@ -74,7 +74,6 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
     return BlocListener<RegisterBloc, RegisterState>(
       listener: (context, state) {
         if (state is RegisterSubmitting) {
-         
         } else if (state is RegisterSuccess) {
           final user = state.user;
           SnackBarUtils.showSuccess(context, 'Account created successfully!');
@@ -117,7 +116,7 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
                     keyboardType: TextInputType.text,
                   ),
                   const SizedBox(height: 20),
-                   CustomTextField(
+                  CustomTextField(
                     label: 'Email',
                     controller: _emailController,
                     validator: _validateEmail,
@@ -185,8 +184,8 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 elevation: 0,
-                disabledBackgroundColor: AppColors.secondaryCoral.withOpacity(
-                  0.6,
+                disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
+                135
                 ),
               ),
               child: isLoading

@@ -34,7 +34,7 @@ class AuthRepositoryImpl implements AuthRepository {
           email: 'test@test.com',
         ),
       );
-    }  on Exception catch (e) {
+    } on Exception catch (e) {
       return Left(Failure.fromException(e));
     }
   }

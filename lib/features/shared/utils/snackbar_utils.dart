@@ -95,11 +95,7 @@ class SnackBarUtils {
     final snackBar = SnackBar(
       content: Row(
         children: [
-          Icon(
-            icon,
-            color: AppColors.neutralWhite,
-            size: 24,
-          ),
+          Icon(icon, color: AppColors.neutralWhite, size: 24),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
@@ -114,19 +110,14 @@ class SnackBarUtils {
       backgroundColor: backgroundColor,
       duration: duration,
       behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       margin: EdgeInsets.only(
         left: 16,
         right: 16,
         top: topPadding + 16,
         bottom: mediaQuery.size.height - topPadding - 80,
       ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 14,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       action: actionLabel != null
           ? SnackBarAction(
               label: actionLabel,

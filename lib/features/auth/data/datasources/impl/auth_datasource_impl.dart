@@ -35,7 +35,6 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<UserModel?> getCurrentUser(String token) async {
-    await Future.delayed(const Duration(seconds: 1));
     return UserModel(
       id: '1',
       name: 'Laffy',
@@ -51,7 +50,6 @@ class AuthDataSourceImpl implements AuthDataSource {
   @override
   Future<void> logout() async {
     // Mock delay cho logout API call
-    await Future.delayed(const Duration(seconds: 2));
     // Simulate successful logout
     return;
   }
@@ -77,6 +75,9 @@ class AuthDataSourceImpl implements AuthDataSource {
       '/public/auth/register',
       data: payload,
     );
-    return ApiResponse.fromJson(response.data ?? {}, (json) => TokenResponse.fromJson(json! as Map<String, dynamic>));
+    return ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => TokenResponse.fromJson(json! as Map<String, dynamic>),
+    );
   }
 }

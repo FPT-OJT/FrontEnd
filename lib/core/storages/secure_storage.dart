@@ -7,9 +7,7 @@ class SecureStore implements KeyValueStorage {
 
   static FlutterSecureStorage get _instance {
     _storage ??= const FlutterSecureStorage(
-      iOptions: IOSOptions(
-        accessibility: KeychainAccessibility.first_unlock,
-      ),
+      iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
     );
     return _storage!;
   }
