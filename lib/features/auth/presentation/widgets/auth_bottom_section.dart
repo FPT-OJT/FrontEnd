@@ -28,7 +28,7 @@ class AuthBottomSection extends StatelessWidget {
             Text(promptText, style: AppTextStyles.bodyLarge),
             const SizedBox(width: 4),
             GestureDetector(
-              onTap: () => context.go(routeName),
+              onTap: () => context.pushReplacement(routeName),
               child: Text(
                 actionText,
                 style: AppTextStyles.h3.copyWith(

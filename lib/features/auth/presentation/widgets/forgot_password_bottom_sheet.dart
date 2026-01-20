@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
+import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_state.dart';
@@ -57,59 +58,56 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
         }
       },
       builder: (context, state) => DecoratedBox(
-          decoration: const BoxDecoration(
-            color: AppColors.neutralEggShell20,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(24),
-              topRight: Radius.circular(24),
-            ),
+        decoration: const BoxDecoration(
+          color: AppColors.neutralEggShell20,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
           ),
-          child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 24,
-                right: 24,
-                top: 24,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 24,
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _buildHeader(theme),
-                    const SizedBox(height: 24),
-                    _buildContent(state, theme),
-                  ],
-                ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 24,
+              right: 24,
+              top: 24,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildHeader(theme),
+                  const SizedBox(height: 24),
+                  _buildContent(state, theme),
+                ],
               ),
             ),
           ),
         ),
+      ),
     );
   }
 
   Widget _buildHeader(ThemeData theme) => Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Forgot Password',
-          style: theme.textTheme.headlineSmall?.copyWith(
-            color: AppColors.secondaryNavy,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Container(
+        width: 80,
+        height: 3,
+        decoration: BoxDecoration(
+          color: const Color(0xFFC2C5CD),
+          borderRadius: BorderRadius.circular(2),
         ),
-        IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Icons.close),
-          color: AppColors.secondaryNavy,
-        ),
-      ],
-    );
+      ),
+    ],
+  );
 
   Widget _buildContent(ForgotPasswordState state, ThemeData theme) {
-    if (state is ResetCodeSent || state is VerifyingOtp || state is OtpVerificationFailure) {
+    if (state is ResetCodeSent ||
+        state is VerifyingOtp ||
+        state is OtpVerificationFailure) {
       return _buildOtpStep(state, theme);
     } else if (state is OtpVerified || state is ResettingPassword) {
       return _buildResetPasswordStep(state, theme);
@@ -124,15 +122,13 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
     return Form(
       key: _emailFormKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 16,
         children: [
+          Text('Don’t remember your password?', style: AppTextStyles.h3),
           Text(
-            'Please enter your email address to receive a reset code',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.primaryForest,
-            ),
+            'Please provide your e-mail address, if we have it in our system we will send you the link to reset your password. ',
+            style: AppTextStyles.bodySmall,
           ),
-          const SizedBox(height: 24),
           CustomTextField(
             label: 'Email',
             controller: _emailController,
@@ -140,19 +136,21 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
             keyboardType: TextInputType.emailAddress,
             enabled: !isLoading,
           ),
-          const SizedBox(height: 24),
           SizedBox(
             height: 48,
+            width: double.infinity,
             child: ElevatedButton(
               onPressed: isLoading ? null : _handleSendResetCode,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.secondaryCoral,
-                foregroundColor: AppColors.neutralWhite,
+                foregroundColor: AppColors.neutralEggShell20,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
                 elevation: 0,
-                disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(135),
+                disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
+                  135,
+                ),
               ),
               child: isLoading
                   ? const SizedBox(
@@ -185,33 +183,32 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
     final email = state is ResetCodeSent
         ? state.email
         : state is VerifyingOtp
-            ? state.email
-            : state is OtpVerificationFailure
-                ? state.email
-                : '';
+        ? state.email
+        : state is OtpVerificationFailure
+        ? state.email
+        : '';
 
     return Form(
       key: _otpFormKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 16,
         children: [
-          Text(
-            'We sent you a reset code to the following address:',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.neutralGrey,
-            ),
-            textAlign: TextAlign.center,
+          Text('Please check your email', style: AppTextStyles.h3),
+          Column(
+              children: [
+              Text(
+                'We sent you a reset code to the following address:',
+                style: AppTextStyles.bodySmall,
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                email,
+                style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.w600),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            email,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.secondaryNavy,
-              fontWeight: FontWeight.w600,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
+
           TextFormField(
             controller: _otpController,
             validator: _validateOtp,
@@ -232,7 +229,10 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               counterText: '',
               filled: true,
               fillColor: Colors.transparent,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 16,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: const BorderSide(color: AppColors.neutralGrey),
@@ -243,7 +243,10 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: AppColors.secondaryCoral, width: 2),
+                borderSide: const BorderSide(
+                  color: AppColors.secondaryCoral,
+                  width: 2,
+                ),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -251,13 +254,16 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: AppColors.notifyError, width: 2),
+                borderSide: const BorderSide(
+                  color: AppColors.notifyError,
+                  width: 2,
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 24),
           SizedBox(
             height: 48,
+            width: double.infinity,
             child: ElevatedButton(
               onPressed: isLoading ? null : _handleVerifyOtp,
               style: ElevatedButton.styleFrom(
@@ -267,7 +273,9 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 elevation: 0,
-                disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(135),
+                disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
+                  135,
+                ),
               ),
               child: isLoading
                   ? const SizedBox(
@@ -301,31 +309,15 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
     return Form(
       key: _passwordFormKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 16,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            'Please enter your new password',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.neutralGrey,
-            ),
-          ),
-          const SizedBox(height: 24),
-          PasswordTextField(
-            label: 'New Password',
-            controller: _newPasswordController,
-            validator: _validateNewPassword,
-            enabled: !isLoading,
-          ),
-          const SizedBox(height: 20),
-          PasswordTextField(
-            label: 'Confirm Password',
-            controller: _confirmPasswordController,
-            validator: _validateConfirmPassword,
-            enabled: !isLoading,
-          ),
-          const SizedBox(height: 24),
+          Text('Please enter your new password', style: AppTextStyles.h3),
+          PasswordTextField(label: 'New Password', controller: _newPasswordController, validator: _validateNewPassword, enabled: !isLoading,),
+          PasswordTextField(label: 'Confirm Password', controller: _confirmPasswordController, validator: _validateConfirmPassword, enabled: !isLoading,),
           SizedBox(
             height: 48,
+            width: double.infinity,
             child: ElevatedButton(
               onPressed: isLoading ? null : _handleResetPassword,
               style: ElevatedButton.styleFrom(
@@ -335,7 +327,9 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 elevation: 0,
-                disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(135),
+                disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
+                  135,
+                ),
               ),
               child: isLoading
                   ? const SizedBox(
@@ -366,24 +360,24 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
   void _handleSendResetCode() {
     if (_emailFormKey.currentState?.validate() ?? false) {
       context.read<ForgotPasswordBloc>().add(
-            SendResetCodeRequested(email: _emailController.text.trim()),
-          );
+        SendResetCodeRequested(email: _emailController.text.trim()),
+      );
     }
   }
 
   void _handleVerifyOtp() {
     if (_otpFormKey.currentState?.validate() ?? false) {
       context.read<ForgotPasswordBloc>().add(
-            VerifyOtpRequested(otp: _otpController.text),
-          );
+        VerifyOtpRequested(otp: _otpController.text),
+      );
     }
   }
 
   void _handleResetPassword() {
     if (_passwordFormKey.currentState?.validate() ?? false) {
       context.read<ForgotPasswordBloc>().add(
-            ResetPasswordRequested(newPassword: _newPasswordController.text),
-          );
+        ResetPasswordRequested(newPassword: _newPasswordController.text),
+      );
     }
   }
 

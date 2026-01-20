@@ -29,6 +29,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
   @override
   void dispose() {
@@ -38,6 +39,13 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
   }
 
   void _handleLogin() {
+    // Bật autovalidate sau lần validate đầu tiên
+    if (_autovalidateMode == AutovalidateMode.disabled) {
+      setState(() {
+        _autovalidateMode = AutovalidateMode.onUserInteraction;
+      });
+    }
+    
     if (_formKey.currentState?.validate() ?? false) {
       context.read<LoginDetailsBloc>().add(
         LoginSubmitted(
@@ -73,6 +81,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Form(
               key: _formKey,
+              autovalidateMode: _autovalidateMode,
               child: Column(
                 children: [
                   const SizedBox(height: 40),

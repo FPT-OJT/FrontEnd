@@ -40,6 +40,7 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
   final _passwordController = TextEditingController();
   final _repeatPasswordController = TextEditingController();
   final _emailController = TextEditingController();
+  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
   @override
   void dispose() {
@@ -53,6 +54,13 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
   }
 
   void _handleCreateAccount() {
+    // Bật autovalidate sau lần validate đầu tiên
+    if (_autovalidateMode == AutovalidateMode.disabled) {
+      setState(() {
+        _autovalidateMode = AutovalidateMode.onUserInteraction;
+      });
+    }
+    
     if (_formKey.currentState?.validate() ?? false) {
       context.read<RegisterBloc>().add(
         RegisterSubmitted(
@@ -90,6 +98,7 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Form(
               key: _formKey,
+              autovalidateMode: _autovalidateMode,
               child: Column(
                 children: [
                   const SizedBox(height: 40),
@@ -140,7 +149,7 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
                   const AuthBottomSection(
                     promptText: 'Already have an account?',
                     actionText: 'Log in now',
-                    routeName: RouteNames.loginOptions,
+                    routeName: RouteNames.loginDetails,
                   ),
                   const SizedBox(height: 24),
                 ],
