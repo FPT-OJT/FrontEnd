@@ -42,9 +42,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, User>> loginWithGoogle() async {
     try {
-      print('login with google');
       final idToken = await _googleAuthDataSource.getIdToken();
-      print('idToken: $idToken');
       final response = await _authDataSource.loginWithGoogle(idToken);
       await _tokenDataSource.saveAccessToken(response.token);
       await _tokenDataSource.saveRefreshToken(response.refreshToken);
@@ -57,7 +55,6 @@ class AuthRepositoryImpl implements AuthRepository {
         ),
       );
     } on Exception catch (e) {
-      print('error: ${e.toString()}');
       return Left(Failure(e.toString()));
     }
   }
@@ -98,6 +95,28 @@ class AuthRepositoryImpl implements AuthRepository {
       await _tokenDataSource.deleteAccessToken();
       await _tokenDataSource.deleteRefreshToken();
 
+      return const Right(null);
+    } on Exception catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> register({
+    required String firstName,
+    required String lastName,
+    required String username,
+    required String password,
+    required String repeatPassword,
+  }) async {
+    try {
+      await _authDataSource.register(
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        password: password,
+        repeatPassword: repeatPassword,
+      );
       return const Right(null);
     } on Exception catch (e) {
       return Left(Failure(e.toString()));

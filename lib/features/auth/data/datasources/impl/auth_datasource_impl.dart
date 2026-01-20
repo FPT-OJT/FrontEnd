@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/auth_datasource.dart';
 import 'package:fpt_ojt/features/auth/data/models/login_reponse.dart';
+import 'package:fpt_ojt/features/shared/models/api_response.dart';
 
 class AuthDataSourceImpl implements AuthDataSource {
   AuthDataSourceImpl({required Dio dio}) : _dio = dio;
@@ -74,5 +75,27 @@ class AuthDataSourceImpl implements AuthDataSource {
     await Future.delayed(const Duration(seconds: 2));
     // Simulate successful logout
     return;
+  }
+
+  @override
+  Future<ApiResponse<String>> register({
+    required String firstName,
+    required String lastName,
+    required String username,
+    required String password,
+    required String repeatPassword,
+  }) async {
+    final payload = {
+      'firstName': firstName,
+      'lastName': lastName,
+      'username': username,
+      'password': password,
+      'repeatPassword': repeatPassword,
+    };
+    final response = await _dio.post<Map<String, dynamic>>(
+      '/public/auth/register',
+      data: payload,
+    );
+    return ApiResponse.fromJson(response.data ?? {}, (json) => json! as String);
   }
 }

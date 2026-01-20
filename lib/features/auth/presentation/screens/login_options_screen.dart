@@ -118,7 +118,6 @@ class LoginOptionsScreen extends StatelessWidget {
     height: 48,
     child: ElevatedButton(
       onPressed: () {
-        print('login with google');
         context.read<LoginOptionsCubit>().loginWithGoogle();
       },
       style: ElevatedButton.styleFrom(

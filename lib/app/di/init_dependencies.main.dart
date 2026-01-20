@@ -5,7 +5,7 @@ Future<void> initDependencies() async {
   serviceLocator
     ..registerLazySingleton<KeyValueStorage>(LocalStore.new)
     ..registerLazySingleton<Dio>(
-      () => HttpClient().createDioClient('https://api.example.com'),
+      () => HttpClient().createDioClient(AppConfig.apiUrl),
     );
   _initIntro();
   await _initAuth();
@@ -53,7 +53,9 @@ Future<void> _initAuth() async {
     ..registerLazySingleton<TokenDataSource>(
       () => TokenDataSourceImpl(localStorage: serviceLocator()),
     )
-    ..registerLazySingleton<AuthDataSource>(() => AuthDataSourceImpl(dio: serviceLocator()))
+    ..registerLazySingleton<AuthDataSource>(
+      () => AuthDataSourceImpl(dio: serviceLocator()),
+    )
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(
         authDataSource: serviceLocator(),
@@ -73,6 +75,9 @@ Future<void> _initAuth() async {
     ..registerFactory<LogoutUseCase>(
       () => LogoutUseCase(authRepository: serviceLocator()),
     )
+    ..registerFactory<RegisterUseCase>(
+      () => RegisterUseCase(authRepository: serviceLocator()),
+    )
     // cubits & blocs
     ..registerFactory<AuthBloc>(
       () => AuthBloc(
@@ -85,5 +90,8 @@ Future<void> _initAuth() async {
     )
     ..registerFactory<LoginDetailsBloc>(
       () => LoginDetailsBloc(loginWithEmailUseCase: serviceLocator()),
+    )
+    ..registerFactory<RegisterBloc>(
+      () => RegisterBloc(registerUseCase: serviceLocator()),
     );
 }
