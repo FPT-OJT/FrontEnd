@@ -6,14 +6,20 @@ class AppConfig {
   static bool get isProduction => env == 'production';
   static String webGoogleClientId = const String.fromEnvironment(
     'WEB_GOOGLE_CLIENT_ID',
-    defaultValue: 'web_client_id',
   );
   static String androidGoogleClientId = const String.fromEnvironment(
     'ANDROID_GOOGLE_CLIENT_ID',
-    defaultValue: 'android_client_id',
   );
-  static String apiUrl = const String.fromEnvironment(
-    'API_URL',
-    defaultValue: 'http://192.168.36.194:8090',
-  );
+  static String apiUrl = const String.fromEnvironment('API_URL');
+  static void validate() {
+    if (webGoogleClientId.isEmpty) {
+      throw Exception('WEB_GOOGLE_CLIENT_ID is not set');
+    }
+    if (androidGoogleClientId.isEmpty) {
+      throw Exception('ANDROID_GOOGLE_CLIENT_ID is not set');
+    }
+    if (apiUrl.isEmpty) {
+      throw Exception('API_URL is not set');
+    }
+  }
 }
