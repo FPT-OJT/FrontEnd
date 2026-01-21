@@ -8,6 +8,8 @@ import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_cubit.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_state.dart';
+import 'package:fpt_ojt/features/auth/presentation/constants/login_options.dart';
+import 'package:fpt_ojt/features/shared/constants/app_constants.dart';
 import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -40,7 +42,10 @@ class LoginOptionsScreen extends StatelessWidget {
                 case LoginWithGoogleLoading _:
                   return;
                 case final LoginWithGoogleSuccess loginWithGoogleSuccess:
-                  SnackBarUtils.showSuccess(context, 'Login successful!');
+                  SnackBarUtils.showSuccess(
+                    context,
+                    LoginOptionsConstants.loginSuccessMessage,
+                  );
                   context.read<AuthBloc>().add(
                     AuthLoggedInEvent(user: loginWithGoogleSuccess.user),
                   );
@@ -82,10 +87,10 @@ class LoginOptionsScreen extends StatelessWidget {
   }
 
   Widget _buildTitle(ThemeData theme) =>
-      Text('Login to Minstant', style: AppTextStyles.h2);
+      Text(LoginOptionsConstants.loginTitle, style: AppTextStyles.h2);
 
   Widget _buildIllustration() => Image.asset(
-    'assets/images/welcome_image.png',
+    LoginOptionsConstants.welcomeImage,
     height: 230,
     width: 230,
     fit: BoxFit.contain,
@@ -117,7 +122,7 @@ class LoginOptionsScreen extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Text(
-          'or',
+          LoginOptionsConstants.orText,
           style: theme.textTheme.bodyMedium?.copyWith(
             color: AppColors.neutralGrey,
           ),
@@ -144,7 +149,10 @@ class LoginOptionsScreen extends StatelessWidget {
             elevation: 0,
           ),
           icon: const Icon(Icons.facebook, size: 24),
-          label: Text('Continue with Facebook', style: AppTextStyles.button),
+          label: Text(
+            LoginOptionsConstants.continueWithFacebookText,
+            style: AppTextStyles.button,
+          ),
         ),
       );
 
@@ -167,7 +175,10 @@ class LoginOptionsScreen extends StatelessWidget {
         children: [
           Brand(Brands.google, size: 24),
           UIGaps.w12,
-          Text('Continue with Google', style: AppTextStyles.button),
+          Text(
+            LoginOptionsConstants.continueWithGoogleText,
+            style: AppTextStyles.button,
+          ),
         ],
       ),
     ),
@@ -177,7 +188,7 @@ class LoginOptionsScreen extends StatelessWidget {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(
-        "Don't have an account?",
+        LoginOptionsConstants.signupPromptText,
         style: theme.textTheme.bodyMedium?.copyWith(
           color: AppColors.secondaryNavy,
         ),
@@ -193,7 +204,7 @@ class LoginOptionsScreen extends StatelessWidget {
         child: GestureDetector(
           onTap: () => context.push(RouteNames.registerDetails),
           child: Text(
-            'Sign up now',
+            LoginOptionsConstants.signupNowText,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: AppColors.secondaryCoral,
               fontWeight: FontWeight.w600,
@@ -207,10 +218,10 @@ class LoginOptionsScreen extends StatelessWidget {
   Widget _buildBrand(ThemeData theme) => Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Image.asset('assets/images/logo.png', height: 32, width: 32),
+      Image.asset(AppConstants.logoImage, height: 32, width: 32),
       UIGaps.w8,
       Text(
-        'Minstant',
+        AppConstants.appName,
         style: theme.textTheme.titleLarge?.copyWith(
           color: AppColors.neutralBlack,
           fontWeight: FontWeight.bold,

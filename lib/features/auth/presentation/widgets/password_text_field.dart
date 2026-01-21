@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/rounded.dart';
 
 class PasswordTextField extends StatefulWidget {
   const PasswordTextField({
@@ -68,35 +69,35 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           onPressed: _toggleVisibility,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: Rounded.md,
           borderSide: const BorderSide(
             color: AppColors.neutralGrey,
             width: 1.5,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: Rounded.md,
           borderSide: const BorderSide(
             color: AppColors.neutralGrey,
             width: 1.5,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: Rounded.md,
           borderSide: const BorderSide(
             color: AppColors.secondaryCoral,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: Rounded.md,
           borderSide: const BorderSide(
             color: AppColors.notifyError,
             width: 1.5,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: Rounded.md,
           borderSide: const BorderSide(color: AppColors.notifyError, width: 2),
         ),
       ),

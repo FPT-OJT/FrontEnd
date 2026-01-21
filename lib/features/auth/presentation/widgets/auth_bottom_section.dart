@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+import 'package:fpt_ojt/features/shared/constants/app_constants.dart';
 import 'package:go_router/go_router.dart';
 
 class AuthBottomSection extends StatelessWidget {
@@ -21,7 +22,6 @@ class AuthBottomSection extends StatelessWidget {
 
     return Column(
       children: [
-        // Prompt and action link
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 8,
@@ -43,10 +43,10 @@ class AuthBottomSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/logo.png', height: 32, width: 32),
+            Image.asset(AppConstants.logoImage, height: 32, width: 32),
             UIGaps.w8,
             Text(
-              'Minstant',
+              AppConstants.appName,
               style: theme.textTheme.titleLarge?.copyWith(
                 color: AppColors.neutralBlack,
                 fontWeight: FontWeight.bold,

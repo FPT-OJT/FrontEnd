@@ -3,10 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+import 'package:fpt_ojt/core/utils/validators.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_state.dart';
+import 'package:fpt_ojt/features/auth/presentation/constants/forgot_password.dart';
+import 'package:fpt_ojt/features/auth/presentation/constants/validations.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/password_text_field.dart';
 import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
@@ -53,7 +57,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
         } else if (state is PasswordResetSuccess) {
           SnackBarUtils.showSuccess(
             context,
-            'Password reset successfully! Please login with your new password.',
+            ForgotPasswordConstants.passwordResetSuccessMessage,
           );
           Navigator.of(context).pop();
         }
@@ -125,15 +129,23 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
       child: Column(
         spacing: 16,
         children: [
-          Text('Don’t remember your password?', style: AppTextStyles.h3),
           Text(
-            'Please provide your e-mail address, if we have it in our system we will send you the link to reset your password. ',
+            ForgotPasswordConstants.dontRememberPasswordText,
+            style: AppTextStyles.h3,
+          ),
+          Text(
+            ForgotPasswordConstants.pleaseProvideEmailText,
             style: AppTextStyles.bodySmall,
           ),
           CustomTextField(
-            label: 'Email',
+            label: ForgotPasswordConstants.emailLabel,
             controller: _emailController,
-            validator: _validateEmail,
+            validator: Validators.compose([
+              Validators.required(
+                message: ValidationsConstants.emailRequiredError,
+              ),
+              Validators.email(message: ValidationsConstants.emailInvalidError),
+            ]),
             keyboardType: TextInputType.emailAddress,
             enabled: !isLoading,
           ),
@@ -145,9 +157,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.secondaryCoral,
                 foregroundColor: AppColors.neutralEggShell20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: Rounded.md),
                 elevation: 0,
                 disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
                   135,
@@ -165,7 +175,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
                       ),
                     )
                   : Text(
-                      'Send Reset Code',
+                      ForgotPasswordConstants.sendResetCodeText,
                       style: theme.textTheme.titleMedium?.copyWith(
                         color: AppColors.neutralWhite,
                         fontWeight: FontWeight.w600,
@@ -194,11 +204,15 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
       child: Column(
         spacing: 16,
         children: [
-          Text('Please check your email', style: AppTextStyles.h3),
+          Text(
+            ForgotPasswordConstants.pleaseCheckYourEmailText,
+            style: AppTextStyles.h3,
+          ),
           Column(
             children: [
               Text(
-                'We sent you a reset code to the following address:',
+                ForgotPasswordConstants
+                    .weSentYouAResetCodeToTheFollowingAddressText,
                 style: AppTextStyles.bodySmall,
                 textAlign: TextAlign.center,
               ),
@@ -214,21 +228,35 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
 
           TextFormField(
             controller: _otpController,
-            validator: _validateOtp,
+            validator: Validators.compose([
+              Validators.required(
+                message: ValidationsConstants.otpRequiredError,
+              ),
+              Validators.minLen(
+                ValidationsConstants.otpMinLength,
+                message: ValidationsConstants.otpInvalidError,
+              ),
+              Validators.maxLen(
+                ValidationsConstants.otpMaxLength,
+                message: ValidationsConstants.otpInvalidError,
+              ),
+            ]),
             keyboardType: TextInputType.number,
             enabled: !isLoading,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
-              LengthLimitingTextInputFormatter(6),
+              LengthLimitingTextInputFormatter(
+                ValidationsConstants.otpMaxLength,
+              ),
             ],
-            maxLength: 6,
+            maxLength: ValidationsConstants.otpMaxLength,
             textAlign: TextAlign.center,
             style: theme.textTheme.headlineSmall?.copyWith(
               letterSpacing: 8,
               fontWeight: FontWeight.bold,
             ),
             decoration: InputDecoration(
-              labelText: 'Enter 6-digit OTP',
+              labelText: ForgotPasswordConstants.enter6DigitOTPText,
               counterText: '',
               filled: true,
               fillColor: Colors.transparent,
@@ -237,26 +265,26 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
                 vertical: 16,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: Rounded.md,
                 borderSide: const BorderSide(color: AppColors.neutralGrey),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: Rounded.md,
                 borderSide: const BorderSide(color: AppColors.neutralGrey),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: Rounded.md,
                 borderSide: const BorderSide(
                   color: AppColors.secondaryCoral,
                   width: 2,
                 ),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: Rounded.md,
                 borderSide: const BorderSide(color: AppColors.notifyError),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: Rounded.md,
                 borderSide: const BorderSide(
                   color: AppColors.notifyError,
                   width: 2,
@@ -272,9 +300,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.secondaryCoral,
                 foregroundColor: AppColors.neutralWhite,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: Rounded.md),
                 elevation: 0,
                 disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
                   135,
@@ -292,7 +318,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
                       ),
                     )
                   : Text(
-                      'Verify OTP',
+                      ForgotPasswordConstants.verifyOTPText,
                       style: theme.textTheme.titleMedium?.copyWith(
                         color: AppColors.neutralWhite,
                         fontWeight: FontWeight.w600,
@@ -314,17 +340,48 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
       child: Column(
         spacing: 16,
         children: [
-          Text('Please enter your new password', style: AppTextStyles.h3),
+          Text(
+            ForgotPasswordConstants.pleaseEnterYourNewPasswordText,
+            style: AppTextStyles.h3,
+          ),
           PasswordTextField(
-            label: 'New Password',
+            label: ForgotPasswordConstants.newPasswordLabel,
             controller: _newPasswordController,
-            validator: _validateNewPassword,
+            validator: Validators.compose([
+              Validators.required(
+                message: ValidationsConstants.passwordRequiredError,
+              ),
+              Validators.minLen(
+                ValidationsConstants.passwordMinLength,
+                message: ValidationsConstants.passwordInvalidError,
+              ),
+              Validators.maxLen(
+                ValidationsConstants.passwordMaxLength,
+                message: ValidationsConstants.passwordInvalidError,
+              ),
+            ]),
             enabled: !isLoading,
           ),
           PasswordTextField(
-            label: 'Confirm Password',
+            label: ForgotPasswordConstants.confirmPasswordLabel,
             controller: _confirmPasswordController,
-            validator: _validateConfirmPassword,
+            validator: Validators.compose([
+              Validators.required(
+                message: ValidationsConstants.passwordConfirmationRequiredError,
+              ),
+              Validators.minLen(
+                ValidationsConstants.passwordConfirmationMinLength,
+                message: ValidationsConstants.passwordConfirmationInvalidError,
+              ),
+              Validators.maxLen(
+                ValidationsConstants.passwordConfirmationMaxLength,
+                message: ValidationsConstants.passwordConfirmationInvalidError,
+              ),
+              Validators.sameAs(
+                () => _newPasswordController.text,
+                message: ValidationsConstants.passwordConfirmationMatchError,
+              ),
+            ]),
             enabled: !isLoading,
           ),
           SizedBox(
@@ -335,9 +392,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.secondaryCoral,
                 foregroundColor: AppColors.neutralWhite,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: Rounded.md),
                 elevation: 0,
                 disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
                   135,
@@ -355,7 +410,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
                       ),
                     )
                   : Text(
-                      'Reset Password',
+                      ForgotPasswordConstants.resetPasswordText,
                       style: theme.textTheme.titleMedium?.copyWith(
                         color: AppColors.neutralWhite,
                         fontWeight: FontWeight.w600,
@@ -391,46 +446,5 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
         ResetPasswordRequested(newPassword: _newPasswordController.text),
       );
     }
-  }
-
-  String? _validateEmail(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'Email is required';
-    }
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    if (!emailRegex.hasMatch(value)) {
-      return 'Please enter a valid email';
-    }
-    return null;
-  }
-
-  String? _validateOtp(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'OTP is required';
-    }
-    if (value.length != 6) {
-      return 'OTP must be 6 digits';
-    }
-    return null;
-  }
-
-  String? _validateNewPassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password is required';
-    }
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters';
-    }
-    return null;
-  }
-
-  String? _validateConfirmPassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please confirm your password';
-    }
-    if (value != _newPasswordController.text) {
-      return 'Passwords do not match';
-    }
-    return null;
   }
 }

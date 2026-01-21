@@ -5,6 +5,7 @@ import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+import 'package:fpt_ojt/core/utils/validators.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_bloc.dart';
@@ -12,6 +13,8 @@ import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_state.dart';
+import 'package:fpt_ojt/features/auth/presentation/constants/login_details.dart';
+import 'package:fpt_ojt/features/auth/presentation/constants/validations.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/auth_bottom_section.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/forgot_password_bottom_sheet.dart';
@@ -70,7 +73,10 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
             return;
           case final LoginSuccess loginSuccess:
             final user = loginSuccess.user;
-            SnackBarUtils.showSuccess(context, 'Login successful!');
+            SnackBarUtils.showSuccess(
+              context,
+              LoginDetailsConstants.loginSuccessMessage,
+            );
             context.read<AuthBloc>().add(AuthLoggedInEvent(user: user));
             context.go(RouteNames.home);
           case final LoginFailure loginFailure:
@@ -94,16 +100,43 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                     _buildIllustration(),
                     UIGaps.h40,
                     CustomTextField(
-                      label: 'Username',
+                      label: LoginDetailsConstants.usernameLabel,
                       controller: _usernameController,
-                      validator: _validateUsername,
-                      keyboardType: TextInputType.emailAddress,
+                      validator: Validators.compose([
+                        Validators.required(
+                          message: ValidationsConstants.usernameRequiredError,
+                        ),
+                        Validators.minLen(
+                          ValidationsConstants.usernameMinLength,
+                          message: ValidationsConstants.usernameMinLengthError,
+                        ),
+                        Validators.maxLen(
+                          ValidationsConstants.usernameMaxLength,
+                          message: ValidationsConstants.usernameMaxLengthError,
+                        ),
+                        Validators.email(
+                          message: ValidationsConstants.usernameInvalidError,
+                        ),
+                      ]),
+                      keyboardType: TextInputType.text,
                     ),
                     UIGaps.h20,
                     PasswordTextField(
-                      label: 'Password',
+                      label: LoginDetailsConstants.passwordLabel,
                       controller: _passwordController,
-                      validator: _validatePassword,
+                      validator: Validators.compose([
+                        Validators.required(
+                          message: ValidationsConstants.passwordRequiredError,
+                        ),
+                        Validators.minLen(
+                          ValidationsConstants.passwordMinLength,
+                          message: ValidationsConstants.passwordMinLengthError,
+                        ),
+                        Validators.maxLen(
+                          ValidationsConstants.passwordMaxLength,
+                          message: ValidationsConstants.passwordMaxLengthError,
+                        ),
+                      ]),
                     ),
                     UIGaps.h12,
                     Row(
@@ -117,8 +150,8 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                     _buildLoginButton(theme),
                     UIGaps.h32,
                     const AuthBottomSection(
-                      promptText: "Don't have an account?",
-                      actionText: 'Sign up now',
+                      promptText: LoginDetailsConstants.signupPromptText,
+                      actionText: LoginDetailsConstants.signupNowText,
                       routeName: RouteNames.registerDetails,
                     ),
                     UIGaps.h24,
@@ -133,7 +166,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
   }
 
   Widget _buildTitle(ThemeData theme) => Text(
-    'Log in:',
+    LoginDetailsConstants.loginTitle,
     style: theme.textTheme.headlineLarge?.copyWith(
       color: AppColors.secondaryNavy,
       fontWeight: FontWeight.bold,
@@ -144,7 +177,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
 
   Widget _buildIllustration() => SizedBox(
     height: 210,
-    child: Image.asset('assets/images/welcome_image.png', fit: BoxFit.contain),
+    child: Image.asset(LoginDetailsConstants.welcomeImage, fit: BoxFit.contain),
   );
 
   Widget _buildRememberMeCheckbox(ThemeData theme) => Row(
@@ -172,7 +205,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
           });
         },
         child: Text(
-          'Remember me',
+          LoginDetailsConstants.rememberMeLabel,
           style: theme.textTheme.bodyMedium?.copyWith(
             color: AppColors.secondaryNavy,
             fontWeight: FontWeight.w500,
@@ -190,7 +223,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     ),
     child: Text(
-      'Forgot password?',
+      LoginDetailsConstants.forgotPasswordLabel,
       style: theme.textTheme.bodyMedium?.copyWith(
         color: AppColors.secondaryCoral,
         fontWeight: FontWeight.w600,
@@ -243,27 +276,12 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                         ),
                       ),
                     )
-                  : Text('Log in', style: AppTextStyles.button),
+                  : Text(
+                      LoginDetailsConstants.loginButtonText,
+                      style: AppTextStyles.button,
+                    ),
             ),
           );
         },
       );
-
-  String? _validateUsername(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'Username is required';
-    }
-
-    return null;
-  }
-
-  String? _validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password is required';
-    }
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters';
-    }
-    return null;
-  }
 }

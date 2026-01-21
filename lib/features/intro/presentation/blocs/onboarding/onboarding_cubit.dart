@@ -20,13 +20,13 @@ class OnboardingCubit extends Cubit<OnboardingState> {
       if (seen) {
         emit(const OnboardingCompleted());
       } else {
-        emit(const OnboardingSession(0, onboardingItems));
+        emit(const OnboardingSession(0, OnboardingConstants.onboardingItems));
       }
     });
   }
 
   Future<void> pageChanged(double page) async {
-    emit(OnboardingSession(page, onboardingItems));
+    emit(OnboardingSession(page, OnboardingConstants.onboardingItems));
   }
 
   Future<void> complete() async {

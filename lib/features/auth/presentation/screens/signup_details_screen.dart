@@ -5,11 +5,14 @@ import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+import 'package:fpt_ojt/core/utils/validators.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_state.dart';
+import 'package:fpt_ojt/features/auth/presentation/constants/sigup_details.dart';
+import 'package:fpt_ojt/features/auth/presentation/constants/validations.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/auth_bottom_section.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/password_text_field.dart';
@@ -85,7 +88,10 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
         if (state is RegisterSubmitting) {
         } else if (state is RegisterSuccess) {
           final user = state.user;
-          SnackBarUtils.showSuccess(context, 'Account created successfully!');
+          SnackBarUtils.showSuccess(
+            context,
+            SignupDetailsConstants.signupSuccessMessage,
+          );
           context.read<AuthBloc>().add(AuthLoggedInEvent(user: user));
           context.go(RouteNames.home);
         } else if (state is RegisterFailure) {
@@ -106,50 +112,125 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
                   _buildTitle(theme),
                   UIGaps.h32,
                   CustomTextField(
-                    label: 'First name',
+                    label: SignupDetailsConstants.firstNameLabel,
                     controller: _firstNameController,
-                    validator: _validateFirstName,
+                    validator: Validators.compose([
+                      Validators.required(
+                        message: ValidationsConstants.firstNameRequiredError,
+                      ),
+                      Validators.minLen(
+                        ValidationsConstants.firstNameMinLength,
+                        message: ValidationsConstants.firstNameMinLengthError,
+                      ),
+                      Validators.maxLen(
+                        ValidationsConstants.firstNameMaxLength,
+                        message: ValidationsConstants.firstNameMaxLengthError,
+                      ),
+                    ]),
                     keyboardType: TextInputType.name,
                   ),
                   UIGaps.h20,
                   CustomTextField(
-                    label: 'Last name',
+                    label: SignupDetailsConstants.lastNameLabel,
                     controller: _lastNameController,
-                    validator: _validateLastName,
+                    validator: Validators.compose([
+                      Validators.required(
+                        message: ValidationsConstants.lastNameRequiredError,
+                      ),
+                      Validators.minLen(
+                        ValidationsConstants.lastNameMinLength,
+                        message: ValidationsConstants.lastNameMinLengthError,
+                      ),
+                      Validators.maxLen(
+                        ValidationsConstants.lastNameMaxLength,
+                        message: ValidationsConstants.lastNameMaxLengthError,
+                      ),
+                    ]),
                     keyboardType: TextInputType.name,
                   ),
                   UIGaps.h20,
                   CustomTextField(
-                    label: 'Username',
+                    label: SignupDetailsConstants.usernameLabel,
                     controller: _usernameController,
-                    validator: _validateUsername,
+                    validator: Validators.compose([
+                      Validators.required(
+                        message: ValidationsConstants.usernameRequiredError,
+                      ),
+                      Validators.minLen(
+                        ValidationsConstants.usernameMinLength,
+                        message: ValidationsConstants.usernameMinLengthError,
+                      ),
+                      Validators.maxLen(
+                        ValidationsConstants.usernameMaxLength,
+                        message: ValidationsConstants.usernameMaxLengthError,
+                      ),
+                    ]),
                     keyboardType: TextInputType.text,
                   ),
                   UIGaps.h20,
                   CustomTextField(
-                    label: 'Email',
+                    label: SignupDetailsConstants.emailLabel,
                     controller: _emailController,
-                    validator: _validateEmail,
+                    validator: Validators.compose([
+                      Validators.required(
+                        message: ValidationsConstants.emailRequiredError,
+                      ),
+                      Validators.email(
+                        message: ValidationsConstants.emailInvalidError,
+                      ),
+                    ]),
                     keyboardType: TextInputType.emailAddress,
                   ),
                   UIGaps.h20,
                   PasswordTextField(
-                    label: 'Password',
+                    label: SignupDetailsConstants.passwordLabel,
                     controller: _passwordController,
-                    validator: _validatePassword,
+                    validator: Validators.compose([
+                      Validators.required(
+                        message: ValidationsConstants.passwordRequiredError,
+                      ),
+                      Validators.minLen(
+                        ValidationsConstants.passwordMinLength,
+                        message: ValidationsConstants.passwordMinLengthError,
+                      ),
+                      Validators.maxLen(
+                        ValidationsConstants.passwordMaxLength,
+                        message: ValidationsConstants.passwordMaxLengthError,
+                      ),
+                    ]),
                   ),
                   UIGaps.h20,
                   PasswordTextField(
-                    label: 'Repeat password',
+                    label: SignupDetailsConstants.confirmPasswordLabel,
                     controller: _repeatPasswordController,
-                    validator: _validateRepeatPassword,
+                    validator: Validators.compose([
+                      Validators.required(
+                        message: ValidationsConstants
+                            .passwordConfirmationRequiredError,
+                      ),
+                      Validators.minLen(
+                        ValidationsConstants.passwordConfirmationMinLength,
+                        message: ValidationsConstants
+                            .passwordConfirmationMinLengthError,
+                      ),
+                      Validators.maxLen(
+                        ValidationsConstants.passwordConfirmationMaxLength,
+                        message: ValidationsConstants
+                            .passwordConfirmationMaxLengthError,
+                      ),
+                      Validators.sameAs(
+                        () => _passwordController.text,
+                        message:
+                            ValidationsConstants.passwordConfirmationMatchError,
+                      ),
+                    ]),
                   ),
                   UIGaps.h40,
                   _buildCreateAccountButton(theme),
                   UIGaps.h32,
                   const AuthBottomSection(
-                    promptText: 'Already have an account?',
-                    actionText: 'Log in now',
+                    promptText: SignupDetailsConstants.loginPromptText,
+                    actionText: SignupDetailsConstants.loginNowText,
                     routeName: RouteNames.loginDetails,
                   ),
                   UIGaps.h24,
@@ -162,18 +243,8 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
     );
   }
 
-  String? _validateEmail(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'Email is required';
-    }
-    if (!value.trim().contains('@')) {
-      return 'Email is invalid';
-    }
-    return null;
-  }
-
   Widget _buildTitle(ThemeData theme) => Text(
-    'Create new account:',
+    SignupDetailsConstants.signupTitle,
     style: AppTextStyles.h2,
     textAlign: TextAlign.center,
   );
@@ -209,58 +280,12 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
                         ),
                       ),
                     )
-                  : Text('Create account', style: AppTextStyles.button),
+                  : Text(
+                      SignupDetailsConstants.signupButtonText,
+                      style: AppTextStyles.button,
+                    ),
             ),
           );
         },
       );
-
-  // Validators
-  String? _validateFirstName(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'First name is required';
-    }
-    if (value.trim().length < 2) {
-      return 'First name must be at least 2 characters';
-    }
-    return null;
-  }
-
-  String? _validateLastName(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'Last name is required';
-    }
-    if (value.trim().length < 2) {
-      return 'Last name must be at least 2 characters';
-    }
-    return null;
-  }
-
-  String? _validateUsername(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'Username is required';
-    }
-
-    return null;
-  }
-
-  String? _validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password is required';
-    }
-    if (value.length < 5) {
-      return 'Password must be at least 5 characters';
-    }
-    return null;
-  }
-
-  String? _validateRepeatPassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please repeat your password';
-    }
-    if (value != _passwordController.text) {
-      return 'Passwords do not match';
-    }
-    return null;
-  }
 }

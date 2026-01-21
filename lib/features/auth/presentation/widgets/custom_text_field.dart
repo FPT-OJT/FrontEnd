@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/rounded.dart';
+
+const double inputPadding = 16;
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -35,7 +38,10 @@ class CustomTextField extends StatelessWidget {
       hintText: hintText,
       filled: true,
       fillColor: Colors.transparent,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: inputPadding,
+        vertical: inputPadding,
+      ),
       labelStyle: AppTextStyles.bodyLarge.copyWith(
         color: AppColors.neutralGrey,
       ),
@@ -43,23 +49,23 @@ class CustomTextField extends StatelessWidget {
         color: AppColors.secondaryCoral,
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: Rounded.md,
         borderSide: const BorderSide(color: AppColors.neutralGrey),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: Rounded.md,
         borderSide: const BorderSide(color: AppColors.neutralGrey),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: Rounded.md,
         borderSide: const BorderSide(color: AppColors.secondaryCoral, width: 2),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: Rounded.md,
         borderSide: const BorderSide(color: AppColors.notifyError),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: Rounded.md,
         borderSide: const BorderSide(color: AppColors.notifyError, width: 2),
       ),
     ),
