@@ -60,7 +60,7 @@ class ForgotPasswordBloc
 
       _otp = event.otp;
       emit(OtpVerified(email: _email!, otp: event.otp));
-    } catch (e) {
+    } on Exception catch (e) {
       emit(OtpVerificationFailure(email: _email!, message: e.toString()));
     }
   }

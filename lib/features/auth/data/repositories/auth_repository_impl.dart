@@ -74,7 +74,6 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, User>> getCurrentUser() async {
     try {
       final token = await _tokenDataSource.getRefreshToken();
-      print('token: $token');
       if (token.isEmpty) {
         return Left(Failure('User not logged in!'));
       }

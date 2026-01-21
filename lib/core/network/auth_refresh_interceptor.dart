@@ -80,7 +80,7 @@ class AuthRefreshInterceptor extends Interceptor {
       final newAccessToken = await _tokenStore.getAccessToken();
 
       final retryOptions = _cloneOptionsForRetry(req, newAccessToken);
-      final response = await _dio.fetch(retryOptions);
+      final response = await _dio.fetch<dynamic>(retryOptions);
 
       return handler.resolve(response);
     } on Exception catch (_) {
@@ -96,7 +96,7 @@ class AuthRefreshInterceptor extends Interceptor {
   Future<void> _ensureRefreshedTokens() async {
     // If already refreshing -> wait
     if (_refreshing) {
-      await (_refreshCompleter?.future ?? Future.value());
+      await (_refreshCompleter?.future ?? Future<void>.value());
       return;
     }
 
