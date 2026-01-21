@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_state.dart';
@@ -79,7 +80,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _buildHeader(theme),
-                  const SizedBox(height: 24),
+                  UIGaps.h24,
                   _buildContent(state, theme),
                 ],
               ),
@@ -137,7 +138,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
             enabled: !isLoading,
           ),
           SizedBox(
-            height: 48,
+            height: UIGaps.gap48,
             width: double.infinity,
             child: ElevatedButton(
               onPressed: isLoading ? null : _handleSendResetCode,

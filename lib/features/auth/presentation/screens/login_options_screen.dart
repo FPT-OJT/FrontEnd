@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_cubit.dart';
@@ -55,22 +56,22 @@ class LoginOptionsScreen extends StatelessWidget {
             },
             builder: (context, state) => Column(
               children: [
-                const SizedBox(height: 40),
+                UIGaps.h40,
                 _buildTitle(theme),
                 Expanded(child: Container(child: _buildIllustration())),
                 _buildEmailLoginButton(context, theme),
-                const SizedBox(height: 24),
+                UIGaps.h24,
                 _buildOrDivider(theme),
-                const SizedBox(height: 24),
+                UIGaps.h24,
                 _buildFacebookButton(context, theme),
-                const SizedBox(height: 16),
+                UIGaps.h16,
                 _buildGoogleButton(context, theme),
-                const SizedBox(height: 32),
+                UIGaps.h32,
                 _buildSignUpPrompt(context, theme),
-                const SizedBox(height: 32),
+                UIGaps.h32,
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [_buildBrand(theme), const SizedBox(height: 32)],
+                  children: [_buildBrand(theme), UIGaps.h32],
                 ),
               ],
             ),
@@ -165,7 +166,7 @@ class LoginOptionsScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Brand(Brands.google, size: 24),
-          const SizedBox(width: 12),
+          UIGaps.w12,
           Text('Continue with Google', style: AppTextStyles.button),
         ],
       ),
@@ -181,7 +182,7 @@ class LoginOptionsScreen extends StatelessWidget {
           color: AppColors.secondaryNavy,
         ),
       ),
-      const SizedBox(width: 4),
+      UIGaps.w4,
       TextButton(
         onPressed: () => context.push(RouteNames.registerDetails),
         style: TextButton.styleFrom(
@@ -207,7 +208,7 @@ class LoginOptionsScreen extends StatelessWidget {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Image.asset('assets/images/logo.png', height: 32, width: 32),
-      const SizedBox(width: 8),
+      UIGaps.w8,
       Text(
         'Minstant',
         style: theme.textTheme.titleLarge?.copyWith(

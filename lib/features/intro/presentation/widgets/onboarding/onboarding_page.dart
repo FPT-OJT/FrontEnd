@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/intro/domain/entities/onboarding_item.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -8,11 +9,11 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
     children: [
-      const SizedBox(height: 12),
+      UIGaps.h12,
       _buildImage(),
-      const SizedBox(height: 20),
+      UIGaps.h20,
       _buildTitle(context),
-      const SizedBox(height: 20),
+      UIGaps.h20,
       _buildSubtitle(context),
     ],
   );

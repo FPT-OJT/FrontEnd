@@ -4,6 +4,7 @@ import 'package:fpt_ojt/app/di/init_dependencies.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_bloc.dart';
@@ -101,57 +102,57 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
               autovalidateMode: _autovalidateMode,
               child: Column(
                 children: [
-                  const SizedBox(height: 40),
+                  UIGaps.h40,
                   _buildTitle(theme),
-                  const SizedBox(height: 32),
+                  UIGaps.h32,
                   CustomTextField(
                     label: 'First name',
                     controller: _firstNameController,
                     validator: _validateFirstName,
                     keyboardType: TextInputType.name,
                   ),
-                  const SizedBox(height: 20),
+                  UIGaps.h20,
                   CustomTextField(
                     label: 'Last name',
                     controller: _lastNameController,
                     validator: _validateLastName,
                     keyboardType: TextInputType.name,
                   ),
-                  const SizedBox(height: 20),
+                  UIGaps.h20,
                   CustomTextField(
                     label: 'Username',
                     controller: _usernameController,
                     validator: _validateUsername,
                     keyboardType: TextInputType.text,
                   ),
-                  const SizedBox(height: 20),
+                  UIGaps.h20,
                   CustomTextField(
                     label: 'Email',
                     controller: _emailController,
                     validator: _validateEmail,
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  const SizedBox(height: 20),
+                  UIGaps.h20,
                   PasswordTextField(
                     label: 'Password',
                     controller: _passwordController,
                     validator: _validatePassword,
                   ),
-                  const SizedBox(height: 20),
+                  UIGaps.h20,
                   PasswordTextField(
                     label: 'Repeat password',
                     controller: _repeatPasswordController,
                     validator: _validateRepeatPassword,
                   ),
-                  const SizedBox(height: 40),
+                  UIGaps.h40,
                   _buildCreateAccountButton(theme),
-                  const SizedBox(height: 32),
+                  UIGaps.h32,
                   const AuthBottomSection(
                     promptText: 'Already have an account?',
                     actionText: 'Log in now',
                     routeName: RouteNames.loginDetails,
                   ),
-                  const SizedBox(height: 24),
+                  UIGaps.h24,
                 ],
               ),
             ),

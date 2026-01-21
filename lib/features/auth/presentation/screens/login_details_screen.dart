@@ -4,6 +4,7 @@ import 'package:fpt_ojt/app/di/init_dependencies.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_bloc.dart';
@@ -87,24 +88,24 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                 autovalidateMode: _autovalidateMode,
                 child: Column(
                   children: [
-                    const SizedBox(height: 40),
+                    UIGaps.h8,
                     _buildTitle(theme),
-                    const SizedBox(height: 32),
+                    UIGaps.h32,
                     _buildIllustration(),
-                    const SizedBox(height: 40),
+                    UIGaps.h40,
                     CustomTextField(
                       label: 'Username',
                       controller: _usernameController,
                       validator: _validateUsername,
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    const SizedBox(height: 20),
+                    UIGaps.h20,
                     PasswordTextField(
                       label: 'Password',
                       controller: _passwordController,
                       validator: _validatePassword,
                     ),
-                    const SizedBox(height: 12),
+                    UIGaps.h12,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -112,15 +113,15 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                         _buildForgotPasswordLink(theme),
                       ],
                     ),
-                    const SizedBox(height: 32),
+                    UIGaps.h32,
                     _buildLoginButton(theme),
-                    const SizedBox(height: 32),
+                    UIGaps.h32,
                     const AuthBottomSection(
                       promptText: "Don't have an account?",
                       actionText: 'Sign up now',
                       routeName: RouteNames.registerDetails,
                     ),
-                    const SizedBox(height: 24),
+                    UIGaps.h24,
                   ],
                 ),
               ),
@@ -163,7 +164,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
       ),
-      const SizedBox(width: 8),
+      UIGaps.w8,
       GestureDetector(
         onTap: () {
           setState(() {

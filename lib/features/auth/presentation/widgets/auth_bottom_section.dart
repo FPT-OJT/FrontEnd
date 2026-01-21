@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:go_router/go_router.dart';
 
 class AuthBottomSection extends StatelessWidget {
@@ -26,7 +27,7 @@ class AuthBottomSection extends StatelessWidget {
           spacing: 8,
           children: [
             Text(promptText, style: AppTextStyles.bodyLarge),
-            const SizedBox(width: 4),
+            UIGaps.w4,
             GestureDetector(
               onTap: () => context.pushReplacement(routeName),
               child: Text(
@@ -38,12 +39,12 @@ class AuthBottomSection extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 32),
+        UIGaps.h32,
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/images/logo.png', height: 32, width: 32),
-            const SizedBox(width: 8),
+            UIGaps.w8,
             Text(
               'Minstant',
               style: theme.textTheme.titleLarge?.copyWith(
@@ -54,7 +55,7 @@ class AuthBottomSection extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 24),
+        UIGaps.h24,
       ],
     );
   }

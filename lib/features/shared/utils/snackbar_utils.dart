@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 
 class SnackBarUtils {
   const SnackBarUtils._();
@@ -97,7 +98,7 @@ class SnackBarUtils {
       content: Row(
         children: [
           Icon(icon, color: AppColors.neutralWhite, size: 24),
-          const SizedBox(width: 12),
+          UIGaps.w12,
           Expanded(
             child: Text(
               message,
