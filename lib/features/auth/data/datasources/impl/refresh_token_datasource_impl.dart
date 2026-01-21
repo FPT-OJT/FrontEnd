@@ -9,7 +9,7 @@ class RefreshTokenDataSourceImpl implements RefreshTokenDataSource {
   Future<(String, String)> refreshTokens(String refreshToken) async {
     final response = await _dio.post<Map<String, dynamic>>(
       '/public/auth/refresh',
-      data: {'refreshToken': refreshToken},
+      options: Options(headers: {'X-Refresh-Token': refreshToken}),
     );
 
     final data = ApiResponse<String>.fromJson(

@@ -30,7 +30,10 @@ class AuthRepositoryImpl implements AuthRepository {
         rememberMe: rememberMe,
       );
       await _tokenDataSource.saveAccessToken(response.data!.accessToken);
-      await _tokenDataSource.saveRefreshToken(response.data!.refreshToken);
+      await _tokenDataSource.saveRefreshToken(
+        response.data!.refreshToken,
+        rememberMe: rememberMe,
+      );
       return Right(
         User(
           id: response.data!.userId,
@@ -50,7 +53,10 @@ class AuthRepositoryImpl implements AuthRepository {
       final idToken = await _googleAuthDataSource.getIdToken();
       final response = await _authDataSource.loginWithGoogle(idToken);
       await _tokenDataSource.saveAccessToken(response.data!.accessToken);
-      await _tokenDataSource.saveRefreshToken(response.data!.refreshToken);
+      await _tokenDataSource.saveRefreshToken(
+        response.data!.refreshToken,
+        rememberMe: true,
+      );
       return Right(
         User(
           id: response.data!.userId,
@@ -67,12 +73,13 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, User>> getCurrentUser() async {
     try {
-      final token = await _tokenDataSource.getAccessToken();
+      final token = await _tokenDataSource.getRefreshToken();
+      print('token: $token');
       if (token.isEmpty) {
-        return Left(Failure('No access token found'));
+        return Left(Failure('User not logged in!'));
       }
 
-      final user = await _authDataSource.getCurrentUser(token);
+      final user = await _authDataSource.getCurrentUser();
       if (user == null) {
         return Left(Failure('User not logged in!'));
       }

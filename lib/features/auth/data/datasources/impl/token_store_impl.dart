@@ -10,8 +10,7 @@ class TokenStoreImpl implements TokenStore {
   static const String _refreshTokenKey = 'refreshToken';
   @override
   Future<String> getAccessToken() async =>
-      _memoryTokenStore[_accessTokenKey] ??
-      '';
+      _memoryTokenStore[_accessTokenKey] ?? '';
   @override
   Future<String> getRefreshToken() async =>
       _memoryTokenStore[_refreshTokenKey] ??

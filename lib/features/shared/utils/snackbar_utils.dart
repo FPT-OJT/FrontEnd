@@ -91,6 +91,7 @@ class SnackBarUtils {
 
     final mediaQuery = MediaQuery.of(context);
     final topPadding = mediaQuery.padding.top;
+    final keyboardHeight = mediaQuery.viewInsets.bottom;
 
     final snackBar = SnackBar(
       content: Row(
@@ -115,7 +116,7 @@ class SnackBarUtils {
         left: 16,
         right: 16,
         top: topPadding + 16,
-        bottom: mediaQuery.size.height - topPadding - 80,
+        bottom: mediaQuery.size.height - topPadding - keyboardHeight - 80,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       action: actionLabel != null

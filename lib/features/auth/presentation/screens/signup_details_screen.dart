@@ -60,7 +60,7 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
         _autovalidateMode = AutovalidateMode.onUserInteraction;
       });
     }
-    
+
     if (_formKey.currentState?.validate() ?? false) {
       context.read<RegisterBloc>().add(
         RegisterSubmitted(

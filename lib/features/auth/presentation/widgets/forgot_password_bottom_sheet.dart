@@ -195,7 +195,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
         children: [
           Text('Please check your email', style: AppTextStyles.h3),
           Column(
-              children: [
+            children: [
               Text(
                 'We sent you a reset code to the following address:',
                 style: AppTextStyles.bodySmall,
@@ -203,7 +203,9 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               ),
               Text(
                 email,
-                style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.w600),
+                style: AppTextStyles.bodySmall.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -310,11 +312,20 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
       key: _passwordFormKey,
       child: Column(
         spacing: 16,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text('Please enter your new password', style: AppTextStyles.h3),
-          PasswordTextField(label: 'New Password', controller: _newPasswordController, validator: _validateNewPassword, enabled: !isLoading,),
-          PasswordTextField(label: 'Confirm Password', controller: _confirmPasswordController, validator: _validateConfirmPassword, enabled: !isLoading,),
+          PasswordTextField(
+            label: 'New Password',
+            controller: _newPasswordController,
+            validator: _validateNewPassword,
+            enabled: !isLoading,
+          ),
+          PasswordTextField(
+            label: 'Confirm Password',
+            controller: _confirmPasswordController,
+            validator: _validateConfirmPassword,
+            enabled: !isLoading,
+          ),
           SizedBox(
             height: 48,
             width: double.infinity,

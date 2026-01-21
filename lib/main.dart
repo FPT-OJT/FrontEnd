@@ -6,6 +6,7 @@ import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_cubit.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_cubit.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initDependencies();
@@ -13,7 +14,7 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider<OnboardingCubit>(
-          create: (context) => serviceLocator<OnboardingCubit>()..initialize(),
+          create: (context) => serviceLocator<OnboardingCubit>(),
         ),
         BlocProvider<AuthBloc>(create: (context) => serviceLocator<AuthBloc>()),
         BlocProvider<LoginOptionsCubit>(

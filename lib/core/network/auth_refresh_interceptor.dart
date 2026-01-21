@@ -32,12 +32,10 @@ class AuthRefreshInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     try {
-      // Nếu bạn muốn bỏ qua attach token cho một số request:
       if (shouldAttachToken != null && !shouldAttachToken!(options)) {
         return handler.next(options);
       }
 
-      // Tránh attach token cho chính request refresh (nếu cần)
       if (isRefreshRequest != null && isRefreshRequest!(options)) {
         return handler.next(options);
       }
@@ -53,27 +51,32 @@ class AuthRefreshInterceptor extends Interceptor {
   }
 
   @override
-  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
+  Future<void> onError(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
     final status = err.response?.statusCode;
 
-    // Không phải 401 -> bình thường
     if (status != 401) return handler.next(err);
 
     final req = err.requestOptions;
+    // Ignore public paths
+    if (shouldAttachToken != null && !shouldAttachToken!(req)) {
+      return handler.next(err);
+    }
 
-    // Nếu đây là request refresh -> không refresh tiếp (tránh loop)
+    // Ignore refresh request
     if (isRefreshRequest != null && isRefreshRequest!(req)) {
       return handler.next(err);
     }
 
-    // Chống retry vô hạn: mỗi request chỉ retry 1 lần
+    // Prevent infinite retry
     final alreadyRetried = (req.extra[_retryMarkKey] == true);
     if (alreadyRetried) return handler.next(err);
-
     try {
       await _ensureRefreshedTokens();
 
-      // Lấy access token mới rồi retry request cũ
+      // Get new access token and retry request
       final newAccessToken = await _tokenStore.getAccessToken();
 
       final retryOptions = _cloneOptionsForRetry(req, newAccessToken);
@@ -81,7 +84,7 @@ class AuthRefreshInterceptor extends Interceptor {
 
       return handler.resolve(response);
     } on Exception catch (_) {
-      // Refresh fail -> xoá token , rồi trả lỗi về để app logout
+      // Refresh fail -> delete token and return error to logout app
       try {
         await _tokenStore.deleteAccessToken();
         await _tokenStore.deleteRefreshToken();
@@ -91,7 +94,7 @@ class AuthRefreshInterceptor extends Interceptor {
   }
 
   Future<void> _ensureRefreshedTokens() async {
-    // Nếu đang refresh rồi -> chờ
+    // If already refreshing -> wait
     if (_refreshing) {
       await (_refreshCompleter?.future ?? Future.value());
       return;

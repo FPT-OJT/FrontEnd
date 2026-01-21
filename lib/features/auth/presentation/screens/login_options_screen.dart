@@ -69,10 +69,9 @@ class LoginOptionsScreen extends StatelessWidget {
                 _buildSignUpPrompt(context, theme),
                 const SizedBox(height: 32),
                 Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [_buildBrand(theme), const SizedBox(height: 32)],
-                  ),
-                
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [_buildBrand(theme), const SizedBox(height: 32)],
+                ),
               ],
             ),
           ),

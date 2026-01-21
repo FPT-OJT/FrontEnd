@@ -120,7 +120,16 @@ Future<void> _initAuth() async {
     ..registerFactory<RegisterBloc>(
       () => RegisterBloc(registerUseCase: serviceLocator()),
     )
+    ..registerFactory<ForgotPasswordUseCase>(
+      () => ForgotPasswordUseCase(authRepository: serviceLocator()),
+    )
+    ..registerFactory<ResetPasswordUseCase>(
+      () => ResetPasswordUseCase(authRepository: serviceLocator()),
+    )
     ..registerFactory<ForgotPasswordBloc>(
-      ForgotPasswordBloc.new,
+      () => ForgotPasswordBloc(
+        forgotPasswordUseCase: serviceLocator(),
+        resetPasswordUseCase: serviceLocator(),
+      ),
     );
 }

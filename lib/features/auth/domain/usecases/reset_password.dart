@@ -9,11 +9,19 @@ class ResetPasswordUseCase implements UseCase<void, ResetPasswordParams> {
   final AuthRepository _authRepository;
   @override
   Future<Either<Failure, void>> call(ResetPasswordParams params) async =>
-      _authRepository.resetPassword(params.email, params.otp, params.newPassword);
+      _authRepository.resetPassword(
+        params.email,
+        params.otp,
+        params.newPassword,
+      );
 }
 
 class ResetPasswordParams {
-  ResetPasswordParams({required this.email, required this.otp, required this.newPassword});
+  ResetPasswordParams({
+    required this.email,
+    required this.otp,
+    required this.newPassword,
+  });
   final String email;
   final String otp;
   final String newPassword;

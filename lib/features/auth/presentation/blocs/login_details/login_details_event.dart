@@ -8,7 +8,11 @@ class LoginDetailsEvent extends Equatable {
 }
 
 class LoginSubmitted extends LoginDetailsEvent {
-  const LoginSubmitted({required this.email, required this.password, this.rememberMe = false});
+  const LoginSubmitted({
+    required this.email,
+    required this.password,
+    this.rememberMe = false,
+  });
   final String email;
   final String password;
   final bool rememberMe;

@@ -15,10 +15,12 @@ import 'package:fpt_ojt/features/auth/data/datasources/impl/token_store_impl.dar
 import 'package:fpt_ojt/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:fpt_ojt/features/auth/domain/repository/auth_repository.dart';
 import 'package:fpt_ojt/features/auth/domain/usecases/current_user.dart';
+import 'package:fpt_ojt/features/auth/domain/usecases/forgot_password.dart';
 import 'package:fpt_ojt/features/auth/domain/usecases/login_with_email.dart';
 import 'package:fpt_ojt/features/auth/domain/usecases/login_with_google.dart';
 import 'package:fpt_ojt/features/auth/domain/usecases/logout.dart';
 import 'package:fpt_ojt/features/auth/domain/usecases/register.dart';
+import 'package:fpt_ojt/features/auth/domain/usecases/reset_password.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_bloc.dart';

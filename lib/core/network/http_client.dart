@@ -34,9 +34,20 @@ class HttpClient {
         dio: dio,
         tokenStore: _tokenStore,
         refreshDataSource: _refreshTokenDataSource,
+        shouldAttachToken: _shouldAttachToken,
       ),
     );
 
     return dio;
   }
+
+  final List<String> publicPaths = [
+    '/public/auth/login',
+    '/public/auth/register',
+    '/public/auth/password/forgot',
+    '/public/auth/password/reset',
+    '/public/auth/refresh',
+  ];
+  bool _shouldAttachToken(RequestOptions options) =>
+      !publicPaths.contains(options.path);
 }

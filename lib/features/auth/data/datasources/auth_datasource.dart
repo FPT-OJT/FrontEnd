@@ -5,11 +5,11 @@ import 'package:fpt_ojt/features/shared/models/api_response.dart';
 abstract interface class AuthDataSource {
   Future<ApiResponse<TokenResponse>> loginWithEmail(
     String email,
-    String password,
-    {bool rememberMe = false}
-  );
+    String password, {
+    bool rememberMe = false,
+  });
   Future<ApiResponse<TokenResponse>> loginWithGoogle(String idToken);
-  Future<UserModel?> getCurrentUser(String token);
+  Future<UserModel?> getCurrentUser();
   Future<void> logout();
   Future<ApiResponse<TokenResponse>> register({
     required String firstName,
@@ -20,5 +20,9 @@ abstract interface class AuthDataSource {
     required String email,
   });
   Future<ApiResponse<void>> forgotPassword(String email);
-  Future<ApiResponse<void>> resetPassword(String email, String otp, String newPassword);
+  Future<ApiResponse<void>> resetPassword(
+    String email,
+    String otp,
+    String newPassword,
+  );
 }

@@ -3,7 +3,11 @@ import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/features/auth/domain/entites/user.dart';
 
 abstract interface class AuthRepository {
-  Future<Either<Failure, User>> loginWithEmail(String email, String password, {bool rememberMe = false});
+  Future<Either<Failure, User>> loginWithEmail(
+    String email,
+    String password, {
+    bool rememberMe = false,
+  });
   Future<Either<Failure, User>> loginWithGoogle();
   Future<Either<Failure, User>> getCurrentUser();
   Future<Either<Failure, void>> logout();
@@ -16,5 +20,9 @@ abstract interface class AuthRepository {
     required String email,
   });
   Future<Either<Failure, void>> forgotPassword(String email);
-  Future<Either<Failure, void>> resetPassword(String email, String otp, String newPassword);
+  Future<Either<Failure, void>> resetPassword(
+    String email,
+    String otp,
+    String newPassword,
+  );
 }

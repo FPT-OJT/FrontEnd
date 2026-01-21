@@ -1,15 +1,24 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpt_ojt/features/auth/domain/usecases/forgot_password.dart';
+import 'package:fpt_ojt/features/auth/domain/usecases/reset_password.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_state.dart';
 
-class ForgotPasswordBloc extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
-
-  ForgotPasswordBloc() : super(ForgotPasswordInitial()) {
+class ForgotPasswordBloc
+    extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
+  ForgotPasswordBloc({
+    required ForgotPasswordUseCase forgotPasswordUseCase,
+    required ResetPasswordUseCase resetPasswordUseCase,
+  }) : _forgotPasswordUseCase = forgotPasswordUseCase,
+       _resetPasswordUseCase = resetPasswordUseCase,
+       super(ForgotPasswordInitial()) {
     on<SendResetCodeRequested>(_onSendResetCodeRequested);
     on<VerifyOtpRequested>(_onVerifyOtpRequested);
     on<ResetPasswordRequested>(_onResetPasswordRequested);
     on<ResetForgotPasswordFlow>(_onResetForgotPasswordFlow);
   }
+  final ForgotPasswordUseCase _forgotPasswordUseCase;
+  final ResetPasswordUseCase _resetPasswordUseCase;
   String? _email;
   String? _otp;
 
@@ -19,18 +28,16 @@ class ForgotPasswordBloc extends Bloc<ForgotPasswordEvent, ForgotPasswordState> 
   ) async {
     emit(SendingResetCode());
 
-    try {
-      // TODO: Call your API to send reset code
-      // await authRepository.sendResetCode(event.email);
-      
-      // Simulate API call
-      await Future<void>.delayed(const Duration(seconds: 2));
-
-      _email = event.email;
-      emit(ResetCodeSent(email: event.email));
-    } catch (e) {
-      emit(SendResetCodeFailure(message: e.toString()));
-    }
+    final result = await _forgotPasswordUseCase.call(
+      ForgotPasswordParams(email: event.email),
+    );
+    result.fold(
+      (failure) => emit(SendResetCodeFailure(message: failure.message)),
+      (user) {
+        emit(ResetCodeSent(email: event.email));
+        _email = event.email;
+      },
+    );
   }
 
   Future<void> _onVerifyOtpRequested(
@@ -47,9 +54,9 @@ class ForgotPasswordBloc extends Bloc<ForgotPasswordEvent, ForgotPasswordState> 
     try {
       // TODO: Call your API to verify OTP
       // await authRepository.verifyOtp(_email!, event.otp);
-      
+
       // Simulate API call
-      await Future<void>.delayed(const Duration(seconds: 2));
+      await Future<void>.delayed(const Duration(seconds: 1));
 
       _otp = event.otp;
       emit(OtpVerified(email: _email!, otp: event.otp));
@@ -69,21 +76,21 @@ class ForgotPasswordBloc extends Bloc<ForgotPasswordEvent, ForgotPasswordState> 
 
     emit(ResettingPassword());
 
-    try {
-      // TODO: Call your API to reset password
-      // await authRepository.resetPassword(_email!, _otp!, event.newPassword);
-      
-      // Simulate API call
-      await Future<void>.delayed(const Duration(seconds: 2));
-
-      emit(PasswordResetSuccess());
-      
-      // Reset internal state
-      _email = null;
-      _otp = null;
-    } catch (e) {
-      emit(PasswordResetFailure(message: e.toString()));
-    }
+    final result = await _resetPasswordUseCase.call(
+      ResetPasswordParams(
+        email: _email!,
+        otp: _otp!,
+        newPassword: event.newPassword,
+      ),
+    );
+    result.fold(
+      (failure) => emit(PasswordResetFailure(message: failure.message)),
+      (user) {
+        emit(PasswordResetSuccess());
+        _email = null;
+        _otp = null;
+      },
+    );
   }
 
   Future<void> _onResetForgotPasswordFlow(

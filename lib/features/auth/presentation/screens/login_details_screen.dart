@@ -46,7 +46,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
         _autovalidateMode = AutovalidateMode.onUserInteraction;
       });
     }
-    
+
     if (_formKey.currentState?.validate() ?? false) {
       context.read<LoginDetailsBloc>().add(
         LoginSubmitted(
@@ -160,9 +160,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
             });
           },
           activeColor: AppColors.secondaryCoral,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
       ),
       const SizedBox(width: 8),
@@ -205,8 +203,9 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => BlocProvider(
-        create: (context) => serviceLocator<ForgotPasswordBloc>()
-          ..add(ResetForgotPasswordFlow()),
+        create: (context) =>
+            serviceLocator<ForgotPasswordBloc>()
+              ..add(ResetForgotPasswordFlow()),
         child: const ForgotPasswordBottomSheet(),
       ),
     );
@@ -243,10 +242,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                         ),
                       ),
                     )
-                  : Text(
-                      'Log in',
-                      style: AppTextStyles.button,
-                    ),
+                  : Text('Log in', style: AppTextStyles.button),
             ),
           );
         },
