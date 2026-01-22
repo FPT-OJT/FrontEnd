@@ -66,6 +66,11 @@ class AppTextStyles {
     letterSpacing: 0.5,
     decoration: TextDecoration.none,
   );
+  static final btn = GoogleFonts.notoSans(
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    letterSpacing: 0.5,
+  );
 }
 
 class AppTextTheme {
