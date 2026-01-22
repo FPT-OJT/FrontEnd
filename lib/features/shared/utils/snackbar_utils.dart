@@ -6,10 +6,23 @@ import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 class SnackBarUtils {
   const SnackBarUtils._();
 
+  // Duration constants
+  static const Duration _defaultDuration = Duration(seconds: 3);
+  static const Duration _errorDuration = Duration(seconds: 4);
+
+  // Visual constants
+  static const double _iconSize = 24;
+  static const double _borderRadius = 12;
+  static const double _horizontalMargin = 16;
+  static const double _topMarginOffset = 16;
+  static const double _snackBarHeight = 80;
+  static const double _horizontalPadding = 16;
+  static const double _verticalPadding = 14;
+
   static void showSuccess(
     BuildContext context,
     String message, {
-    Duration duration = const Duration(seconds: 3),
+    Duration duration = _defaultDuration,
     String? actionLabel,
     VoidCallback? onAction,
   }) {
@@ -27,7 +40,7 @@ class SnackBarUtils {
   static void showError(
     BuildContext context,
     String message, {
-    Duration duration = const Duration(seconds: 4),
+    Duration duration = _errorDuration,
     String? actionLabel,
     VoidCallback? onAction,
   }) {
@@ -45,7 +58,7 @@ class SnackBarUtils {
   static void showWarning(
     BuildContext context,
     String message, {
-    Duration duration = const Duration(seconds: 3),
+    Duration duration = _defaultDuration,
     String? actionLabel,
     VoidCallback? onAction,
   }) {
@@ -63,7 +76,7 @@ class SnackBarUtils {
   static void showInfo(
     BuildContext context,
     String message, {
-    Duration duration = const Duration(seconds: 3),
+    Duration duration = _defaultDuration,
     String? actionLabel,
     VoidCallback? onAction,
   }) {
@@ -97,7 +110,7 @@ class SnackBarUtils {
     final snackBar = SnackBar(
       content: Row(
         children: [
-          Icon(icon, color: AppColors.neutralWhite, size: 24),
+          Icon(icon, color: AppColors.neutralWhite, size: _iconSize),
           UIGaps.w12,
           Expanded(
             child: Text(
@@ -112,14 +125,23 @@ class SnackBarUtils {
       backgroundColor: backgroundColor,
       duration: duration,
       behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      margin: EdgeInsets.only(
-        left: 16,
-        right: 16,
-        top: topPadding + 16,
-        bottom: mediaQuery.size.height - topPadding - keyboardHeight - 80,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(_borderRadius),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      margin: EdgeInsets.only(
+        left: _horizontalMargin,
+        right: _horizontalMargin,
+        top: topPadding + _topMarginOffset,
+        bottom:
+            mediaQuery.size.height -
+            topPadding -
+            keyboardHeight -
+            _snackBarHeight,
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: _horizontalPadding,
+        vertical: _verticalPadding,
+      ),
       action: actionLabel != null
           ? SnackBarAction(
               label: actionLabel,
