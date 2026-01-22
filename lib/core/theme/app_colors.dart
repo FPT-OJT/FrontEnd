@@ -10,6 +10,7 @@ class AppColors {
   // Minstant Secondary
   static const secondaryPink = Color(0xFFFF74BB);
   static const secondaryNavy = Color(0xFF1E1A36);
+  static final secondaryNavyDisabled = secondaryNavy.withAlpha(135);
   static const secondaryCoral = Color(0xFFFF7540);
   static final secondaryCoralDisabled = secondaryCoral.withAlpha(135);
   static const secondaryThistle = Color(0xFFD3BAED);

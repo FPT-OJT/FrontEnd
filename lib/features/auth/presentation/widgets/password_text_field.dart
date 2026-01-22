@@ -64,7 +64,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         suffixIcon: IconButton(
           icon: Icon(
             _obscureText ? Icons.visibility_off : Icons.visibility,
-            color: AppColors.secondaryNavy.withValues(alpha: 135),
+            color: AppColors.secondaryNavyDisabled,
             size: UIGaps.size20,
           ),
           onPressed: _toggleVisibility,
