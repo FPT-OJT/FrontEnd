@@ -49,7 +49,7 @@ class AuthBottomSection extends StatelessWidget {
           UIGaps.w8,
           Text(
             AppConstants.appName,
-            style: AppTextStyles.h3.copyWith(color: AppColors.neutralBlack),
+            style: AppTextStyles.h2.copyWith(color: AppColors.neutralBlack),
           ),
         ],
       ),

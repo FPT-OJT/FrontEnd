@@ -11,6 +11,7 @@ import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_cubit.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_state.dart';
 import 'package:fpt_ojt/features/auth/presentation/constants/login_options.dart';
+import 'package:fpt_ojt/features/auth/presentation/widgets/social_button.dart';
 import 'package:fpt_ojt/features/shared/constants/app_constants.dart';
 import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
 import 'package:go_router/go_router.dart';
@@ -134,54 +135,29 @@ class LoginOptionsScreen extends StatelessWidget {
   );
 
   Widget _buildFacebookButton(BuildContext context, ThemeData theme) =>
-      SizedBox(
-        width: double.infinity,
-        height: UIGaps.size48,
-        child: ElevatedButton.icon(
-          onPressed: () {
-            context.push(RouteNames.loginDetails);
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF1877F2),
-            foregroundColor: AppColors.neutralWhite,
-            shape: RoundedRectangleBorder(borderRadius: Rounded.md),
-            elevation: Shadows.none,
-          ),
-          icon: const Icon(Icons.facebook, size: UIGaps.size24),
-          label: Text(
-            LoginOptionsConstants.continueWithFacebookText,
-            style: AppTextStyles.button,
-          ),
-        ),
+      SocialButton(
+        onPressed: () {
+          context.push(RouteNames.loginDetails);
+        },
+        text: LoginOptionsConstants.continueWithFacebookText,
+        icon: const Icon(Icons.facebook, size: UIGaps.size24),
+        backgroundColor: const Color(0xFF1877F2),
+        foregroundColor: AppColors.neutralWhite,
+        elevation: Shadows.none,
       );
 
-  Widget _buildGoogleButton(BuildContext context, ThemeData theme) => SizedBox(
-    width: double.infinity,
-    height: UIGaps.size48,
-    child: ElevatedButton(
-      onPressed: () {
-        context.read<LoginOptionsCubit>().loginWithGoogle();
-      },
-      style: ElevatedButton.styleFrom(
-        foregroundColor: AppColors.neutralBlack,
+  Widget _buildGoogleButton(BuildContext context, ThemeData theme) =>
+      SocialButton(
+        onPressed: () {
+          context.read<LoginOptionsCubit>().loginWithGoogle();
+        },
+        text: LoginOptionsConstants.continueWithGoogleText,
+        icon: Brand(Brands.google, size: UIGaps.size24),
         backgroundColor: AppColors.neutralWhite,
-        shape: RoundedRectangleBorder(borderRadius: Rounded.md),
+        foregroundColor: AppColors.neutralBlack,
         elevation: Shadows.btn,
         shadowColor: AppColors.shadowNavyA10,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Brand(Brands.google, size: UIGaps.size24),
-          UIGaps.w12,
-          Text(
-            LoginOptionsConstants.continueWithGoogleText,
-            style: AppTextStyles.button,
-          ),
-        ],
-      ),
-    ),
-  );
+      );
 
   Widget _buildSignUpPrompt(BuildContext context, ThemeData theme) => Row(
     mainAxisAlignment: MainAxisAlignment.center,

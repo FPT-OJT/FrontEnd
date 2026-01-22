@@ -105,7 +105,7 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
         backgroundColor: AppColors.neutralEggShell60,
         body: SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: UIGaps.size24),
             child: Form(
               key: _formKey,
               autovalidateMode: _autovalidateMode,
