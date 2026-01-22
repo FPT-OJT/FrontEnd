@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fpt_ojt/core/theme/rounded.dart';
 
 class ForgotPasswordHeader extends StatelessWidget {
   const ForgotPasswordHeader({super.key});
@@ -12,7 +13,7 @@ class ForgotPasswordHeader extends StatelessWidget {
         height: 3,
         decoration: BoxDecoration(
           color: const Color(0xFFC2C5CD),
-          borderRadius: BorderRadius.circular(2),
+          borderRadius: Rounded.xs,
         ),
       ),
     ],

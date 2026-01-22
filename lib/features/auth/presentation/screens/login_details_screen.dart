@@ -4,6 +4,8 @@ import 'package:fpt_ojt/app/di/init_dependencies.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/borders.dart';
+import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/core/utils/validators.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
@@ -88,7 +90,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: UIGaps.size24),
               child: Form(
                 key: _formKey,
                 autovalidateMode: _autovalidateMode,
@@ -167,16 +169,12 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
 
   Widget _buildTitle(ThemeData theme) => Text(
     LoginDetailsConstants.loginTitle,
-    style: theme.textTheme.headlineLarge?.copyWith(
-      color: AppColors.secondaryNavy,
-      fontWeight: FontWeight.bold,
-      fontSize: 28,
-    ),
+    style: AppTextStyles.h2.copyWith(color: AppColors.secondaryNavy),
     textAlign: TextAlign.center,
   );
 
   Widget _buildIllustration() => SizedBox(
-    height: 210,
+    height: LoginDetailsConstants.imageHeight,
     child: Image.asset(LoginDetailsConstants.welcomeImage, fit: BoxFit.contain),
   );
 
@@ -184,8 +182,8 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
     mainAxisSize: MainAxisSize.min,
     children: [
       SizedBox(
-        height: 24,
-        width: 24,
+        height: UIGaps.size24,
+        width: UIGaps.size24,
         child: Checkbox(
           value: _rememberMe,
           onChanged: (value) {
@@ -194,7 +192,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
             });
           },
           activeColor: AppColors.secondaryCoral,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          shape: RoundedRectangleBorder(borderRadius: Rounded.xs),
         ),
       ),
       UIGaps.w8,
@@ -206,9 +204,8 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
         },
         child: Text(
           LoginDetailsConstants.rememberMeLabel,
-          style: theme.textTheme.bodyMedium?.copyWith(
+          style: AppTextStyles.bodySmall.copyWith(
             color: AppColors.secondaryNavy,
-            fontWeight: FontWeight.w500,
           ),
         ),
       ),
@@ -224,10 +221,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
     ),
     child: Text(
       LoginDetailsConstants.forgotPasswordLabel,
-      style: theme.textTheme.bodyMedium?.copyWith(
-        color: AppColors.secondaryCoral,
-        fontWeight: FontWeight.w600,
-      ),
+      style: AppTextStyles.bodySmall.copyWith(color: AppColors.secondaryCoral),
     ),
   );
 
@@ -251,26 +245,22 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
           final isLoading = state is LoginSubmitting;
           return SizedBox(
             width: double.infinity,
-            height: 48,
+            height: UIGaps.size48,
             child: ElevatedButton(
               onPressed: isLoading ? null : _handleLogin,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.secondaryCoral,
                 foregroundColor: AppColors.neutralWhite,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: Rounded.md),
                 elevation: 0,
-                disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
-                  135,
-                ),
+                disabledBackgroundColor: AppColors.secondaryCoralDisabled,
               ),
               child: isLoading
                   ? const SizedBox(
-                      height: 20,
-                      width: 20,
+                      height: UIGaps.size20,
+                      width: UIGaps.size20,
                       child: CircularProgressIndicator(
-                        strokeWidth: 2,
+                        strokeWidth: Borders.xs,
                         valueColor: AlwaysStoppedAnimation<Color>(
                           AppColors.neutralWhite,
                         ),

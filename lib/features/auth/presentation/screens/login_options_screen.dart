@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/rounded.dart';
+import 'package:fpt_ojt/core/theme/shadows.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
@@ -25,7 +27,7 @@ class LoginOptionsScreen extends StatelessWidget {
       backgroundColor: AppColors.neutralEggShell60,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: UIGaps.size16),
           child: BlocConsumer<LoginOptionsCubit, LoginOptionsState>(
             listener: (context, state) {
               switch (state) {
@@ -91,15 +93,15 @@ class LoginOptionsScreen extends StatelessWidget {
 
   Widget _buildIllustration() => Image.asset(
     LoginOptionsConstants.welcomeImage,
-    height: 230,
-    width: 230,
+    height: LoginOptionsConstants.imageHeight,
+    width: LoginOptionsConstants.imageWidth,
     fit: BoxFit.contain,
   );
 
   Widget _buildEmailLoginButton(BuildContext context, ThemeData theme) =>
       SizedBox(
         width: double.infinity,
-        height: 48,
+        height: UIGaps.size48,
         child: ElevatedButton(
           onPressed: () {
             context.push(RouteNames.loginDetails);
@@ -107,12 +109,13 @@ class LoginOptionsScreen extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.secondaryCoral,
             foregroundColor: AppColors.neutralWhite,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            elevation: 0,
+            shape: RoundedRectangleBorder(borderRadius: Rounded.md),
+            elevation: Shadows.none,
           ),
-          child: Text('Login with email address', style: AppTextStyles.button),
+          child: Text(
+            LoginOptionsConstants.loginWithEmailAddressText,
+            style: AppTextStyles.button,
+          ),
         ),
       );
 
@@ -120,12 +123,10 @@ class LoginOptionsScreen extends StatelessWidget {
     children: [
       const Expanded(child: Divider(color: AppColors.neutralGrey)),
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: UIGaps.size16),
         child: Text(
           LoginOptionsConstants.orText,
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: AppColors.neutralGrey,
-          ),
+          style: AppTextStyles.bodySmall.copyWith(color: AppColors.neutralGrey),
         ),
       ),
       const Expanded(child: Divider(color: AppColors.neutralGrey)),
@@ -135,7 +136,7 @@ class LoginOptionsScreen extends StatelessWidget {
   Widget _buildFacebookButton(BuildContext context, ThemeData theme) =>
       SizedBox(
         width: double.infinity,
-        height: 48,
+        height: UIGaps.size48,
         child: ElevatedButton.icon(
           onPressed: () {
             context.push(RouteNames.loginDetails);
@@ -143,12 +144,10 @@ class LoginOptionsScreen extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF1877F2),
             foregroundColor: AppColors.neutralWhite,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            elevation: 0,
+            shape: RoundedRectangleBorder(borderRadius: Rounded.md),
+            elevation: Shadows.none,
           ),
-          icon: const Icon(Icons.facebook, size: 24),
+          icon: const Icon(Icons.facebook, size: UIGaps.size24),
           label: Text(
             LoginOptionsConstants.continueWithFacebookText,
             style: AppTextStyles.button,
@@ -158,7 +157,7 @@ class LoginOptionsScreen extends StatelessWidget {
 
   Widget _buildGoogleButton(BuildContext context, ThemeData theme) => SizedBox(
     width: double.infinity,
-    height: 48,
+    height: UIGaps.size48,
     child: ElevatedButton(
       onPressed: () {
         context.read<LoginOptionsCubit>().loginWithGoogle();
@@ -166,14 +165,14 @@ class LoginOptionsScreen extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         foregroundColor: AppColors.neutralBlack,
         backgroundColor: AppColors.neutralWhite,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: Rounded.md),
+        elevation: Shadows.btn,
         shadowColor: AppColors.shadowNavyA10,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Brand(Brands.google, size: 24),
+          Brand(Brands.google, size: UIGaps.size24),
           UIGaps.w12,
           Text(
             LoginOptionsConstants.continueWithGoogleText,
@@ -189,9 +188,7 @@ class LoginOptionsScreen extends StatelessWidget {
     children: [
       Text(
         LoginOptionsConstants.signupPromptText,
-        style: theme.textTheme.bodyMedium?.copyWith(
-          color: AppColors.secondaryNavy,
-        ),
+        style: AppTextStyles.bodyLarge.copyWith(color: AppColors.secondaryNavy),
       ),
       UIGaps.w4,
       TextButton(
@@ -205,10 +202,7 @@ class LoginOptionsScreen extends StatelessWidget {
           onTap: () => context.push(RouteNames.registerDetails),
           child: Text(
             LoginOptionsConstants.signupNowText,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.secondaryCoral,
-              fontWeight: FontWeight.w600,
-            ),
+            style: AppTextStyles.h3.copyWith(color: AppColors.secondaryCoral),
           ),
         ),
       ),
@@ -218,15 +212,15 @@ class LoginOptionsScreen extends StatelessWidget {
   Widget _buildBrand(ThemeData theme) => Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Image.asset(AppConstants.logoImage, height: 32, width: 32),
+      Image.asset(
+        AppConstants.logoImage,
+        height: LoginOptionsConstants.brandImageHeight,
+        width: LoginOptionsConstants.brandImageWidth,
+      ),
       UIGaps.w8,
       Text(
         AppConstants.appName,
-        style: theme.textTheme.titleLarge?.copyWith(
-          color: AppColors.neutralBlack,
-          fontWeight: FontWeight.bold,
-          fontSize: 24,
-        ),
+        style: AppTextStyles.h2.copyWith(color: AppColors.neutralBlack),
       ),
     ],
   );

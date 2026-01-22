@@ -10,4 +10,6 @@ class LoginDetailsConstants {
   static const String signupNowText = 'Sign up now';
   static const String welcomeImage = 'assets/images/welcome_image.png';
   static const String loginSuccessMessage = 'Login successful!';
+
+  static const double imageHeight = 210;
 }

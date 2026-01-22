@@ -8,4 +8,11 @@ class LoginOptionsConstants {
   static const String orText = 'or';
   static const String continueWithFacebookText = 'Continue with Facebook';
   static const String continueWithGoogleText = 'Continue with Google';
+  static const String loginWithEmailAddressText = 'Login with email address';
+
+  static const double imageHeight = 230;
+  static const double imageWidth = 230;
+
+  static const double brandImageHeight = 32;
+  static const double brandImageWidth = 32;
 }

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/rounded.dart';
+import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 
-const double inputPadding = 16;
+const double inputPadding = UIGaps.size16;
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({

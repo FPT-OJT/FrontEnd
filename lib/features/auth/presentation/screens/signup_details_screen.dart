@@ -4,6 +4,9 @@ import 'package:fpt_ojt/app/di/init_dependencies.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/borders.dart';
+import 'package:fpt_ojt/core/theme/rounded.dart';
+import 'package:fpt_ojt/core/theme/shadows.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/core/utils/validators.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
@@ -255,26 +258,22 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
           final isLoading = state is RegisterSubmitting;
           return SizedBox(
             width: double.infinity,
-            height: 48,
+            height: UIGaps.size48,
             child: ElevatedButton(
               onPressed: isLoading ? null : _handleCreateAccount,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.secondaryCoral,
                 foregroundColor: AppColors.neutralWhite,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                elevation: 0,
-                disabledBackgroundColor: AppColors.secondaryCoral.withAlpha(
-                  135,
-                ),
+                shape: RoundedRectangleBorder(borderRadius: Rounded.md),
+                elevation: Shadows.none,
+                disabledBackgroundColor: AppColors.secondaryCoralDisabled,
               ),
               child: isLoading
                   ? const SizedBox(
-                      height: 20,
-                      width: 20,
+                      height: UIGaps.size20,
+                      width: UIGaps.size20,
                       child: CircularProgressIndicator(
-                        strokeWidth: 2,
+                        strokeWidth: Borders.xs,
                         valueColor: AlwaysStoppedAnimation<Color>(
                           AppColors.neutralWhite,
                         ),

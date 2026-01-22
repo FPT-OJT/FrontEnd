@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/rounded.dart';
+import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 
 class PasswordTextField extends StatefulWidget {
   const PasswordTextField({
@@ -51,8 +52,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         filled: true,
         fillColor: Colors.transparent,
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
+          horizontal: UIGaps.size16,
+          vertical: UIGaps.size16,
         ),
         labelStyle: AppTextStyles.bodyLarge.copyWith(
           color: AppColors.neutralGrey,
@@ -64,7 +65,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           icon: Icon(
             _obscureText ? Icons.visibility_off : Icons.visibility,
             color: AppColors.secondaryNavy.withValues(alpha: 135),
-            size: 20,
+            size: UIGaps.size20,
           ),
           onPressed: _toggleVisibility,
         ),
@@ -72,28 +73,24 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           borderRadius: Rounded.md,
           borderSide: const BorderSide(
             color: AppColors.neutralGrey,
-            width: 1.5,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: Rounded.md,
           borderSide: const BorderSide(
             color: AppColors.neutralGrey,
-            width: 1.5,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: Rounded.md,
           borderSide: const BorderSide(
             color: AppColors.secondaryCoral,
-            width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: Rounded.md,
           borderSide: const BorderSide(
             color: AppColors.notifyError,
-            width: 1.5,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
