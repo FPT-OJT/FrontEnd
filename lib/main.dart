@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fpt_ojt/app/app.dart';
 import 'package:fpt_ojt/app/di/init_dependencies.dart';
 import 'package:fpt_ojt/core/config/app_config.dart';
@@ -9,9 +11,12 @@ import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_opt
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_cubit.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   await initDependencies();
   AppConfig.validate();
+  FlutterNativeSplash.remove();
   runApp(
     MultiBlocProvider(
       providers: [
