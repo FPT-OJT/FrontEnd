@@ -50,6 +50,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/onboarding/
+    - assets/images/home/
 flutter_native_splash:
   color: "#FEF2EC"
   image: null
