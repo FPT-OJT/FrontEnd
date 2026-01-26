@@ -6,9 +6,8 @@ import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/shadows.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/core/utils/validators.dart';
-import 'package:fpt_ojt/features/auth/presentation/constants/forgot_password.dart';
-import 'package:fpt_ojt/features/auth/presentation/constants/validations.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/custom_text_field.dart';
+import 'package:fpt_ojt/l10n/app_localizations.dart';
 
 class ForgotPasswordEmailStep extends StatelessWidget {
   const ForgotPasswordEmailStep({
@@ -31,21 +30,23 @@ class ForgotPasswordEmailStep extends StatelessWidget {
       spacing: UIGaps.size16,
       children: [
         Text(
-          ForgotPasswordConstants.dontRememberPasswordText,
+          AppLocalizations.of(context)!.forgot_password_title,
           style: AppTextStyles.h3,
         ),
         Text(
-          ForgotPasswordConstants.pleaseProvideEmailText,
+          AppLocalizations.of(context)!.forgot_password_email_instruction,
           style: AppTextStyles.bodySmall,
         ),
         CustomTextField(
-          label: ForgotPasswordConstants.emailLabel,
+          label: AppLocalizations.of(context)!.forgot_password_email_label,
           controller: emailController,
           validator: Validators.compose([
             Validators.required(
-              message: ValidationsConstants.emailRequiredError,
+              message: AppLocalizations.of(context)!.email_required_error,
             ),
-            Validators.email(message: ValidationsConstants.emailInvalidError),
+            Validators.email(
+              message: AppLocalizations.of(context)!.email_invalid_error,
+            ),
           ]),
           keyboardType: TextInputType.emailAddress,
           enabled: !isLoading,
@@ -74,7 +75,9 @@ class ForgotPasswordEmailStep extends StatelessWidget {
                     ),
                   )
                 : Text(
-                    ForgotPasswordConstants.sendResetCodeText,
+                    AppLocalizations.of(
+                      context,
+                    )!.forgot_password_send_reset_code,
                     style: AppTextStyles.btn.copyWith(
                       color: AppColors.neutralWhite,
                     ),

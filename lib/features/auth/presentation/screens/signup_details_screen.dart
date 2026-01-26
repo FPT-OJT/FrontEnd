@@ -14,12 +14,12 @@ import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_state.dart';
-import 'package:fpt_ojt/features/auth/presentation/constants/sigup_details.dart';
 import 'package:fpt_ojt/features/auth/presentation/constants/validations.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/auth_bottom_section.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/password_text_field.dart';
 import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
+import 'package:fpt_ojt/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class SignupDetailsScreen extends StatelessWidget {
@@ -93,7 +93,9 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
           final user = state.user;
           SnackBarUtils.showSuccess(
             context,
-            SignupDetailsConstants.signupSuccessMessage,
+            AppLocalizations.of(
+              context,
+            )!.signup_details_signup_successful_message,
           );
           context.read<AuthBloc>().add(AuthLoggedInEvent(user: user));
           context.go(RouteNames.home);
@@ -115,125 +117,185 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
                   _buildTitle(theme),
                   UIGaps.h32,
                   CustomTextField(
-                    label: SignupDetailsConstants.firstNameLabel,
+                    label: AppLocalizations.of(
+                      context,
+                    )!.signup_details_first_name_label,
                     controller: _firstNameController,
                     validator: Validators.compose([
                       Validators.required(
-                        message: ValidationsConstants.firstNameRequiredError,
+                        message: AppLocalizations.of(
+                          context,
+                        )!.first_name_required_error,
                       ),
                       Validators.minLen(
                         ValidationsConstants.firstNameMinLength,
-                        message: ValidationsConstants.firstNameMinLengthError,
+                        message: AppLocalizations.of(context)!
+                            .first_name_min_length_error(
+                              ValidationsConstants.firstNameMinLength,
+                            ),
                       ),
                       Validators.maxLen(
                         ValidationsConstants.firstNameMaxLength,
-                        message: ValidationsConstants.firstNameMaxLengthError,
+                        message: AppLocalizations.of(context)!
+                            .first_name_max_length_error(
+                              ValidationsConstants.firstNameMaxLength,
+                            ),
                       ),
                     ]),
                     keyboardType: TextInputType.name,
                   ),
                   UIGaps.h20,
                   CustomTextField(
-                    label: SignupDetailsConstants.lastNameLabel,
+                    label: AppLocalizations.of(
+                      context,
+                    )!.signup_details_last_name_label,
                     controller: _lastNameController,
                     validator: Validators.compose([
                       Validators.required(
-                        message: ValidationsConstants.lastNameRequiredError,
+                        message: AppLocalizations.of(
+                          context,
+                        )!.last_name_required_error,
                       ),
                       Validators.minLen(
                         ValidationsConstants.lastNameMinLength,
-                        message: ValidationsConstants.lastNameMinLengthError,
+                        message: AppLocalizations.of(context)!
+                            .last_name_min_length_error(
+                              ValidationsConstants.lastNameMinLength,
+                            ),
                       ),
                       Validators.maxLen(
                         ValidationsConstants.lastNameMaxLength,
-                        message: ValidationsConstants.lastNameMaxLengthError,
+                        message: AppLocalizations.of(context)!
+                            .last_name_max_length_error(
+                              ValidationsConstants.lastNameMaxLength,
+                            ),
                       ),
                     ]),
                     keyboardType: TextInputType.name,
                   ),
                   UIGaps.h20,
                   CustomTextField(
-                    label: SignupDetailsConstants.usernameLabel,
+                    label: AppLocalizations.of(
+                      context,
+                    )!.signup_details_username_label,
                     controller: _usernameController,
                     validator: Validators.compose([
                       Validators.required(
-                        message: ValidationsConstants.usernameRequiredError,
+                        message: AppLocalizations.of(
+                          context,
+                        )!.username_required_error,
                       ),
                       Validators.minLen(
                         ValidationsConstants.usernameMinLength,
-                        message: ValidationsConstants.usernameMinLengthError,
+                        message: AppLocalizations.of(context)!
+                            .username_min_length_error(
+                              ValidationsConstants.usernameMinLength,
+                            ),
                       ),
                       Validators.maxLen(
                         ValidationsConstants.usernameMaxLength,
-                        message: ValidationsConstants.usernameMaxLengthError,
+                        message: AppLocalizations.of(context)!
+                            .username_max_length_error(
+                              ValidationsConstants.usernameMaxLength,
+                            ),
                       ),
                     ]),
                     keyboardType: TextInputType.text,
                   ),
                   UIGaps.h20,
                   CustomTextField(
-                    label: SignupDetailsConstants.emailLabel,
+                    label: AppLocalizations.of(
+                      context,
+                    )!.signup_details_email_label,
                     controller: _emailController,
                     validator: Validators.compose([
                       Validators.required(
-                        message: ValidationsConstants.emailRequiredError,
+                        message: AppLocalizations.of(
+                          context,
+                        )!.email_required_error,
                       ),
                       Validators.email(
-                        message: ValidationsConstants.emailInvalidError,
+                        message: AppLocalizations.of(
+                          context,
+                        )!.email_invalid_error,
                       ),
                     ]),
                     keyboardType: TextInputType.emailAddress,
                   ),
                   UIGaps.h20,
                   PasswordTextField(
-                    label: SignupDetailsConstants.passwordLabel,
+                    label: AppLocalizations.of(
+                      context,
+                    )!.signup_details_password_label,
                     controller: _passwordController,
                     validator: Validators.compose([
                       Validators.required(
-                        message: ValidationsConstants.passwordRequiredError,
+                        message: AppLocalizations.of(
+                          context,
+                        )!.password_required_error,
                       ),
                       Validators.minLen(
                         ValidationsConstants.passwordMinLength,
-                        message: ValidationsConstants.passwordMinLengthError,
+                        message: AppLocalizations.of(context)!
+                            .password_min_length_error(
+                              ValidationsConstants.passwordMinLength,
+                            ),
                       ),
                       Validators.maxLen(
                         ValidationsConstants.passwordMaxLength,
-                        message: ValidationsConstants.passwordMaxLengthError,
+                        message: AppLocalizations.of(context)!
+                            .password_max_length_error(
+                              ValidationsConstants.passwordMaxLength,
+                            ),
                       ),
                     ]),
                   ),
                   UIGaps.h20,
                   PasswordTextField(
-                    label: SignupDetailsConstants.confirmPasswordLabel,
+                    label: AppLocalizations.of(
+                      context,
+                    )!.signup_details_confirm_password_label,
                     controller: _repeatPasswordController,
                     validator: Validators.compose([
                       Validators.required(
-                        message: ValidationsConstants
-                            .passwordConfirmationRequiredError,
+                        message: AppLocalizations.of(
+                          context,
+                        )!.password_confirmation_required_error,
                       ),
                       Validators.minLen(
                         ValidationsConstants.passwordConfirmationMinLength,
-                        message: ValidationsConstants
-                            .passwordConfirmationMinLengthError,
+                        message: AppLocalizations.of(context)!
+                            .password_confirmation_min_length_error(
+                              ValidationsConstants
+                                  .passwordConfirmationMinLength,
+                            ),
                       ),
                       Validators.maxLen(
                         ValidationsConstants.passwordConfirmationMaxLength,
-                        message: ValidationsConstants
-                            .passwordConfirmationMaxLengthError,
+                        message: AppLocalizations.of(context)!
+                            .password_confirmation_max_length_error(
+                              ValidationsConstants
+                                  .passwordConfirmationMaxLength,
+                            ),
                       ),
                       Validators.sameAs(
                         () => _passwordController.text,
-                        message:
-                            ValidationsConstants.passwordConfirmationMatchError,
+                        message: AppLocalizations.of(
+                          context,
+                        )!.password_confirmation_match_error,
                       ),
                     ]),
                   ),
                   UIGaps.h40,
                   _buildCreateAccountButton(theme),
                   UIGaps.h32,
-                  const AuthBottomSection(
-                    promptText: SignupDetailsConstants.loginPromptText,
-                    actionText: SignupDetailsConstants.loginNowText,
+                  AuthBottomSection(
+                    promptText: AppLocalizations.of(
+                      context,
+                    )!.signup_details_login_prompt,
+                    actionText: AppLocalizations.of(
+                      context,
+                    )!.signup_details_login_now,
                     routeName: RouteNames.loginDetails,
                   ),
                   UIGaps.h24,
@@ -247,7 +309,7 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
   }
 
   Widget _buildTitle(ThemeData theme) => Text(
-    SignupDetailsConstants.signupTitle,
+    AppLocalizations.of(context)!.signup_details_signup_title,
     style: AppTextStyles.h2,
     textAlign: TextAlign.center,
   );
@@ -280,7 +342,9 @@ class _SignupDetailsScreenState extends State<_SignupDetailsView> {
                       ),
                     )
                   : Text(
-                      SignupDetailsConstants.signupButtonText,
+                      AppLocalizations.of(
+                        context,
+                      )!.signup_details_signup_button,
                       style: AppTextStyles.button,
                     ),
             ),

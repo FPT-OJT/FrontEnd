@@ -5,12 +5,12 @@ import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_password_state.dart';
-import 'package:fpt_ojt/features/auth/presentation/constants/forgot_password.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/forgot_password/forgot_password_email_step.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/forgot_password/forgot_password_header.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/forgot_password/forgot_password_otp_step.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/forgot_password/forgot_password_reset_step.dart';
 import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
+import 'package:fpt_ojt/l10n/app_localizations.dart';
 
 class ForgotPasswordBottomSheet extends StatefulWidget {
   const ForgotPasswordBottomSheet({super.key});
@@ -54,7 +54,9 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
         } else if (state is PasswordResetSuccess) {
           SnackBarUtils.showSuccess(
             context,
-            ForgotPasswordConstants.passwordResetSuccessMessage,
+            AppLocalizations.of(
+              context,
+            )!.forgot_password_password_reset_success_message,
           );
           Navigator.of(context).pop();
         }

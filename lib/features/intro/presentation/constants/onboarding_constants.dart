@@ -23,6 +23,4 @@ class OnboardingConstants {
       showGetStarted: true,
     ),
   ];
-
-  static const String getStartedButtonText = 'Get Started';
 }

@@ -7,8 +7,8 @@ import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/shadows.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/core/utils/validators.dart';
-import 'package:fpt_ojt/features/auth/presentation/constants/forgot_password.dart';
 import 'package:fpt_ojt/features/auth/presentation/constants/validations.dart';
+import 'package:fpt_ojt/l10n/app_localizations.dart';
 
 class ForgotPasswordOtpStep extends StatelessWidget {
   const ForgotPasswordOtpStep({
@@ -33,14 +33,15 @@ class ForgotPasswordOtpStep extends StatelessWidget {
       spacing: 16,
       children: [
         Text(
-          ForgotPasswordConstants.pleaseCheckYourEmailText,
+          AppLocalizations.of(context)!.forgot_password_check_email_title,
           style: AppTextStyles.h3,
         ),
         Column(
           children: [
             Text(
-              ForgotPasswordConstants
-                  .weSentYouAResetCodeToTheFollowingAddressText,
+              AppLocalizations.of(
+                context,
+              )!.forgot_password_reset_code_sent_message,
               style: AppTextStyles.bodySmall,
               textAlign: TextAlign.center,
             ),
@@ -56,14 +57,20 @@ class ForgotPasswordOtpStep extends StatelessWidget {
         TextFormField(
           controller: otpController,
           validator: Validators.compose([
-            Validators.required(message: ValidationsConstants.otpRequiredError),
+            Validators.required(
+              message: AppLocalizations.of(context)!.otp_required_error,
+            ),
             Validators.minLen(
               ValidationsConstants.otpMinLength,
-              message: ValidationsConstants.otpInvalidError,
+              message: AppLocalizations.of(
+                context,
+              )!.otp_min_length_error(ValidationsConstants.otpMinLength),
             ),
             Validators.maxLen(
               ValidationsConstants.otpMaxLength,
-              message: ValidationsConstants.otpInvalidError,
+              message: AppLocalizations.of(
+                context,
+              )!.otp_max_length_error(ValidationsConstants.otpMaxLength),
             ),
           ]),
           keyboardType: TextInputType.number,
@@ -76,7 +83,9 @@ class ForgotPasswordOtpStep extends StatelessWidget {
           textAlign: TextAlign.center,
           style: AppTextStyles.h3.copyWith(letterSpacing: 8),
           decoration: InputDecoration(
-            labelText: ForgotPasswordConstants.enter6DigitOTPText,
+            labelText: AppLocalizations.of(
+              context,
+            )!.forgot_password_enter_6_digit_otp,
             counterText: '',
             filled: true,
             fillColor: Colors.transparent,
@@ -130,7 +139,7 @@ class ForgotPasswordOtpStep extends StatelessWidget {
                     ),
                   )
                 : Text(
-                    ForgotPasswordConstants.verifyOTPText,
+                    AppLocalizations.of(context)!.forgot_password_verify_otp,
                     style: AppTextStyles.btn.copyWith(
                       color: AppColors.neutralWhite,
                     ),

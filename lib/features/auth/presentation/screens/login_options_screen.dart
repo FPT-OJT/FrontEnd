@@ -14,6 +14,7 @@ import 'package:fpt_ojt/features/auth/presentation/constants/login_options.dart'
 import 'package:fpt_ojt/features/auth/presentation/widgets/social_button.dart';
 import 'package:fpt_ojt/features/shared/constants/app_constants.dart';
 import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
+import 'package:fpt_ojt/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -47,7 +48,9 @@ class LoginOptionsScreen extends StatelessWidget {
                 case final LoginWithGoogleSuccess loginWithGoogleSuccess:
                   SnackBarUtils.showSuccess(
                     context,
-                    LoginOptionsConstants.loginSuccessMessage,
+                    AppLocalizations.of(
+                      context,
+                    )!.login_details_login_successful_message,
                   );
                   context.read<AuthBloc>().add(
                     AuthLoggedInEvent(user: loginWithGoogleSuccess.user),
@@ -65,11 +68,11 @@ class LoginOptionsScreen extends StatelessWidget {
             builder: (context, state) => Column(
               children: [
                 UIGaps.h40,
-                _buildTitle(theme),
+                _buildTitle(context, theme),
                 Expanded(child: Container(child: _buildIllustration())),
                 _buildEmailLoginButton(context, theme),
                 UIGaps.h24,
-                _buildOrDivider(theme),
+                _buildOrDivider(context, theme),
                 UIGaps.h24,
                 _buildFacebookButton(context, theme),
                 UIGaps.h16,
@@ -89,8 +92,10 @@ class LoginOptionsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(ThemeData theme) =>
-      Text(LoginOptionsConstants.loginTitle, style: AppTextStyles.h2);
+  Widget _buildTitle(BuildContext context, ThemeData theme) => Text(
+    AppLocalizations.of(context)!.login_options_login_title,
+    style: AppTextStyles.h2,
+  );
 
   Widget _buildIllustration() => Image.asset(
     LoginOptionsConstants.welcomeImage,
@@ -114,19 +119,21 @@ class LoginOptionsScreen extends StatelessWidget {
             elevation: Shadows.none,
           ),
           child: Text(
-            LoginOptionsConstants.loginWithEmailAddressText,
+            AppLocalizations.of(
+              context,
+            )!.login_options_login_with_email_address,
             style: AppTextStyles.button,
           ),
         ),
       );
 
-  Widget _buildOrDivider(ThemeData theme) => Row(
+  Widget _buildOrDivider(BuildContext context, ThemeData theme) => Row(
     children: [
       const Expanded(child: Divider(color: AppColors.neutralGrey)),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: UIGaps.size16),
         child: Text(
-          LoginOptionsConstants.orText,
+          AppLocalizations.of(context)!.login_options_or,
           style: AppTextStyles.bodySmall.copyWith(color: AppColors.neutralGrey),
         ),
       ),
@@ -139,7 +146,9 @@ class LoginOptionsScreen extends StatelessWidget {
         onPressed: () {
           context.push(RouteNames.loginDetails);
         },
-        text: LoginOptionsConstants.continueWithFacebookText,
+        text: AppLocalizations.of(
+          context,
+        )!.login_options_continue_with_facebook,
         icon: const Icon(Icons.facebook, size: UIGaps.size24),
         backgroundColor: const Color(0xFF1877F2),
         foregroundColor: AppColors.neutralWhite,
@@ -151,7 +160,7 @@ class LoginOptionsScreen extends StatelessWidget {
         onPressed: () {
           context.read<LoginOptionsCubit>().loginWithGoogle();
         },
-        text: LoginOptionsConstants.continueWithGoogleText,
+        text: AppLocalizations.of(context)!.login_options_continue_with_google,
         icon: Brand(Brands.google, size: UIGaps.size24),
         backgroundColor: AppColors.neutralWhite,
         foregroundColor: AppColors.neutralBlack,
@@ -163,7 +172,7 @@ class LoginOptionsScreen extends StatelessWidget {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(
-        LoginOptionsConstants.signupPromptText,
+        AppLocalizations.of(context)!.login_options_signup_prompt,
         style: AppTextStyles.bodyLarge.copyWith(color: AppColors.secondaryNavy),
       ),
       UIGaps.w4,
@@ -177,7 +186,7 @@ class LoginOptionsScreen extends StatelessWidget {
         child: GestureDetector(
           onTap: () => context.push(RouteNames.registerDetails),
           child: Text(
-            LoginOptionsConstants.signupNowText,
+            AppLocalizations.of(context)!.login_options_signup_now,
             style: AppTextStyles.h3.copyWith(color: AppColors.secondaryCoral),
           ),
         ),
