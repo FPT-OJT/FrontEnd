@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
@@ -16,9 +18,9 @@ class LoginWithEmailUseCase implements UseCase<User, LoginWithEmailParams> {
         rememberMe: params.rememberMe,
       );
 }
-
-class LoginWithEmailParams {
-  LoginWithEmailParams({
+@immutable
+class LoginWithEmailParams extends Equatable {
+  const LoginWithEmailParams({
     required this.email,
     required this.password,
     this.rememberMe = false,
@@ -26,4 +28,6 @@ class LoginWithEmailParams {
   final String email;
   final String password;
   final bool rememberMe;
+  @override
+  List<Object?> get props => [email, password, rememberMe];
 }
