@@ -7,7 +7,7 @@ class ValidationsConstants {
   static const int lastNameMaxLength = 20;
   static const int usernameMinLength = 3;
   static const int usernameMaxLength = 20;
-  static const int passwordMinLength = 8;
+  static const int passwordMinLength = 6;
   static const int passwordMaxLength = 20;
   static const int passwordConfirmationMinLength = 8;
   static const int passwordConfirmationMaxLength = 20;

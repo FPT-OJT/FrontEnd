@@ -1,5 +1,5 @@
 abstract interface class RefreshTokenDataSource {
-  Future<(String accessToken, String refreshToken)> refreshTokens(
+  Future<(String? accessToken, String? refreshToken)> refreshTokens(
     String refreshToken,
   );
 }

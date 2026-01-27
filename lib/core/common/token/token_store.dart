@@ -5,4 +5,5 @@ abstract interface class TokenStore {
   Future<void> saveRefreshToken(String refreshToken, {bool rememberMe = false});
   Future<void> deleteAccessToken();
   Future<void> deleteRefreshToken();
+  Future<void> replaceRefreshToken(String newRefreshToken);
 }
