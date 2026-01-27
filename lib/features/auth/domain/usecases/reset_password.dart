@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
@@ -16,8 +18,9 @@ class ResetPasswordUseCase implements UseCase<void, ResetPasswordParams> {
       );
 }
 
-class ResetPasswordParams {
-  ResetPasswordParams({
+@immutable
+class ResetPasswordParams extends Equatable {
+  const ResetPasswordParams({
     required this.email,
     required this.otp,
     required this.newPassword,
@@ -25,4 +28,6 @@ class ResetPasswordParams {
   final String email;
   final String otp;
   final String newPassword;
+  @override
+  List<Object?> get props => [email, otp, newPassword];
 }
