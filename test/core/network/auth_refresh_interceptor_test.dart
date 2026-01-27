@@ -228,7 +228,7 @@ void main() {
       ).thenAnswer((_) async => 'refresh_token');
       when(
         mockRefreshDataSource.refreshTokens(any),
-      ).thenThrow(Exception('Refresh failed'));
+      ).thenAnswer((_) => Future.error(Exception('Refresh failed')));
       when(mockTokenStore.deleteAccessToken()).thenAnswer((_) async {});
       when(mockTokenStore.deleteRefreshToken()).thenAnswer((_) async {});
 
