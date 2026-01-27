@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+
 @immutable
 sealed class ForgotPasswordState extends Equatable {
   const ForgotPasswordState();
   @override
   List<Object?> get props => [];
 }
+
 @immutable
 class ForgotPasswordInitial extends ForgotPasswordState {
   const ForgotPasswordInitial();
