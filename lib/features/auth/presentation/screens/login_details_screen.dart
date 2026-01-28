@@ -116,9 +116,6 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                           ValidationsConstants.usernameMaxLength,
                           message: ValidationsConstants.usernameMaxLengthError,
                         ),
-                        Validators.email(
-                          message: ValidationsConstants.usernameInvalidError,
-                        ),
                       ]),
                       keyboardType: TextInputType.text,
                     ),

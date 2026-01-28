@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp.router(
       routerConfig: goRouter,
-      title: 'Flutter Starter',
+      title: 'Minstant',
       themeMode: ThemeMode.light,
       theme: AppTheme.light(),
     );

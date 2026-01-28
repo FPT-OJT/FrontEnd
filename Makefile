@@ -6,3 +6,5 @@ splash:
 	dart run flutter_native_splash:create
 build-play-store: splash
 	flutter build appbundle --flavor prod --release --dart-define-from-file=env/prod.json
+gen-app-icons:
+	dart run flutter_launcher_icons

@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
@@ -21,9 +23,9 @@ class RegisterUseCase implements UseCase<User, RegisterParams> {
     return result.fold(Left.new, Right.new);
   }
 }
-
-class RegisterParams {
-  RegisterParams({
+@immutable
+class RegisterParams extends Equatable {
+  const RegisterParams({
     required this.firstName,
     required this.lastName,
     required this.username,
@@ -37,4 +39,6 @@ class RegisterParams {
   final String email;
   final String password;
   final String repeatPassword;
+  @override
+  List<Object?> get props => [firstName, lastName, username, email, password, repeatPassword];
 }
