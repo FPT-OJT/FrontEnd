@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
+import 'package:fpt_ojt/core/theme/app_colors.dart';
+import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_state.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_state.dart';
+import 'package:fpt_ojt/features/shared/constants/app_constants.dart';
 import 'package:go_router/go_router.dart';
+
+const double logoHeight = 50;
+const double logoWidth = 50;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -57,11 +65,29 @@ class _SplashScreenState extends State<SplashScreen> {
             break;
         }
       },
-      child: Scaffold(
-        body: Center(
-          child: Text(
-            'Splash Screen',
-            style: Theme.of(context).textTheme.headlineMedium,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+          systemNavigationBarColor: AppColors.neutralEggShell60,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
+        child: Scaffold(
+          backgroundColor: AppColors.neutralEggShell60,
+          body: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AppConstants.logoImage,
+                  height: logoHeight,
+                  width: logoWidth,
+                ),
+                UIGaps.w16,
+                Text(AppConstants.appName, style: AppTextStyles.h1),
+              ],
+            ),
           ),
         ),
       ),

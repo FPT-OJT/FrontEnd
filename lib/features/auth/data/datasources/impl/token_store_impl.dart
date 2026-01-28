@@ -28,8 +28,8 @@ class TokenStoreImpl implements TokenStore {
   }) async {
     if (rememberMe) {
       await _secureKVStorage.set(_refreshTokenKey, refreshToken);
-      _memoryTokenStore[_refreshTokenKey] = refreshToken;
     }
+    _memoryTokenStore[_refreshTokenKey] = refreshToken;
   }
 
   @override
@@ -42,5 +42,15 @@ class TokenStoreImpl implements TokenStore {
   Future<void> deleteRefreshToken() async {
     await _secureKVStorage.remove(_refreshTokenKey);
     _memoryTokenStore.remove(_refreshTokenKey);
+  }
+
+  @override
+  Future<void> replaceRefreshToken(String newRefreshToken) async {
+    final isExistAtLocalStorage =
+        await _secureKVStorage.get<String>(_refreshTokenKey) != null;
+    if (isExistAtLocalStorage) {
+      await _secureKVStorage.set(_refreshTokenKey, newRefreshToken);
+    }
+    _memoryTokenStore[_refreshTokenKey] = newRefreshToken;
   }
 }

@@ -42,7 +42,7 @@ class AuthRefreshInterceptor extends Interceptor {
 
       final accessToken = await _tokenStore.getAccessToken();
       if (accessToken.isNotEmpty) {
-        options.headers['Authorization'] = 'Bearer $accessToken';
+        options.headers['Authorization'] = accessToken;
       }
       // ignore: avoid_catches_without_on_clauses
     } catch (_) {}
@@ -113,8 +113,11 @@ class AuthRefreshInterceptor extends Interceptor {
         refreshToken,
       );
 
+      if (accessToken == null || newRefreshToken == null) {
+        throw StateError('Refresh token failed');
+      }
       await _tokenStore.saveAccessToken(accessToken);
-      await _tokenStore.saveRefreshToken(newRefreshToken);
+      await _tokenStore.replaceRefreshToken(newRefreshToken);
 
       _refreshCompleter?.complete();
     } catch (e) {
@@ -128,7 +131,7 @@ class AuthRefreshInterceptor extends Interceptor {
   RequestOptions _cloneOptionsForRetry(RequestOptions req, String accessToken) {
     final headers = Map<String, dynamic>.from(req.headers);
     if (accessToken.isNotEmpty) {
-      headers['Authorization'] = 'Bearer $accessToken';
+      headers['Authorization'] = accessToken;
     }
 
     final extra = Map<String, dynamic>.from(req.extra);

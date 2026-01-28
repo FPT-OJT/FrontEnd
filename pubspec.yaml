@@ -3,7 +3,7 @@ description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
-version: "1.0.2+3"
+version: "1.0.4+4"
 environment:
   sdk: ">=3.10.0 <4.0.0"
   flutter: ">=3.0.0"
@@ -31,6 +31,7 @@ dependencies:
   icons_plus: ^5.0.0
   google_sign_in_android: ^7.2.7
   flutter_secure_storage: ^10.0.0
+  flutter_native_splash: ^2.4.7
 
 dev_dependencies:
   flutter_test:
@@ -42,6 +43,7 @@ dev_dependencies:
   bloc_test: ^10.0.0
   json_serializable: ^6.11.2
   mockito: ^5.6.3
+  flutter_launcher_icons: ^0.14.4
 flutter:
   uses-material-design: true
   generate: true
@@ -49,3 +51,17 @@ flutter:
   assets:
     - assets/images/
     - assets/images/onboarding/
+flutter_native_splash:
+  color: "#FEF2EC"
+  image: null
+  android: true
+  ios: true
+
+  android_12:
+    color: "#FEF2EC"
+    image: null
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
