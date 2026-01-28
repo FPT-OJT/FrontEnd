@@ -8,7 +8,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp.router(
     routerConfig: goRouter,
-    title: 'Flutter Starter',
+    title: 'Minstant',
     themeMode: ThemeMode.light,
     theme: AppTheme.light(),
   );
