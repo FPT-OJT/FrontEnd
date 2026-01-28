@@ -15,7 +15,7 @@ class LoginOptionsCubit extends Cubit<LoginOptionsState> {
 
   Future<void> loginWithGoogle() async {
     emit(const LoginWithGoogleLoading());
-    final result = await _loginWithGoogleUseCase.call(NoParams());
+    final result = await _loginWithGoogleUseCase.call(const NoParams());
     result.fold(
       (failure) => emit(LoginWithGoogleError(failure.message)),
       (user) => emit(LoginWithGoogleSuccess(user: user)),
