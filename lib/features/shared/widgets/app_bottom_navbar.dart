@@ -25,8 +25,8 @@ class AppBottomNavigationBar extends StatelessWidget {
   final ValueChanged<int> onTap;
 
   // Colors from your design
-  static const _activeColor = AppColors.secondaryCoral; 
-  static const _inactiveColor = AppColors.primaryForest; 
+  static const _activeColor = AppColors.secondaryCoral;
+  static const _inactiveColor = AppColors.primaryForest;
   static const _bgColor = Colors.white;
 
   @override
