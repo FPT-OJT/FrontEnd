@@ -16,7 +16,6 @@ void main() async {
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   await initDependencies();
   AppConfig.validate();
-  FlutterNativeSplash.remove();
   runApp(
     MultiBlocProvider(
       providers: [
