@@ -8,38 +8,36 @@ class ExploreSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 90),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              UIGaps.h48,
-              Text(
-                'Explore more',
-                style: AppTextStyles.h2.copyWith(
-                  color: AppColors.neutralWhite,
-                ),
+    children: [
+      Padding(
+        padding: const EdgeInsets.only(right: 90),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            UIGaps.h48,
+            Text(
+              'Explore more',
+              style: AppTextStyles.h2.copyWith(color: AppColors.neutralWhite),
+            ),
+            UIGaps.h32,
+            Text(
+              'Unlock Exclusive Discounts: Navigate Through Merchants for the Best Deals Around',
+              style: AppTextStyles.bodyLarge.copyWith(
+                color: AppColors.neutralWhite,
               ),
-              UIGaps.h32,
-              Text(
-                'Unlock Exclusive Discounts: Navigate Through Merchants for the Best Deals Around',
-                style: AppTextStyles.bodyLarge.copyWith(
-                  color: AppColors.neutralWhite,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-        Positioned(
-          right: 0,
-          top: 50,
-          child: Image.asset(
-            'assets/images/home/home_explore.png',
-            height: 120,
-            width: 120,
-          ),
+      ),
+      Positioned(
+        right: 0,
+        top: 50,
+        child: Image.asset(
+          'assets/images/home/home_explore.png',
+          height: 120,
+          width: 120,
         ),
-      ],
-    );
+      ),
+    ],
+  );
 }
