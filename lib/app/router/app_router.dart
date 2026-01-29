@@ -12,7 +12,6 @@ import 'package:fpt_ojt/features/shared/widgets/app_bottom_navbar.dart';
 import 'package:go_router/go_router.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final goRouter = GoRouter(
   initialLocation: RouteNames.splash,
   debugLogDiagnostics: true,
