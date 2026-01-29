@@ -23,6 +23,7 @@ class RegisterUseCase implements UseCase<User, RegisterParams> {
     return result.fold(Left.new, Right.new);
   }
 }
+
 @immutable
 class RegisterParams extends Equatable {
   const RegisterParams({
@@ -40,5 +41,12 @@ class RegisterParams extends Equatable {
   final String password;
   final String repeatPassword;
   @override
-  List<Object?> get props => [firstName, lastName, username, email, password, repeatPassword];
+  List<Object?> get props => [
+    firstName,
+    lastName,
+    username,
+    email,
+    password,
+    repeatPassword,
+  ];
 }

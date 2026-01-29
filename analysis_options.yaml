@@ -8,6 +8,7 @@ analyzer:
     - "build/**"
     - "lib/generated/**"
     - "**/*.gr.dart"
+    - "test/**"
 
   errors:
     # Treat missing required parameters as errors

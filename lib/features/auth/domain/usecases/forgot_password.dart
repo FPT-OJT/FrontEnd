@@ -13,7 +13,8 @@ class ForgotPasswordUseCase implements UseCase<void, ForgotPasswordParams> {
   Future<Either<Failure, void>> call(ForgotPasswordParams params) async =>
       _authRepository.forgotPassword(params.email);
 }
-  @immutable
+
+@immutable
 class ForgotPasswordParams extends Equatable {
   const ForgotPasswordParams({required this.email});
   final String email;

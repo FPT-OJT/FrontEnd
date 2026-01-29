@@ -15,7 +15,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
   Future<void> initialize() async {
     emit(const OnboardingLoading());
-    final res = await getIsOnboardingUseCase.call(NoParams());
+    final res = await getIsOnboardingUseCase.call(const NoParams());
     res.fold((failure) => emit(OnboardingError(failure.message)), (seen) {
       if (seen) {
         emit(const OnboardingCompleted());
@@ -30,7 +30,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   }
 
   Future<void> complete() async {
-    final res = await endOnboardingUseCase.call(NoParams());
+    final res = await endOnboardingUseCase.call(const NoParams());
     res.fold(
       (failure) => emit(OnboardingError(failure.message)),
       (_) => emit(const OnboardingCompleted()),
