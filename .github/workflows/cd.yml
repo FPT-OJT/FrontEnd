@@ -39,7 +39,8 @@ jobs:
           echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
           echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
           echo "storeFile=upload-keystore.jks" >> android/key.properties
-
+          echo "Checking environment variables"
+          echo "API_URL=$API_URL"
       - name: Build APK Release
         run: make build-release
 
