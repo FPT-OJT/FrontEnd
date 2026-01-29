@@ -3,10 +3,11 @@ import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+import 'package:fpt_ojt/features/home/presentation/constants/text.dart';
 
 class FirstCardPrompt extends StatelessWidget {
   const FirstCardPrompt({super.key});
-
+  static const firstCardImage = 'assets/images/home/home_first_cart.png';
   @override
   Widget build(BuildContext context) => Material(
     color: AppColors.secondaryCoral,
@@ -21,24 +22,20 @@ class FirstCardPrompt extends StatelessWidget {
         child: Row(
           spacing: UIGaps.size20,
           children: [
-            Image.asset(
-              'assets/images/home/home_first_cart.png',
-              height: 70,
-              width: 70,
-            ),
+            Image.asset(firstCardImage, height: 70, width: 70),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: UIGaps.size4,
                 children: [
                   Text(
-                    'Add your first card now!',
+                    HomeText.firstCardPromptTitle,
                     style: AppTextStyles.h3.copyWith(
                       color: AppColors.neutralWhite,
                     ),
                   ),
                   Text(
-                    'Start your journey today!',
+                    HomeText.firstCardPromptDescription,
                     style: AppTextStyles.bodyExtraSmall.copyWith(
                       color: AppColors.neutralWhite,
                     ),

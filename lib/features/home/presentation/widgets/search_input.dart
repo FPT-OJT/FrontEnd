@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
+import 'package:fpt_ojt/features/home/presentation/constants/text.dart';
 
 class SearchInput extends StatelessWidget {
   const SearchInput({super.key, this.onTap});
@@ -27,7 +28,7 @@ class SearchInput extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "I'm looking for...",
+            HomeText.searchPlaceholder,
             style: TextStyle(
               color: AppColors.primaryForest,
               fontSize: 12,
