@@ -14,40 +14,47 @@ class SearchInputTextField extends StatelessWidget {
   static const double inputHorizontalPadding = 16;
   static const double inputVerticalPadding = 13;
   @override
-  Widget build(BuildContext context) => Container(
-    width: inputWidth,
-    height: inputHeight,
-    alignment: Alignment.center,
-    child: TextField(
-      controller: controller,
-      onSubmitted: onSubmitted,
-      textInputAction: TextInputAction.search,
-      style: AppTextStyles.bodyExtraSmall.copyWith(
-        color: AppColors.primaryForest,
-      ),
-      cursorColor: AppColors.primaryForest,
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: AppTextStyles.bodyExtraSmall.copyWith(
-          color: AppColors.primaryForest,
-        ),
-        border: InputBorder.none,
-        isDense: true,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: inputHorizontalPadding,
-          vertical: inputVerticalPadding,
-        ),
-        suffixIcon: const Padding(
-          padding: EdgeInsets.only(right: UIGaps.size16),
-          child: Icon(
-            Icons.search,
+  Widget build(BuildContext context) => Hero(
+    tag: 'search_box',
+    child: Material(
+      type: MaterialType.transparency,
+      child: Container(
+        width: inputWidth,
+        height: inputHeight,
+        alignment: Alignment.center,
+        child: TextField(
+          autofocus: true,
+          controller: controller,
+          onSubmitted: onSubmitted,
+          textInputAction: TextInputAction.search,
+          style: AppTextStyles.bodyExtraSmall.copyWith(
             color: AppColors.primaryForest,
-            size: iconSize,
           ),
-        ),
-        suffixIconConstraints: const BoxConstraints(
-          maxHeight: iconSize,
-          maxWidth: iconSize + UIGaps.size16,
+          cursorColor: AppColors.primaryForest,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: AppTextStyles.bodyExtraSmall.copyWith(
+              color: AppColors.primaryForest,
+            ),
+            border: InputBorder.none,
+            isDense: true,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: inputHorizontalPadding,
+              vertical: inputVerticalPadding,
+            ),
+            suffixIcon: const Padding(
+              padding: EdgeInsets.only(right: UIGaps.size16),
+              child: Icon(
+                Icons.search,
+                color: AppColors.primaryForest,
+                size: iconSize,
+              ),
+            ),
+            suffixIconConstraints: const BoxConstraints(
+              maxHeight: iconSize,
+              maxWidth: iconSize + UIGaps.size16,
+            ),
+          ),
         ),
       ),
     ),

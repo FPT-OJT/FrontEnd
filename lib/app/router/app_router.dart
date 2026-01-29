@@ -44,7 +44,12 @@ final goRouter = GoRouter(
     ),
     GoRoute(
       path: RouteNames.search,
-      builder: (context, state) => const SearchScreen(),
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: const SearchScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(opacity: animation, child: child),
+      ),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) => Scaffold(
