@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
@@ -9,6 +10,7 @@ import 'package:fpt_ojt/features/home/presentation/constants/text.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/category_card.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/category_card_skeleton.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/search_input.dart';
+import 'package:go_router/go_router.dart';
 
 class SearchSection extends StatelessWidget {
   const SearchSection({super.key});
@@ -25,7 +27,11 @@ class SearchSection extends StatelessWidget {
         HomeText.searchTitle,
         style: AppTextStyles.h3.copyWith(color: AppColors.primaryForest),
       ),
-      const SearchInput(),
+      SearchInput(
+        onTap: () {
+          context.push(RouteNames.search);
+        },
+      ),
       BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           debugPrint('state: ${state.status}');
@@ -50,8 +56,13 @@ class SearchSection extends StatelessWidget {
             runSpacing: UIGaps.size16,
             children: state.categories
                 .map(
-                  (c) =>
-                      CategoryCard(label: c.categoryName, imageUrl: c.imageUrl),
+                  (c) => CategoryCard(
+                    label: c.categoryName,
+                    imageUrl: c.imageUrl,
+                    onTap: () {
+                      context.push(RouteNames.search);
+                    },
+                  ),
                 )
                 .toList(),
           );

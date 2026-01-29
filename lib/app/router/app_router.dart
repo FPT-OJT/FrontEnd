@@ -7,6 +7,7 @@ import 'package:fpt_ojt/features/home/presentation/screens/home_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/onboarding_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/splash_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart';
+import 'package:fpt_ojt/features/search/presentations/screens/search_screen.dart';
 import 'package:fpt_ojt/features/shared/constants/navigation.dart';
 import 'package:fpt_ojt/features/shared/widgets/app_bottom_navbar.dart';
 import 'package:go_router/go_router.dart';
@@ -40,6 +41,10 @@ final goRouter = GoRouter(
     GoRoute(
       path: RouteNames.registerDetails,
       builder: (context, state) => const SignupDetailsScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.search,
+      builder: (context, state) => const SearchScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) => Scaffold(
