@@ -19,6 +19,7 @@ Future<void> initDependencies() async {
     );
   _initIntro();
   await _initAuth();
+  await _initHome();
 }
 
 void _initIntro() {
@@ -131,5 +132,22 @@ Future<void> _initAuth() async {
         forgotPasswordUseCase: serviceLocator(),
         resetPasswordUseCase: serviceLocator(),
       ),
+    );
+}
+
+
+Future<void> _initHome() async {
+  serviceLocator
+    ..registerLazySingleton<MerchantCategoryDataSource>(
+      () => MerchantCategoryDataSourceImpl(dio: serviceLocator()),
+    )
+    ..registerLazySingleton<MerchantCategoryRepository>(
+      () => MerchantCategoryRepositoryImpl(dataSource: serviceLocator()),
+    )
+    ..registerLazySingleton<GetMerchantCategoriesUseCase>(
+      () => GetMerchantCategoriesUseCase(merchantCategoryRepository: serviceLocator()),
+    )
+    ..registerFactory<HomeBloc>(
+      () => HomeBloc(getMerchantCategoriesUseCase: serviceLocator()),
     );
 }

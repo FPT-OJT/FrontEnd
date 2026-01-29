@@ -26,12 +26,18 @@ import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_cubit.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_bloc.dart';
+import 'package:fpt_ojt/features/home/presentation/blocs/home_bloc.dart';
 import 'package:fpt_ojt/features/intro/data/datasources/onboarding_datasource.dart';
 import 'package:fpt_ojt/features/intro/data/repository/onboarding_repository_impl.dart';
 import 'package:fpt_ojt/features/intro/domain/repositories/onboarding_repository.dart';
 import 'package:fpt_ojt/features/intro/domain/usecases/end_onboarding.dart';
 import 'package:fpt_ojt/features/intro/domain/usecases/get_onboarding_completion_status.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_cubit.dart';
+import 'package:fpt_ojt/features/merchants/data/datasources/merchant_category_datasource.dart';
+import 'package:fpt_ojt/features/merchants/data/datasources/impl/merchant_category_impl.dart';
+import 'package:fpt_ojt/features/merchants/data/repositories/merchant_category_repository_impl.dart';
+import 'package:fpt_ojt/features/merchants/domain/repositories/merchant_category_repository.dart';
+import 'package:fpt_ojt/features/merchants/domain/usecases/getMerchantCategories.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
