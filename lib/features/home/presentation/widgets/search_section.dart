@@ -7,10 +7,14 @@ import 'package:fpt_ojt/features/home/presentation/blocs/home_bloc.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_state.dart';
 import 'package:fpt_ojt/features/home/presentation/constants/text.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/category_card.dart';
+import 'package:fpt_ojt/features/home/presentation/widgets/category_card_skeleton.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/search_input.dart';
 
 class SearchSection extends StatelessWidget {
   const SearchSection({super.key});
+
+  static const int maxSkeletonToShow = 9;
+  static const double skeletonWidth = 90;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -27,7 +31,14 @@ class SearchSection extends StatelessWidget {
           debugPrint('state: ${state.status}');
           debugPrint('state categories length: ${state.categories.length}');
           if (state.status == HomeStatus.loading && state.categories.isEmpty) {
-            return const Center(child: CircularProgressIndicator());
+            return Wrap(
+              spacing: UIGaps.size8,
+              runSpacing: UIGaps.size16,
+              children: List.generate(
+                maxSkeletonToShow,
+                (index) => const CategoryCardSkeleton(),
+              ),
+            );
           }
           if (state.status == HomeStatus.failure && state.categories.isEmpty) {
             return Center(
