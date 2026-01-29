@@ -10,6 +10,7 @@ extension MerchantCategoryModelMapper on CategoryModel {
     updatedAt: updatedAt,
   );
 }
+
 extension MerchantCategoryListModelMapper on List<CategoryModel> {
   List<MerchantCategory> toEntity() => map((e) => e.toEntity()).toList();
 }

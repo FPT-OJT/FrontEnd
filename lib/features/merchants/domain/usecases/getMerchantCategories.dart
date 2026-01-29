@@ -13,15 +13,16 @@ class GetMerchantCategoriesUseCase
   }) : _merchantCategoryRepository = merchantCategoryRepository;
   final MerchantCategoryRepository _merchantCategoryRepository;
   @override
-  Future<Either<Failure, List<MerchantCategory>>> call(GetMerchantCategoriesParams params) async =>
-      _merchantCategoryRepository.getMerchantCategories(
-        page: params.page,
-        limit: params.limit,
-      );
+  Future<Either<Failure, List<MerchantCategory>>> call(
+    GetMerchantCategoriesParams params,
+  ) async => _merchantCategoryRepository.getMerchantCategories(
+    page: params.page,
+    limit: params.limit,
+  );
 }
 
 @immutable
-class GetMerchantCategoriesParams extends Equatable{
+class GetMerchantCategoriesParams extends Equatable {
   const GetMerchantCategoriesParams({required this.page, required this.limit});
   final int page;
   final int limit;

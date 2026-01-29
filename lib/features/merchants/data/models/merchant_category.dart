@@ -1,7 +1,7 @@
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'merchant_category.freezed.dart';
 part 'merchant_category.g.dart';
+
 @Freezed()
 abstract class CategoryModel with _$CategoryModel {
   const factory CategoryModel({

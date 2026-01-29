@@ -32,7 +32,8 @@ void main() async {
           create: (context) => serviceLocator<LoginDetailsBloc>(),
         ),
         BlocProvider<HomeBloc>(
-          create: (context) => serviceLocator<HomeBloc>()..add(const HomeStarted()),
+          create: (context) =>
+              serviceLocator<HomeBloc>()..add(const HomeStarted()),
         ),
       ],
       child: const MainApp(),

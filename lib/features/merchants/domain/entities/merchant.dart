@@ -20,5 +20,12 @@ class Merchant extends BaseEntity {
   final MerchantCategory category;
   final String categoryId;
   @override
-  List<Object?> get props => [id, name, description, logoUrl, category, categoryId];
+  List<Object?> get props => [
+    id,
+    name,
+    description,
+    logoUrl,
+    category,
+    categoryId,
+  ];
 }

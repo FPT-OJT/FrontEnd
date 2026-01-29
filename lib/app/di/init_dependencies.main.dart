@@ -135,7 +135,6 @@ Future<void> _initAuth() async {
     );
 }
 
-
 Future<void> _initHome() async {
   serviceLocator
     ..registerLazySingleton<MerchantCategoryDataSource>(
@@ -145,7 +144,9 @@ Future<void> _initHome() async {
       () => MerchantCategoryRepositoryImpl(dataSource: serviceLocator()),
     )
     ..registerLazySingleton<GetMerchantCategoriesUseCase>(
-      () => GetMerchantCategoriesUseCase(merchantCategoryRepository: serviceLocator()),
+      () => GetMerchantCategoriesUseCase(
+        merchantCategoryRepository: serviceLocator(),
+      ),
     )
     ..registerFactory<HomeBloc>(
       () => HomeBloc(getMerchantCategoriesUseCase: serviceLocator()),
