@@ -2,14 +2,17 @@ name: CD Release
 
 on:
   push:
-    branches:
-      - "main"
-
+    tags:
+      - "v*"
+  workflow_dispatch:
 jobs:
   build-release:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -38,10 +41,10 @@ jobs:
           echo "storeFile=upload-keystore.jks" >> android/key.properties
 
       - name: Build APK Release
-        run: flutter build apk --release
+        run: make build-release
 
       - name: Build App Bundle
-        run: flutter build appbundle --release
+        run: make build-play-store
 
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
