@@ -22,6 +22,7 @@ import 'package:fpt_ojt/features/auth/presentation/widgets/custom_text_field.dar
 import 'package:fpt_ojt/features/auth/presentation/widgets/forgot_password_bottom_sheet.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/password_text_field.dart';
 import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
+import 'package:fpt_ojt/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginDetailsScreen extends StatefulWidget {
@@ -77,7 +78,9 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
             final user = loginSuccess.user;
             SnackBarUtils.showSuccess(
               context,
-              LoginDetailsConstants.loginSuccessMessage,
+              AppLocalizations.of(
+                context,
+              )!.login_details_login_successful_message,
             );
             context.read<AuthBloc>().add(AuthLoggedInEvent(user: user));
             context.go(RouteNames.home);
@@ -102,38 +105,58 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                     _buildIllustration(),
                     UIGaps.h40,
                     CustomTextField(
-                      label: LoginDetailsConstants.usernameLabel,
+                      label: AppLocalizations.of(
+                        context,
+                      )!.login_details_username_label,
                       controller: _usernameController,
                       validator: Validators.compose([
                         Validators.required(
-                          message: ValidationsConstants.usernameRequiredError,
+                          message: AppLocalizations.of(
+                            context,
+                          )!.username_required_error,
                         ),
                         Validators.minLen(
                           ValidationsConstants.usernameMinLength,
-                          message: ValidationsConstants.usernameMinLengthError,
+                          message: AppLocalizations.of(context)!
+                              .username_min_length_error(
+                                ValidationsConstants.usernameMinLength,
+                              ),
                         ),
                         Validators.maxLen(
                           ValidationsConstants.usernameMaxLength,
-                          message: ValidationsConstants.usernameMaxLengthError,
+                          message: AppLocalizations.of(context)!
+                              .username_max_length_error(
+                                ValidationsConstants.usernameMaxLength,
+                              ),
                         ),
                       ]),
                       keyboardType: TextInputType.text,
                     ),
                     UIGaps.h20,
                     PasswordTextField(
-                      label: LoginDetailsConstants.passwordLabel,
+                      label: AppLocalizations.of(
+                        context,
+                      )!.login_details_password_label,
                       controller: _passwordController,
                       validator: Validators.compose([
                         Validators.required(
-                          message: ValidationsConstants.passwordRequiredError,
+                          message: AppLocalizations.of(
+                            context,
+                          )!.password_required_error,
                         ),
                         Validators.minLen(
                           ValidationsConstants.passwordMinLength,
-                          message: ValidationsConstants.passwordMinLengthError,
+                          message: AppLocalizations.of(context)!
+                              .password_min_length_error(
+                                ValidationsConstants.passwordMinLength,
+                              ),
                         ),
                         Validators.maxLen(
                           ValidationsConstants.passwordMaxLength,
-                          message: ValidationsConstants.passwordMaxLengthError,
+                          message: AppLocalizations.of(context)!
+                              .password_max_length_error(
+                                ValidationsConstants.passwordMaxLength,
+                              ),
                         ),
                       ]),
                     ),
@@ -148,9 +171,13 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                     UIGaps.h32,
                     _buildLoginButton(theme),
                     UIGaps.h32,
-                    const AuthBottomSection(
-                      promptText: LoginDetailsConstants.signupPromptText,
-                      actionText: LoginDetailsConstants.signupNowText,
+                    AuthBottomSection(
+                      promptText: AppLocalizations.of(
+                        context,
+                      )!.login_details_signup_prompt,
+                      actionText: AppLocalizations.of(
+                        context,
+                      )!.login_details_signup_now,
                       routeName: RouteNames.registerDetails,
                     ),
                     UIGaps.h24,
@@ -165,7 +192,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
   }
 
   Widget _buildTitle(ThemeData theme) => Text(
-    LoginDetailsConstants.loginTitle,
+    AppLocalizations.of(context)!.login_details_login_title,
     style: AppTextStyles.h2.copyWith(color: AppColors.secondaryNavy),
     textAlign: TextAlign.center,
   );
@@ -200,7 +227,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
           });
         },
         child: Text(
-          LoginDetailsConstants.rememberMeLabel,
+          AppLocalizations.of(context)!.login_details_remember_me_label,
           style: AppTextStyles.bodySmall.copyWith(
             color: AppColors.secondaryNavy,
           ),
@@ -217,7 +244,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     ),
     child: Text(
-      LoginDetailsConstants.forgotPasswordLabel,
+      AppLocalizations.of(context)!.login_details_forgot_password_label,
       style: AppTextStyles.bodySmall.copyWith(color: AppColors.secondaryCoral),
     ),
   );
@@ -264,7 +291,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                       ),
                     )
                   : Text(
-                      LoginDetailsConstants.loginButtonText,
+                      AppLocalizations.of(context)!.login_details_login_button,
                       style: AppTextStyles.button,
                     ),
             ),

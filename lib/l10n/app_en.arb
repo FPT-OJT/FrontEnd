@@ -1,0 +1,345 @@
+{
+    "@@locale": "en",
+    "onboarding_get_started": "Get Started",
+    "@onboarding_get_started": {
+        "description": "Get Started button text"
+    },
+    "login_options_login_title": "Login to Minstant",
+    "@login_options_login_title": {
+        "description": "Title for the login screen"
+    },
+    "login_options_signup_prompt": "Don't have an account?",
+    "@login_options_signup_prompt": {
+        "description": "Prompt text asking user if they don't have an account"
+    },
+    "login_options_signup_now": "Sign up now",
+    "@login_options_signup_now": {
+        "description": "Call to action text to sign up"
+    },
+    "login_options_login_with_email_address": "Login with email address",
+    "@login_options_login_with_email_address": {
+        "description": "Button text for email login option"
+    },
+    "login_options_continue_with_facebook": "Continue with Facebook",
+    "@login_options_continue_with_facebook": {
+        "description": "Button text for Facebook login option"
+    },
+    "login_options_continue_with_google": "Continue with Google",
+    "@login_options_continue_with_google": {
+        "description": "Button text for Google login option"
+    },
+    "login_options_or": "or",
+    "@login_options_or": {
+        "description": "Separator text between login options"
+    },
+
+    "login_details_login_title": "Log in:",
+    "@login_details_login_title": {
+        "description": "Title for login details form"
+    },
+    "login_details_username_label": "Username",
+    "@login_details_username_label": {
+        "description": "Label for username input field"
+    },
+    "login_details_password_label": "Password",
+    "@login_details_password_label": {
+        "description": "Label for password input field"
+    },
+    "login_details_remember_me_label": "Remember me",
+    "@login_details_remember_me_label": {
+        "description": "Label for remember me checkbox"
+    },
+    "login_details_forgot_password_label": "Forgot password?",
+    "@login_details_forgot_password_label": {
+        "description": "Link text for forgot password action"
+    },
+    "login_details_login_button": "Login",
+    "@login_details_login_button": {
+        "description": "Text for login submit button"
+    },
+    "login_details_signup_prompt": "Don't have an account?",
+    "@login_details_signup_prompt": {
+        "description": "Prompt text asking user if they don't have an account"
+    },
+    "login_details_signup_now": "Sign up now",
+    "@login_details_signup_now": {
+        "description": "Link text to navigate to sign up screen"
+    },
+    "login_details_login_successful_message": "Login successful!",
+    "@login_details_login_successful_message": {
+        "description": "Success message displayed after successful login"
+    },
+    
+    "signup_details_signup_title": "Sign up:",
+    "@signup_details_signup_title": {
+        "description": "Title for sign up form"
+    },
+    "signup_details_first_name_label": "First name",
+    "@signup_details_first_name_label": {
+        "description": "Label for first name input field"
+    },
+    "signup_details_last_name_label": "Last name",
+    "@signup_details_last_name_label": {
+        "description": "Label for last name input field"
+    },
+    "signup_details_username_label": "Username",
+    "@signup_details_username_label": {
+        "description": "Label for username input field"
+    },
+    "signup_details_email_label": "Email",
+    "@signup_details_email_label": {
+        "description": "Label for email input field"
+    },
+    "signup_details_password_label": "Password",
+    "@signup_details_password_label": {
+        "description": "Label for password input field"
+    },
+    "signup_details_confirm_password_label": "Confirm password",
+    "@signup_details_confirm_password_label": {
+        "description": "Label for confirm password input field"
+    },
+    "signup_details_signup_button": "Sign up",
+    "@signup_details_signup_button": {
+        "description": "Text for sign up submit button"
+    },
+    "signup_details_login_prompt": "Already have an account?",
+    "@signup_details_login_prompt": {
+        "description": "Prompt text asking user if they already have an account"
+    },
+    "signup_details_login_now": "Login now",
+    "@signup_details_login_now": {
+        "description": "Link text to navigate to login screen"
+    },
+    "signup_details_signup_successful_message": "Sign up successful!",
+    "@signup_details_signup_successful_message": {
+        "description": "Success message displayed after successful sign up"
+    },
+
+
+  "forgot_password_title": "Don't remember your password?",
+  "@forgot_password_title": {
+    "description": "Header text for forgot password screen"
+  },
+  "forgot_password_email_instruction": "Please provide your e-mail address, if we have it in our system we will send you the link to reset your password.",
+  "@forgot_password_email_instruction": {
+    "description": "Instructional text explaining the password reset process"
+  },
+  "forgot_password_email_label": "Email",
+  "@forgot_password_email_label": {
+    "description": "Label for email input field in forgot password form"
+  },
+  "forgot_password_new_password_label": "New Password",
+  "@forgot_password_new_password_label": {
+    "description": "Label for new password input field"
+  },
+  "forgot_password_confirm_password_label": "Confirm Password",
+  "@forgot_password_confirm_password_label": {
+    "description": "Label for confirm password input field in reset password form"
+  },
+  "forgot_password_send_reset_code": "Send Reset Code",
+  "@forgot_password_send_reset_code": {
+    "description": "Button text to send password reset code"
+  },
+  "forgot_password_check_email_title": "Please check your email",
+  "@forgot_password_check_email_title": {
+    "description": "Header text prompting user to check their email"
+  },
+  "forgot_password_reset_code_sent_message": "We sent you a reset code to the following address:",
+  "@forgot_password_reset_code_sent_message": {
+    "description": "Confirmation message that reset code was sent"
+  },
+  "forgot_password_enter_6_digit_otp": "Enter 6-digit OTP",
+  "@forgot_password_enter_6_digit_otp": {
+    "description": "Label for OTP input field"
+  },
+  "forgot_password_verify_otp": "Verify OTP",
+  "@forgot_password_verify_otp": {
+    "description": "Button text to verify OTP code"
+  },
+  "forgot_password_instruction": "Please enter your new password",
+  "@forgot_password_instruction": {
+    "description": "Instructional text for entering new password"
+  },
+  "forgot_password_reset_password": "Reset Password",
+  "@forgot_password_reset_password": {
+    "description": "Button text to submit new password"
+  },
+  "forgot_password_password_reset_success_message": "Password reset successfully! Please login with your new password.",
+  "@forgot_password_password_reset_success_message": {
+    "description": "Success message displayed after password reset is complete"
+  },
+
+
+    "first_name_required_error": "First name is required",
+    "@first_name_required_error": {
+        "description": "Error message when first name field is empty"
+    },
+    "first_name_min_length_error": "First name must be at least {firstNameMinLength} characters",
+    "@first_name_min_length_error": {
+        "description": "Error message when first name is too short",
+        "placeholders": {
+            "firstNameMinLength": {
+                "type": "int",
+                "description": "Minimum length for first name"
+            }
+        }
+    },
+    "first_name_max_length_error": "First name must be less than {firstNameMaxLength} characters",
+    "@first_name_max_length_error": {
+        "description": "Error message when first name is too long",
+        "placeholders": {
+            "firstNameMaxLength": {
+                "type": "int",
+                "description": "Maximum length for first name"
+            }
+        }
+    },
+    "last_name_required_error": "Last name is required",
+    "@last_name_required_error": {
+        "description": "Error message when last name field is empty"
+    },
+    "last_name_min_length_error": "Last name must be at least {lastNameMinLength} characters",
+    "@last_name_min_length_error": {
+        "description": "Error message when last name is too short",
+        "placeholders": {
+            "lastNameMinLength": {
+                "type": "int",
+                "description": "Minimum length for last name"
+            }
+        }
+    },
+    "last_name_max_length_error": "Last name must be less than {lastNameMaxLength} characters",
+    "@last_name_max_length_error": {
+        "description": "Error message when last name is too long",
+        "placeholders": {
+            "lastNameMaxLength": {
+                "type": "int",
+                "description": "Maximum length for last name"
+            }
+        }
+    },
+    "username_required_error": "Username is required",
+    "@username_required_error": {
+        "description": "Error message when username field is empty"
+    },
+    "username_min_length_error": "Username must be at least {usernameMinLength} characters",
+    "@username_min_length_error": {
+        "description": "Error message when username is too short",
+        "placeholders": {
+            "usernameMinLength": {
+                "type": "int",
+                "description": "Minimum length for username"
+            }
+        }
+    },
+    "username_max_length_error": "Username must be less than {usernameMaxLength} characters",
+    "@username_max_length_error": {
+        "description": "Error message when username is too long",
+        "placeholders": {
+            "usernameMaxLength": {
+                "type": "int",
+                "description": "Maximum length for username"
+            }
+        }
+    },
+    "username_invalid_error": "Username is invalid",
+    "@username_invalid_error": {
+        "description": "Error message when username format is invalid"
+    },
+    "email_required_error": "Email is required",
+    "@email_required_error": {
+        "description": "Error message when email field is empty"
+    },
+    "email_invalid_error": "Email is invalid",
+    "@email_invalid_error": {
+        "description": "Error message when email format is invalid"
+    },
+    "password_required_error": "Password is required",
+    "@password_required_error": {
+        "description": "Error message when password field is empty"
+    },
+    "password_min_length_error": "Password must be at least {passwordMinLength} characters",
+    "@password_min_length_error": {
+        "description": "Error message when password is too short",
+        "placeholders": {
+            "passwordMinLength": {
+                "type": "int",
+                "description": "Minimum length for password"
+            }
+        }
+    },
+    "password_max_length_error": "Password must be less than {passwordMaxLength} characters",
+    "@password_max_length_error": {
+        "description": "Error message when password is too long",
+        "placeholders": {
+            "passwordMaxLength": {
+                "type": "int",
+                "description": "Maximum length for password"
+            }
+        }
+    },
+    "password_invalid_error": "Password is invalid",
+    "@password_invalid_error": {
+        "description": "Error message when password format is invalid"
+    },
+    "password_confirmation_required_error": "Password confirmation is required",
+    "@password_confirmation_required_error": {
+        "description": "Error message when password confirmation field is empty"
+    },
+    "password_confirmation_min_length_error": "Password confirmation must be at least {passwordConfirmationMinLength} characters",
+    "@password_confirmation_min_length_error": {
+        "description": "Error message when password confirmation is too short",
+        "placeholders": {
+            "passwordConfirmationMinLength": {
+                "type": "int",
+                "description": "Minimum length for password confirmation"
+            }
+        }
+    },
+    "password_confirmation_max_length_error": "Password confirmation must be less than {passwordConfirmationMaxLength} characters",
+    "@password_confirmation_max_length_error": {
+        "description": "Error message when password confirmation is too long",
+        "placeholders": {
+            "passwordConfirmationMaxLength": {
+                "type": "int",
+                "description": "Maximum length for password confirmation"
+            }
+        }
+    },
+    "password_confirmation_invalid_error": "Password confirmation is invalid",
+    "@password_confirmation_invalid_error": {
+        "description": "Error message when password confirmation format is invalid"
+    },
+    "password_confirmation_match_error": "Password confirmation does not match",
+    "@password_confirmation_match_error": {
+        "description": "Error message when password confirmation doesn't match the password"
+    },
+    "otp_min_length_error": "OTP must be at least {otpMinLength} digits",
+    "@otp_min_length_error": {
+        "description": "Error message when OTP is too short",
+        "placeholders": {
+            "otpMinLength": {
+                "type": "int",
+                "description": "Minimum length for OTP"
+            }
+        }
+    },
+    "otp_max_length_error": "OTP must be less than {otpMaxLength} digits",
+    "@otp_max_length_error": {
+        "description": "Error message when OTP is too long",
+        "placeholders": {
+            "otpMaxLength": {
+                "type": "int",
+                "description": "Maximum length for OTP"
+            }
+        }
+    },
+    "otp_required_error": "OTP is required",
+    "@otp_required_error": {
+        "description": "Error message when OTP field is empty"
+    },
+    "otp_invalid_error": "OTP is invalid",
+    "@otp_invalid_error": {
+        "description": "Error message when OTP format is invalid"
+    }
+}

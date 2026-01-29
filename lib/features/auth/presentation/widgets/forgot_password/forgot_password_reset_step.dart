@@ -6,9 +6,9 @@ import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/shadows.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/core/utils/validators.dart';
-import 'package:fpt_ojt/features/auth/presentation/constants/forgot_password.dart';
 import 'package:fpt_ojt/features/auth/presentation/constants/validations.dart';
 import 'package:fpt_ojt/features/auth/presentation/widgets/password_text_field.dart';
+import 'package:fpt_ojt/l10n/app_localizations.dart';
 
 class ForgotPasswordResetStep extends StatelessWidget {
   const ForgotPasswordResetStep({
@@ -33,45 +33,63 @@ class ForgotPasswordResetStep extends StatelessWidget {
       spacing: UIGaps.size16,
       children: [
         Text(
-          ForgotPasswordConstants.pleaseEnterYourNewPasswordText,
+          AppLocalizations.of(context)!.forgot_password_instruction,
           style: AppTextStyles.h3,
         ),
         PasswordTextField(
-          label: ForgotPasswordConstants.newPasswordLabel,
+          label: AppLocalizations.of(
+            context,
+          )!.forgot_password_new_password_label,
           controller: newPasswordController,
           validator: Validators.compose([
             Validators.required(
-              message: ValidationsConstants.passwordRequiredError,
+              message: AppLocalizations.of(context)!.password_required_error,
             ),
             Validators.minLen(
               ValidationsConstants.passwordMinLength,
-              message: ValidationsConstants.passwordInvalidError,
+              message: AppLocalizations.of(context)!.password_min_length_error(
+                ValidationsConstants.passwordMinLength,
+              ),
             ),
             Validators.maxLen(
               ValidationsConstants.passwordMaxLength,
-              message: ValidationsConstants.passwordInvalidError,
+              message: AppLocalizations.of(context)!.password_max_length_error(
+                ValidationsConstants.passwordMaxLength,
+              ),
             ),
           ]),
           enabled: !isLoading,
         ),
         PasswordTextField(
-          label: ForgotPasswordConstants.confirmPasswordLabel,
+          label: AppLocalizations.of(
+            context,
+          )!.forgot_password_confirm_password_label,
           controller: confirmPasswordController,
           validator: Validators.compose([
             Validators.required(
-              message: ValidationsConstants.passwordConfirmationRequiredError,
+              message: AppLocalizations.of(
+                context,
+              )!.password_confirmation_required_error,
             ),
             Validators.minLen(
               ValidationsConstants.passwordConfirmationMinLength,
-              message: ValidationsConstants.passwordConfirmationInvalidError,
+              message: AppLocalizations.of(context)!
+                  .password_confirmation_min_length_error(
+                    ValidationsConstants.passwordConfirmationMinLength,
+                  ),
             ),
             Validators.maxLen(
               ValidationsConstants.passwordConfirmationMaxLength,
-              message: ValidationsConstants.passwordConfirmationInvalidError,
+              message: AppLocalizations.of(context)!
+                  .password_confirmation_max_length_error(
+                    ValidationsConstants.passwordConfirmationMaxLength,
+                  ),
             ),
             Validators.sameAs(
               () => newPasswordController.text,
-              message: ValidationsConstants.passwordConfirmationMatchError,
+              message: AppLocalizations.of(
+                context,
+              )!.password_confirmation_match_error,
             ),
           ]),
           enabled: !isLoading,
@@ -100,7 +118,9 @@ class ForgotPasswordResetStep extends StatelessWidget {
                     ),
                   )
                 : Text(
-                    ForgotPasswordConstants.resetPasswordText,
+                    AppLocalizations.of(
+                      context,
+                    )!.forgot_password_reset_password,
                     style: AppTextStyles.btn.copyWith(
                       color: AppColors.neutralWhite,
                     ),

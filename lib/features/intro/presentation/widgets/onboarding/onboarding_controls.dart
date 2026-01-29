@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
-import 'package:fpt_ojt/features/intro/presentation/constants/onboarding_constants.dart';
+import 'package:fpt_ojt/l10n/app_localizations.dart';
 
 class OnboardingControls extends StatelessWidget {
   const OnboardingControls({
@@ -25,7 +25,7 @@ class OnboardingControls extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            child: const Text(OnboardingConstants.getStartedButtonText),
+            child: Text(AppLocalizations.of(context)!.onboarding_get_started),
           )
         : const SizedBox.shrink(),
   );
