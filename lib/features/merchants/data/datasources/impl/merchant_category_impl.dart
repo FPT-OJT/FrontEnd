@@ -8,6 +8,7 @@ import 'package:fpt_ojt/features/shared/models/api_response.dart';
 
 class MerchantCategoryDataSourceImpl implements MerchantCategoryDataSource {
   MerchantCategoryDataSourceImpl({required Dio dio}) : _dio = dio;
+  // ignore: unused_field
   final Dio _dio;
   @override
   Future<ApiResponse<List<CategoryModel>>> getMerchantCategories({
