@@ -7,4 +7,5 @@ class HomeText {
   static const String firstCardPromptDescription = 'Start your journey today';
   static const String searchTitle = 'Search for merchants';
   static const String searchPlaceholder = "I'm looking for...";
+  static const String merchantBestOfferTitle = 'Best offers found for you!';
 }
