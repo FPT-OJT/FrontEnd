@@ -1,36 +1,33 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fpt_ojt/core/entity/base_entity.dart';
+import 'package:fpt_ojt/features/merchants/domain/entities/location.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/merchant.dart';
 
 @immutable
-class MerchantAgency extends BaseEntity {
+class MerchantAgency extends Equatable {
   const MerchantAgency({
-    required super.id,
-    required super.createdAt,
-    required super.updatedAt,
+    required this.id,
     required this.name,
     required this.merchant,
     required this.merchantId,
-    required this.longitude,
-    required this.latitude,
+    required this.discount,
+    required this.location,
     required this.imageUrl,
   });
+  final String id;
   final String name;
   final Merchant merchant;
   final String merchantId;
-  final double longitude;
-  final double latitude;
+  final Location location;
+  final double discount;
   final String imageUrl;
   @override
   List<Object?> get props => [
     id,
-    createdAt,
-    updatedAt,
     name,
     merchant,
     merchantId,
-    longitude,
-    latitude,
     imageUrl,
+    location,
   ];
 }

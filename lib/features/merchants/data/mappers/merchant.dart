@@ -21,6 +21,7 @@ extension MerchantAgencyMapper on MerchantAgencyModel {
     discount: 20,
     location: Location(latitude: latitude ?? 0, longitude: longitude ?? 0),
     merchant: merchant.toEntity(),
+    merchantId: merchant.id,
   );
 }
 

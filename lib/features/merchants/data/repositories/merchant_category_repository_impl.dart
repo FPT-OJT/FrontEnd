@@ -1,4 +1,4 @@
-import 'package:fpdart/src/either.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/features/merchants/data/datasources/merchant_category_datasource.dart';
 import 'package:fpt_ojt/features/merchants/data/mappers/merchant_category_mapper.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_event.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_state.dart';
-import 'package:fpt_ojt/features/merchants/domain/usecases/getMerchantCategories.dart';
+import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_categories.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc({required GetMerchantCategoriesUseCase getMerchantCategoriesUseCase})

@@ -37,7 +37,7 @@ import 'package:fpt_ojt/features/merchants/data/datasources/impl/merchant_catego
 import 'package:fpt_ojt/features/merchants/data/datasources/merchant_category_datasource.dart';
 import 'package:fpt_ojt/features/merchants/data/repositories/merchant_category_repository_impl.dart';
 import 'package:fpt_ojt/features/merchants/domain/repositories/merchant_category_repository.dart';
-import 'package:fpt_ojt/features/merchants/domain/usecases/getMerchantCategories.dart';
+import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_categories.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 

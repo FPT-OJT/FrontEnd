@@ -24,6 +24,7 @@ const MerchantAgency merchantAgency = MerchantAgency(
   discount: 10,
   location: Location(longitude: 106.694419, latitude: 10.771918),
   merchant: merchant,
+  merchantId: '1',
 );
 const currentLocaltion = Location(longitude: 106.699419, latitude: 10.771918);
 
