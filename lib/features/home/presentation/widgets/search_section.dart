@@ -34,9 +34,8 @@ class SearchSection extends StatelessWidget {
       ),
       BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          debugPrint('state: ${state.status}');
-          debugPrint('state categories length: ${state.categories.length}');
-          if (state.status == HomeStatus.loading && state.categories.isEmpty) {
+          if (state.categoriesStatus == LoadStatus.loading &&
+              state.categories.isEmpty) {
             return Wrap(
               spacing: UIGaps.size8,
               runSpacing: UIGaps.size16,
@@ -46,7 +45,8 @@ class SearchSection extends StatelessWidget {
               ),
             );
           }
-          if (state.status == HomeStatus.failure && state.categories.isEmpty) {
+          if (state.categoriesStatus == LoadStatus.failure &&
+              state.categories.isEmpty) {
             return Center(
               child: Text(state.errorMessage ?? 'An error occurred'),
             );

@@ -6,9 +6,9 @@ import 'package:fpt_ojt/features/merchants/data/mappers/merchant.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/merchant_agency.dart';
 import 'package:fpt_ojt/features/merchants/domain/repositories/merchant_agency_repository.dart';
 
-class MerchantRepositoryImpl implements MerchantAgencyRepository {
-  MerchantRepositoryImpl(
-    this.merchantAgencyDataSource, {
+class MerchantAgencyRepositoryImpl implements MerchantAgencyRepository {
+  MerchantAgencyRepositoryImpl({
+    required this.merchantAgencyDataSource,
     required this.locationDataSource,
   });
   final MerchantAgencyDatasource merchantAgencyDataSource;

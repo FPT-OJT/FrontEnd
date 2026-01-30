@@ -6,9 +6,9 @@ import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/merchant_agency.dart';
 import 'package:fpt_ojt/features/merchants/domain/repositories/merchant_agency_repository.dart';
 
-class GetNearestMerchantAgencies
+class GetNearestMerchantAgenciesUseCase
     implements UseCase<List<MerchantAgency>, GetNearestMerchantAgenciesParams> {
-  GetNearestMerchantAgencies(this.merchantAgencyRepository);
+  GetNearestMerchantAgenciesUseCase(this.merchantAgencyRepository);
   final MerchantAgencyRepository merchantAgencyRepository;
 
   @override

@@ -53,6 +53,7 @@ const mockMerchantAgencies = '''
     "merchant": {
       "id": "019c02b1-00e5-76a2-b661-47c415151720",
       "name": "Starbucks Vietnam",
+      "description":"International coffeehouse chain",
       "mcc": "5814",
       "logoUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRowblgC4PDfdIlo9vW2F3Sf1n_VaOFhMIeXA&s"
     }
@@ -93,6 +94,7 @@ const mockMerchantAgencies = '''
       "id": "019c02b1-00e5-7610-ae32-194cd6ad2ac0",
       "name": "Haidilao Hotpot",
       "mcc": "5812",
+      "description": "Cinema and movie entertainment",
       "logoUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT89MVUx-5iG-UZGDMtvPB78CINDzOMJ4yvlg&s"
     }
   },

@@ -19,6 +19,7 @@ Future<void> initDependencies() async {
     );
   _initIntro();
   await _initAuth();
+  await _initMerchant();
   await _initHome();
 }
 
@@ -135,20 +136,39 @@ Future<void> _initAuth() async {
     );
 }
 
-Future<void> _initHome() async {
+Future<void> _initMerchant() async {
   serviceLocator
     ..registerLazySingleton<MerchantCategoryDataSource>(
       () => MerchantCategoryDataSourceImpl(dio: serviceLocator()),
     )
+    ..registerLazySingleton<MerchantAgencyDatasource>(
+      () => MerchantAgencyDatasourceImpl(dio: serviceLocator()),
+    )
+    ..registerLazySingleton<LocationDataSource>(LocationDatasourceImpl.new)
     ..registerLazySingleton<MerchantCategoryRepository>(
       () => MerchantCategoryRepositoryImpl(dataSource: serviceLocator()),
+    )
+    ..registerLazySingleton<MerchantAgencyRepository>(
+      () => MerchantAgencyRepositoryImpl(
+        locationDataSource: serviceLocator(),
+        merchantAgencyDataSource: serviceLocator(),
+      ),
     )
     ..registerLazySingleton<GetMerchantCategoriesUseCase>(
       () => GetMerchantCategoriesUseCase(
         merchantCategoryRepository: serviceLocator(),
       ),
     )
-    ..registerFactory<HomeBloc>(
-      () => HomeBloc(getMerchantCategoriesUseCase: serviceLocator()),
+    ..registerLazySingleton<GetNearestMerchantAgenciesUseCase>(
+      () => GetNearestMerchantAgenciesUseCase(serviceLocator()),
     );
+}
+
+Future<void> _initHome() async {
+  serviceLocator.registerFactory<HomeBloc>(
+    () => HomeBloc(
+      getMerchantCategoriesUseCase: serviceLocator(),
+      getNearestMerchantAgenciesUseCase: serviceLocator(),
+    ),
+  );
 }
