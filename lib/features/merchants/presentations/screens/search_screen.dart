@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
-import 'package:fpt_ojt/features/search/presentations/widgets/search_input_text_field.dart';
+import 'package:fpt_ojt/features/merchants/presentations/widgets/search_input_text_field.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});

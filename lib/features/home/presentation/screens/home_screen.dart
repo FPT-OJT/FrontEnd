@@ -7,6 +7,7 @@ import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_state.dart';
+import 'package:fpt_ojt/features/home/presentation/widgets/ai_section.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/explore_section.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/first_card_prompt.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/merchant_section.dart';
@@ -88,7 +89,7 @@ class _ContentSection extends StatelessWidget {
     child: const Column(
       spacing: UIGaps.size20,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [SearchSection(), MerchantSection()],
+      children: [SearchSection(), MerchantSection(), AiSection()],
     ),
   );
 }

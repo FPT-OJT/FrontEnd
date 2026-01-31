@@ -1,10 +1,9 @@
-import 'package:fpt_ojt/features/merchants/data/datasources/location_datasource.dart';
-import 'package:fpt_ojt/features/merchants/data/models/location_model.dart';
+import 'package:fpt_ojt/features/location/data/datasource/location_datasource.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationDatasourceImpl extends LocationDataSource {
   @override
-  Future<LocationModel> getCurrentLocation() async {
+  Future<Position> getCurrentCoordinate() async {
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       throw Exception('Location services are disabled.');
@@ -21,9 +20,19 @@ class LocationDatasourceImpl extends LocationDataSource {
       throw Exception('Location permissions are permanently denied');
     }
     final position = await Geolocator.getCurrentPosition();
-    return LocationModel(
-      latitude: position.latitude,
-      longitude: position.longitude,
-    );
+    return position;
   }
+
+  @override
+  Stream<Position> getCurrentPositionStream({
+    required Duration timeLimit,
+    required LocationAccuracy accuracy,
+    required int distanceFilterInMeters,
+  }) => Geolocator.getPositionStream(
+    locationSettings: LocationSettings(
+      timeLimit: timeLimit,
+      accuracy: accuracy,
+      distanceFilter: distanceFilterInMeters,
+    ),
+  );
 }

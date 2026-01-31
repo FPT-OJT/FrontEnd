@@ -1,6 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_event.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_state.dart';
+import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
+import 'package:fpt_ojt/features/location/domain/usecases/current_coordinate.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_categories.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_nearest_merchant_agencies.dart';
 
@@ -9,14 +12,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required GetMerchantCategoriesUseCase getMerchantCategoriesUseCase,
     required GetNearestMerchantAgenciesUseCase
     getNearestMerchantAgenciesUseCase,
+    required CurrentCoordinateUseCase currentCoordinateUseCase,
   }) : _getMerchantCategoriesUseCase = getMerchantCategoriesUseCase,
        _getNearestMerchantAgenciesUseCase = getNearestMerchantAgenciesUseCase,
+       _currentCoordinateUseCase = currentCoordinateUseCase,
        super(const HomeState()) {
     on<HomeStarted>(_onHomeStarted);
   }
 
   final GetMerchantCategoriesUseCase _getMerchantCategoriesUseCase;
   final GetNearestMerchantAgenciesUseCase _getNearestMerchantAgenciesUseCase;
+  final CurrentCoordinateUseCase _currentCoordinateUseCase;
 
   static const int _defaultCategoryLimit = 10;
   static const int _defaultPage = 1;
@@ -62,8 +68,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> _loadNearestAgencies(Emitter<HomeState> emit) async {
+    final currentCoordinate = await _currentCoordinateUseCase(const NoParams());
+    final coordinate = currentCoordinate.getOrElse(
+      (failure) => const Coordinate(latitude: 0, longitude: 0),
+    );
     final result = await _getNearestMerchantAgenciesUseCase(
-      const GetNearestMerchantAgenciesParams(limit: _defaultAgencyLimit),
+      GetNearestMerchantAgenciesParams(
+        limit: _defaultAgencyLimit,
+        latitude: coordinate.latitude,
+        longitude: coordinate.longitude,
+      ),
     );
 
     result.fold(

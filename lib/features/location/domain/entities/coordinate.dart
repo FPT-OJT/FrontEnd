@@ -2,14 +2,14 @@ import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 
-class Location extends Equatable {
-  const Location({required this.latitude, required this.longitude});
+class Coordinate extends Equatable {
+  const Coordinate({required this.latitude, required this.longitude});
   final double latitude;
   final double longitude;
 
-  int distanceTo(Location other) => _calculateDistanceInMeters(this, other);
+  int distanceTo(Coordinate other) => _calculateDistanceInMeters(this, other);
 
-  int _calculateDistanceInMeters(Location from, Location to) {
+  int _calculateDistanceInMeters(Coordinate from, Coordinate to) {
     const earthRadius = 6371000;
 
     final dLat = _degToRad(to.latitude - from.latitude);

@@ -21,6 +21,7 @@ Future<void> initDependencies() async {
   await _initAuth();
   await _initMerchant();
   await _initHome();
+  await _initLocation();
 }
 
 void _initIntro() {
@@ -144,7 +145,6 @@ Future<void> _initMerchant() async {
     ..registerLazySingleton<MerchantAgencyDatasource>(
       () => MerchantAgencyDatasourceImpl(dio: serviceLocator()),
     )
-    ..registerLazySingleton<LocationDataSource>(LocationDatasourceImpl.new)
     ..registerLazySingleton<MerchantCategoryRepository>(
       () => MerchantCategoryRepositoryImpl(dataSource: serviceLocator()),
     )
@@ -169,6 +169,28 @@ Future<void> _initHome() async {
     () => HomeBloc(
       getMerchantCategoriesUseCase: serviceLocator(),
       getNearestMerchantAgenciesUseCase: serviceLocator(),
+      currentCoordinateUseCase: serviceLocator(),
+    ),
+  );
+}
+
+Future<void> _initLocation() async {
+  serviceLocator.registerLazySingleton<LocationDataSource>(
+    LocationDatasourceImpl.new,
+  );
+  serviceLocator.registerLazySingleton<LocationRepository>(
+    () => LocationRepositoryImpl(locationDataSource: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<CurrentCoordinateUseCase>(
+    () => CurrentCoordinateUseCase(locationRepository: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<CoordinateStreamUseCase>(
+    () => CoordinateStreamUseCase(locationRepository: serviceLocator()),
+  );
+  serviceLocator.registerFactory<LocationBloc>(
+    () => LocationBloc(
+      currentCoordinateUseCase: serviceLocator(),
+      coordinateStreamUseCase: serviceLocator(),
     ),
   );
 }

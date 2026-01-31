@@ -7,9 +7,9 @@ import 'package:fpt_ojt/features/home/presentation/blocs/home_bloc.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_state.dart';
 import 'package:fpt_ojt/features/home/presentation/constants/text.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/mechant_deal_card.dart';
-import 'package:fpt_ojt/features/merchants/domain/entities/location.dart';
+import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
 
-const currentLocaltion = Location(longitude: 106.699419, latitude: 10.771918);
+const currentLocaltion = Coordinate(longitude: 106.699419, latitude: 10.771918);
 
 class MerchantSection extends StatelessWidget {
   const MerchantSection({super.key});

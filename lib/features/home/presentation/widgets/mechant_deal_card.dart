@@ -4,7 +4,7 @@ import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
-import 'package:fpt_ojt/features/merchants/domain/entities/location.dart';
+import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/merchant_agency.dart';
 
 class MerchantDealCard extends StatelessWidget {
@@ -15,7 +15,7 @@ class MerchantDealCard extends StatelessWidget {
   });
 
   final MerchantAgency merchantAgency;
-  final Location currentLocation;
+  final Coordinate currentLocation;
 
   // Distance constants
   static const double meterPerKiloMeter = 1000;

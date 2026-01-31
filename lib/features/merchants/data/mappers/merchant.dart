@@ -1,6 +1,6 @@
+import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
 import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_model.dart';
 import 'package:fpt_ojt/features/merchants/data/models/merchant_model.dart';
-import 'package:fpt_ojt/features/merchants/domain/entities/location.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/merchant.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/merchant_agency.dart';
 
@@ -19,7 +19,7 @@ extension MerchantAgencyMapper on MerchantAgencyModel {
     name: name,
     imageUrl: imageUrl ?? '',
     discount: 20,
-    location: Location(latitude: latitude ?? 0, longitude: longitude ?? 0),
+    location: Coordinate(latitude: latitude ?? 0, longitude: longitude ?? 0),
     merchant: merchant.toEntity(),
     merchantId: merchant.id,
   );

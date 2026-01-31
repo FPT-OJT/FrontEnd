@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fpt_ojt/features/merchants/domain/entities/location.dart';
+import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/merchant.dart';
 
 @immutable
@@ -18,7 +18,7 @@ class MerchantAgency extends Equatable {
   final String name;
   final Merchant merchant;
   final String merchantId;
-  final Location location;
+  final Coordinate location;
   final double discount;
   final String imageUrl;
   @override

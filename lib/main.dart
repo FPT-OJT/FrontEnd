@@ -11,6 +11,8 @@ import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_opt
 import 'package:fpt_ojt/features/home/presentation/blocs/home_bloc.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_event.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_cubit.dart';
+import 'package:fpt_ojt/features/location/blocs/location_bloc.dart';
+import 'package:fpt_ojt/features/location/blocs/location_event.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +36,10 @@ void main() async {
         BlocProvider<HomeBloc>(
           create: (context) =>
               serviceLocator<HomeBloc>()..add(const HomeStarted()),
+        ),
+        BlocProvider<LocationBloc>(
+          create: (context) =>
+              serviceLocator<LocationBloc>()..add(const LocationStarted()),
         ),
       ],
       child: const MainApp(),

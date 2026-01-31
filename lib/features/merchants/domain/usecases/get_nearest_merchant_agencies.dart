@@ -14,14 +14,23 @@ class GetNearestMerchantAgenciesUseCase
   @override
   Future<Either<Failure, List<MerchantAgency>>> call(
     GetNearestMerchantAgenciesParams params,
-  ) => merchantAgencyRepository.getNearestMerchantAgencies(limit: params.limit);
+  ) => merchantAgencyRepository.getNearestMerchantAgencies(
+    limit: params.limit,
+    latitude: params.latitude,
+    longitude: params.longitude,
+  );
 }
 
 @immutable
 class GetNearestMerchantAgenciesParams extends Equatable {
-  const GetNearestMerchantAgenciesParams({required this.limit});
+  const GetNearestMerchantAgenciesParams({
+    required this.limit,
+    required this.latitude,
+    required this.longitude,
+  });
   final int limit;
-
+  final double latitude;
+  final double longitude;
   @override
-  List<Object?> get props => [limit];
+  List<Object?> get props => [limit, latitude, longitude];
 }
