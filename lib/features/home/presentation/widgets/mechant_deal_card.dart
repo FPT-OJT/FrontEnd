@@ -45,12 +45,12 @@ class MerchantDealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final distance =
+    final double distanceInMeters =
         merchantAgency.distance ??
-        merchantAgency.location.distanceTo(currentLocation);
-    final distanceText = distance > meterPerKiloMeter
-        ? '${(distance / meterPerKiloMeter).toStringAsFixed(1)}km'
-        : '${distance}m';
+        merchantAgency.location.distanceTo(currentLocation).toDouble();
+    final String distanceText = distanceInMeters > meterPerKiloMeter
+        ? '${(distanceInMeters / meterPerKiloMeter).toStringAsFixed(1)}km'
+        : '${distanceInMeters.toStringAsFixed(0)}m';
 
     return SizedBox(
       height: cardHeight,
