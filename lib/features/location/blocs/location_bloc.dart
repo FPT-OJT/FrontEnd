@@ -30,6 +30,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     Emitter<LocationState> emit,
   ) async {
     emit(LocationState.loading());
+    // initial coordinate
+    final currentCoordinate = await _currentCoordinateUseCase.call(
+      const NoParams(),
+    );
+    currentCoordinate.fold(
+      (failure) => emit(LocationState.failure(failure.message)),
+      (coordinate) => emit(LocationState.success(coordinate)),
+    );
 
     final result = await _coordinateStreamUseCase.call(
       CoordinateStreamParams(
@@ -37,8 +45,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         distanceFilterInMeters: coordinateUpdateDistanceFilterInMeters,
       ),
     );
-    // listen to stream and log
-
+    // listen to stream and emit new state
     await result.fold(
       (failure) async {
         emit(LocationState.failure(failure.message));
