@@ -65,8 +65,10 @@ class MockMovingLocationDatasourceImpl extends LocationDataSource {
     Coordinate from,
     Coordinate to,
   ) async {
+    const osrmUrl = String.fromEnvironment('OSRM_URL');
+
     final response = await dio.get<Map<String, dynamic>>(
-      'https://router.project-osrm.org/route/v1/driving/'
+      '$osrmUrl/driving/'
       '${from.longitude},${from.latitude};${to.longitude},${to.latitude}',
       queryParameters: {'geometries': 'geojson'},
     );
