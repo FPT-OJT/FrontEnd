@@ -36,4 +36,24 @@ class LocationRepositoryImpl implements LocationRepository {
 
     return _positionStream!;
   }
+
+  @override
+  Future<Either<Failure, double>> getDistanceBetweenCoordinates(
+    Coordinate from,
+    Coordinate to,
+  ) async {
+    try {
+      final response = await _locationDataSource.getDistanceBetweenCoordinates(
+        from,
+        to,
+      );
+
+      // shortest distance (meters)
+      final distance = response.routes.first.distance;
+
+      return Right(distance);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
 }

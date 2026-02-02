@@ -34,7 +34,7 @@ class SearchSection extends StatelessWidget {
       ),
       BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          if (state.categoriesStatus == LoadStatus.loading &&
+          if (state.categoriesStatus == HomeLoadStatus.loading &&
               state.categories.isEmpty) {
             return Wrap(
               spacing: UIGaps.size8,
@@ -45,7 +45,7 @@ class SearchSection extends StatelessWidget {
               ),
             );
           }
-          if (state.categoriesStatus == LoadStatus.failure &&
+          if (state.categoriesStatus == HomeLoadStatus.failure &&
               state.categories.isEmpty) {
             return Center(
               child: Text(state.errorMessage ?? 'An error occurred'),

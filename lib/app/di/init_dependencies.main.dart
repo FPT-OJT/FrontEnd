@@ -160,7 +160,10 @@ Future<void> _initMerchant() async {
       ),
     )
     ..registerLazySingleton<GetNearestMerchantAgenciesUseCase>(
-      () => GetNearestMerchantAgenciesUseCase(serviceLocator()),
+      () => GetNearestMerchantAgenciesUseCase(
+        merchantAgencyRepository: serviceLocator(),
+        getShortestDistanceUseCase: serviceLocator(),
+      ),
     );
 }
 
@@ -169,14 +172,13 @@ Future<void> _initHome() async {
     () => HomeBloc(
       getMerchantCategoriesUseCase: serviceLocator(),
       getNearestMerchantAgenciesUseCase: serviceLocator(),
-      currentCoordinateUseCase: serviceLocator(),
     ),
   );
 }
 
 Future<void> _initLocation() async {
   serviceLocator.registerLazySingleton<LocationDataSource>(
-    LocationDatasourceImpl.new,
+    () => LocationDatasourceImpl(dio: serviceLocator()),
   );
   serviceLocator.registerLazySingleton<LocationRepository>(
     () => LocationRepositoryImpl(locationDataSource: serviceLocator()),
@@ -186,6 +188,9 @@ Future<void> _initLocation() async {
   );
   serviceLocator.registerLazySingleton<CoordinateStreamUseCase>(
     () => CoordinateStreamUseCase(locationRepository: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<GetShortestDistanceUseCase>(
+    () => GetShortestDistanceUseCase(locationRepository: serviceLocator()),
   );
   serviceLocator.registerFactory<LocationBloc>(
     () => LocationBloc(
