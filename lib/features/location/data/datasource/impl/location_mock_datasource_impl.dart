@@ -66,6 +66,11 @@ class MockMovingLocationDatasourceImpl extends LocationDataSource {
     Coordinate to,
   ) async {
     const osrmUrl = String.fromEnvironment('OSRM_URL');
+    if (osrmUrl.isEmpty) {
+      throw StateError(
+        'OSRM_URL compile-time environment variable is not set or is empty.',
+      );
+    }
 
     final response = await dio.get<Map<String, dynamic>>(
       '$osrmUrl/driving/'
