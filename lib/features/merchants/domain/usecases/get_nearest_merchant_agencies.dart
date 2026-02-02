@@ -56,10 +56,12 @@ class GetNearestMerchantAgenciesUseCase
       final agenciesWithNonNullDistance = agenciesWithDistance
           .where((agency) => agency.distance != null)
           .toList();
-      agenciesWithNonNullDistance
-          .sort((a, b) => a.distance!.compareTo(b.distance!));
-      final nearestAgencies =
-          agenciesWithNonNullDistance.take(params.limit).toList();
+      agenciesWithNonNullDistance.sort(
+        (a, b) => a.distance!.compareTo(b.distance!),
+      );
+      final nearestAgencies = agenciesWithNonNullDistance
+          .take(params.limit)
+          .toList();
 
       return Right(nearestAgencies);
     });
