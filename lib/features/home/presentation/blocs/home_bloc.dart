@@ -1,9 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_event.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_state.dart';
-import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
-import 'package:fpt_ojt/features/location/domain/usecases/current_coordinate.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_categories.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_nearest_merchant_agencies.dart';
 
@@ -12,17 +11,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required GetMerchantCategoriesUseCase getMerchantCategoriesUseCase,
     required GetNearestMerchantAgenciesUseCase
     getNearestMerchantAgenciesUseCase,
-    required CurrentCoordinateUseCase currentCoordinateUseCase,
   }) : _getMerchantCategoriesUseCase = getMerchantCategoriesUseCase,
        _getNearestMerchantAgenciesUseCase = getNearestMerchantAgenciesUseCase,
-       _currentCoordinateUseCase = currentCoordinateUseCase,
        super(const HomeState()) {
     on<HomeStarted>(_onHomeStarted);
+    on<HomeRefreshNearestMerchantAgencies>(_onCoordinateUpdated);
   }
 
   final GetMerchantCategoriesUseCase _getMerchantCategoriesUseCase;
   final GetNearestMerchantAgenciesUseCase _getNearestMerchantAgenciesUseCase;
-  final CurrentCoordinateUseCase _currentCoordinateUseCase;
 
   static const int _defaultCategoryLimit = 10;
   static const int _defaultPage = 1;
@@ -34,13 +31,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     emit(
       state.copyWith(
-        categoriesStatus: LoadStatus.loading,
-        agenciesStatus: LoadStatus.loading,
+        categoriesStatus: HomeLoadStatus.loading,
+        agenciesStatus: HomeLoadStatus.loading,
         errorMessage: null,
       ),
     );
 
-    await Future.wait([_loadCategories(emit), _loadNearestAgencies(emit)]);
+    await Future.wait([_loadCategories(emit)]);
   }
 
   Future<void> _loadCategories(Emitter<HomeState> emit) async {
@@ -54,42 +51,48 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     result.fold(
       (failure) => emit(
         state.copyWith(
-          categoriesStatus: LoadStatus.failure,
+          categoriesStatus: HomeLoadStatus.failure,
           errorMessage: failure.message,
         ),
       ),
       (categories) => emit(
         state.copyWith(
-          categoriesStatus: LoadStatus.success,
+          categoriesStatus: HomeLoadStatus.success,
           categories: categories,
         ),
       ),
     );
   }
 
-  Future<void> _loadNearestAgencies(Emitter<HomeState> emit) async {
-    final currentCoordinate = await _currentCoordinateUseCase(const NoParams());
-    final coordinate = currentCoordinate.getOrElse(
-      (failure) => const Coordinate(latitude: 0, longitude: 0),
+  Future<void> _onCoordinateUpdated(
+    HomeRefreshNearestMerchantAgencies event,
+    Emitter<HomeState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        currentCoordinate: event.coordinate,
+        agenciesStatus: HomeLoadStatus.loading,
+      ),
     );
+
     final result = await _getNearestMerchantAgenciesUseCase(
       GetNearestMerchantAgenciesParams(
         limit: _defaultAgencyLimit,
-        latitude: coordinate.latitude,
-        longitude: coordinate.longitude,
+        latitude: event.coordinate.latitude,
+        longitude: event.coordinate.longitude,
       ),
     );
 
     result.fold(
       (failure) => emit(
         state.copyWith(
-          agenciesStatus: LoadStatus.failure,
+          agenciesStatus: HomeLoadStatus.failure,
           errorMessage: failure.message,
         ),
       ),
       (agencies) => emit(
         state.copyWith(
-          agenciesStatus: LoadStatus.success,
+          agenciesStatus: HomeLoadStatus.success,
           nearestMerchantAgencies: agencies,
         ),
       ),

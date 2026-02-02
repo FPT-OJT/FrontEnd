@@ -61,8 +61,8 @@ const mockMerchantAgencies = '''
   {
     "id": "019c02b1-00e5-71df-b21c-15fd36d72cb0",
     "name": "Starbucks Rex Hotel",
-    "longitude": 106.701944,
-    "latitude": 10.776111,
+    "longitude": 106.8290988,
+    "latitude": 10.82882882,
     "imageUrl": null,
     "merchant": {
       "id": "019c02b1-00e5-76a2-b661-47c415151720",

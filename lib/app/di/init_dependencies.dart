@@ -40,6 +40,7 @@ import 'package:fpt_ojt/features/location/data/repositories/location_repository_
 import 'package:fpt_ojt/features/location/domain/repositories/location_repository.dart';
 import 'package:fpt_ojt/features/location/domain/usecases/coordinate_stream.dart';
 import 'package:fpt_ojt/features/location/domain/usecases/current_coordinate.dart';
+import 'package:fpt_ojt/features/location/domain/usecases/get_shortest_distance.dart';
 import 'package:fpt_ojt/features/merchants/data/datasources/impl/merchant_agency_datasource_impl.dart';
 import 'package:fpt_ojt/features/merchants/data/datasources/impl/merchant_category_impl.dart';
 import 'package:fpt_ojt/features/merchants/data/datasources/merchant_agency_datasource.dart';

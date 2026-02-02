@@ -1,7 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:fpt_ojt/features/location/data/datasource/location_datasource.dart';
+import 'package:fpt_ojt/features/location/data/models/osrm_route_response.dart';
+import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationDatasourceImpl extends LocationDataSource {
+  LocationDatasourceImpl({required this.dio});
+  final Dio dio;
   @override
   Future<Position> getCurrentCoordinate() async {
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -35,4 +40,18 @@ class LocationDatasourceImpl extends LocationDataSource {
       distanceFilter: distanceFilterInMeters,
     ),
   );
+
+  @override
+  Future<OsrmRouteResponse> getDistanceBetweenCoordinates(
+    Coordinate from,
+    Coordinate to,
+  ) async {
+    final response = await dio.get<Map<String, dynamic>>(
+      'https://router.project-osrm.org/route/v1/driving/'
+      '${from.longitude},${from.latitude};${to.longitude},${to.latitude}',
+      queryParameters: {'geometries': 'geojson'},
+    );
+
+    return OsrmRouteResponse.fromJson(response.data ?? {});
+  }
 }

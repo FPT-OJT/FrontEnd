@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
 import 'package:fpt_ojt/features/location/blocs/location_event.dart';
@@ -31,10 +32,11 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
     final result = await _coordinateStreamUseCase.call(
       const CoordinateStreamParams(
-        timeLimit: Duration(seconds: 5),
+        timeLimit: Duration(seconds: 20),
         distanceFilterInMeters: 10,
       ),
     );
+    // listen to stream and log
 
     await result.fold(
       (failure) async {
@@ -43,8 +45,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       (stream) async {
         await emit.forEach<Coordinate>(
           stream,
-          onData: LocationState.success,
-          onError: (_, _) => LocationState.failure('Location stream error'),
+          onData: (coordinate) {
+            debugPrint('coordinate: $coordinate');
+            return LocationState.success(coordinate);
+          },
+          onError: (error, _) {
+            debugPrint('error: $error');
+            return state;
+          },
         );
       },
     );

@@ -23,6 +23,10 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider<LocationBloc>(
+          create: (context) =>
+              serviceLocator<LocationBloc>()..add(const LocationStarted()),
+        ),
         BlocProvider<OnboardingCubit>(
           create: (context) => serviceLocator<OnboardingCubit>(),
         ),
@@ -36,10 +40,6 @@ void main() async {
         BlocProvider<HomeBloc>(
           create: (context) =>
               serviceLocator<HomeBloc>()..add(const HomeStarted()),
-        ),
-        BlocProvider<LocationBloc>(
-          create: (context) =>
-              serviceLocator<LocationBloc>()..add(const LocationStarted()),
         ),
       ],
       child: const MainApp(),

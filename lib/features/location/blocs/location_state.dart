@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'location_state.freezed.dart';
@@ -6,7 +5,7 @@ part 'location_state.freezed.dart';
 enum LoadStatus { initial, loading, success, failure }
 
 @freezed
-abstract class LocationState with _$LocationState implements Equatable {
+abstract class LocationState with _$LocationState {
   const factory LocationState({
     @Default(LoadStatus.initial) LoadStatus status,
     Coordinate? current,
@@ -19,6 +18,4 @@ abstract class LocationState with _$LocationState implements Equatable {
       LocationState(status: LoadStatus.success, current: current);
   factory LocationState.failure(String errorMessage) =>
       LocationState(status: LoadStatus.failure, errorMessage: errorMessage);
-  @override
-  List<Object?> get props => [status, current, errorMessage];
 }

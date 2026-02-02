@@ -1,3 +1,5 @@
+import 'package:fpt_ojt/features/location/data/models/osrm_route_response.dart';
+import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
 import 'package:geolocator/geolocator.dart';
 
 abstract class LocationDataSource {
@@ -7,4 +9,8 @@ abstract class LocationDataSource {
     required LocationAccuracy accuracy,
     required int distanceFilterInMeters,
   });
+  Future<OsrmRouteResponse> getDistanceBetweenCoordinates(
+    Coordinate from,
+    Coordinate to,
+  );
 }

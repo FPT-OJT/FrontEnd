@@ -8,4 +8,8 @@ abstract interface class LocationRepository {
     required Duration timeLimit,
     required int distanceFilterInMeters,
   });
+  Future<Either<Failure, double>> getDistanceBetweenCoordinates(
+    Coordinate from,
+    Coordinate to,
+  );
 }
