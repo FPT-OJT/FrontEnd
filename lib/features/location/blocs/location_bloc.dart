@@ -23,7 +23,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   }
   final CurrentCoordinateUseCase _currentCoordinateUseCase;
   final CoordinateStreamUseCase _coordinateStreamUseCase;
-
+  final int coordinateUpdateDuration = 20;
+  final int coordinateUpdateDistanceFilterInMeters = 10;
   Future<void> _onLocationStarted(
     LocationStarted event,
     Emitter<LocationState> emit,
@@ -31,9 +32,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     emit(LocationState.loading());
 
     final result = await _coordinateStreamUseCase.call(
-      const CoordinateStreamParams(
-        timeLimit: Duration(seconds: 20),
-        distanceFilterInMeters: 10,
+      CoordinateStreamParams(
+        timeLimit: Duration(seconds: coordinateUpdateDuration),
+        distanceFilterInMeters: coordinateUpdateDistanceFilterInMeters,
       ),
     );
     // listen to stream and log
