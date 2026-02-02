@@ -49,7 +49,7 @@ class MerchantSection extends StatelessWidget {
   ) {
     if (locationState.current != null) {
       context.read<HomeBloc>().add(
-        HomeRefreshNearestMerchantAgencies(locationState.current!),
+        HomeCoordinateUpdated(locationState.current!),
       );
     }
   }

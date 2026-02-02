@@ -15,7 +15,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
        _getNearestMerchantAgenciesUseCase = getNearestMerchantAgenciesUseCase,
        super(const HomeState()) {
     on<HomeStarted>(_onHomeStarted);
-    on<HomeRefreshNearestMerchantAgencies>(_onCoordinateUpdated);
+    on<HomeCoordinateUpdated>(_onCoordinateUpdated);
   }
 
   final GetMerchantCategoriesUseCase _getMerchantCategoriesUseCase;
@@ -65,7 +65,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> _onCoordinateUpdated(
-    HomeRefreshNearestMerchantAgencies event,
+    HomeCoordinateUpdated event,
     Emitter<HomeState> emit,
   ) async {
     emit(

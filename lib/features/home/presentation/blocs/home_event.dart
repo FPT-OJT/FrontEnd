@@ -12,7 +12,7 @@ class HomeStarted extends HomeEvent {
   const HomeStarted();
 }
 
-class HomeRefreshNearestMerchantAgencies extends HomeEvent {
-  const HomeRefreshNearestMerchantAgencies(this.coordinate);
+class HomeCoordinateUpdated extends HomeEvent {
+  const HomeCoordinateUpdated(this.coordinate);
   final Coordinate coordinate;
 }
