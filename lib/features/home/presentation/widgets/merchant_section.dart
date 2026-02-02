@@ -66,9 +66,9 @@ class MerchantSection extends StatelessWidget {
     return _buildMerchantCards(homeState, locationState);
   }
 
-  Widget _buildLoadingState() => const SizedBox(
-    height: 80,
-    child: Center(child: CircularProgressIndicator()),
+  Widget _buildLoadingState() => Column(
+    spacing: UIGaps.size8,
+    children: List.generate(3, (_) => const MerchantDealCardSkeleton()),
   );
 
   bool _shouldShowEmptyState(

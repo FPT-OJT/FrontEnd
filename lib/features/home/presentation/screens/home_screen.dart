@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
-import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_state.dart';
@@ -80,9 +79,12 @@ class _ContentSection extends StatelessWidget {
       horizontal: UIGaps.size20,
       vertical: UIGaps.size20,
     ),
-    decoration: BoxDecoration(
-      borderRadius: Rounded.lg,
+    decoration: const BoxDecoration(
       color: AppColors.neutralEggShell20,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      ),
     ),
     width: double.infinity,
     constraints: const BoxConstraints(minHeight: 700),

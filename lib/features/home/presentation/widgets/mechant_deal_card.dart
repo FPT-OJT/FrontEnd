@@ -6,6 +6,7 @@ import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/merchant_agency.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MerchantDealCard extends StatelessWidget {
   const MerchantDealCard({
@@ -173,5 +174,114 @@ class MerchantDealCard extends StatelessWidget {
 
       /// Discount badge
     ],
+  );
+}
+
+class MerchantDealCardSkeleton extends StatelessWidget {
+  const MerchantDealCardSkeleton({super.key});
+
+  static const double cardHeight = 72;
+  static const double iconSize = 40;
+  static const double actionIconSize = 22;
+
+  @override
+  Widget build(BuildContext context) => Shimmer.fromColors(
+    baseColor: AppColors.neutralGrey,
+    highlightColor: AppColors.neutralWhite,
+    child: SizedBox(
+      height: cardHeight,
+      child: Row(
+        children: [
+          // Logo skeleton
+          Container(
+            width: iconSize,
+            height: iconSize,
+            decoration: BoxDecoration(
+              color: AppColors.neutralWhite,
+              borderRadius: Rounded.xl,
+            ),
+          ),
+          UIGaps.w12,
+
+          // Info section skeleton
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Merchant name skeleton
+                Container(
+                  height: 14,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: AppColors.neutralWhite,
+                    borderRadius: Rounded.xs,
+                  ),
+                ),
+                UIGaps.h4,
+                // Description skeleton
+                Container(
+                  height: 12,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: AppColors.neutralWhite,
+                    borderRadius: Rounded.xs,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          UIGaps.w8,
+
+          // Action icons skeleton
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Row(
+                spacing: UIGaps.size4,
+                children: [
+                  Container(
+                    width: actionIconSize,
+                    height: actionIconSize,
+                    decoration: BoxDecoration(
+                      color: AppColors.neutralWhite,
+                      borderRadius: Rounded.xs,
+                    ),
+                  ),
+                  Container(
+                    width: actionIconSize,
+                    height: actionIconSize,
+                    decoration: BoxDecoration(
+                      color: AppColors.neutralWhite,
+                      borderRadius: Rounded.xs,
+                    ),
+                  ),
+                  Container(
+                    width: actionIconSize,
+                    height: actionIconSize,
+                    decoration: BoxDecoration(
+                      color: AppColors.neutralWhite,
+                      borderRadius: Rounded.xs,
+                    ),
+                  ),
+                ],
+              ),
+              UIGaps.h8,
+              // Distance skeleton
+              Container(
+                height: 12,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: AppColors.neutralWhite,
+                  borderRadius: Rounded.xs,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
   );
 }
