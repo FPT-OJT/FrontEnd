@@ -53,8 +53,13 @@ class GetNearestMerchantAgenciesUseCase
         }),
       );
       // Take top agencies based on requested limit
-      agenciesWithDistance.sort((a, b) => a.distance!.compareTo(b.distance!));
-      final nearestAgencies = agenciesWithDistance.take(params.limit).toList();
+      final agenciesWithNonNullDistance = agenciesWithDistance
+          .where((agency) => agency.distance != null)
+          .toList();
+      agenciesWithNonNullDistance
+          .sort((a, b) => a.distance!.compareTo(b.distance!));
+      final nearestAgencies =
+          agenciesWithNonNullDistance.take(params.limit).toList();
 
       return Right(nearestAgencies);
     });
