@@ -21,25 +21,29 @@ class GetNearestMerchantAgenciesUseCase
   Future<Either<Failure, List<MerchantAgency>>> call(
     GetNearestMerchantAgenciesParams params,
   ) async {
+    // Fetch nearest merchant agency candidates
     final candidatesResult = await merchantAgencyRepository
         .getNearestMerchantAgencies(
-          limit: 10,
+          limit: params.limit * 2,
           latitude: params.latitude,
           longitude: params.longitude,
         );
 
     return candidatesResult.fold(Left.new, (candidates) async {
+      // User location coordinate
       final userLocation = Coordinate(
         latitude: params.latitude,
         longitude: params.longitude,
       );
-
+      // Calculate distance for each agency
       final agenciesWithDistance = await Future.wait(
         candidates.map((agency) async {
+          // Try to get shortest route distance from OSRM
           final distanceResult = await getShortestDistanceUseCase(
             GetShortestDistanceParams(from: userLocation, to: agency.location),
           );
-
+          // Use OSRM distance if successful,
+          // otherwise fallback to straight-line distance
           final distance = distanceResult.fold(
             (_) => userLocation.distanceTo(agency.location).toDouble(),
             (osrmDistance) => osrmDistance,
@@ -48,7 +52,7 @@ class GetNearestMerchantAgenciesUseCase
           return agency.copyWith(distance: distance);
         }),
       );
-
+      // Take top agencies based on requested limit
       agenciesWithDistance.sort((a, b) => a.distance!.compareTo(b.distance!));
       final nearestAgencies = agenciesWithDistance.take(params.limit).toList();
 
