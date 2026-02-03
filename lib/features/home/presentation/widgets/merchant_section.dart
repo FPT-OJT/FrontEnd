@@ -4,7 +4,6 @@ import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_bloc.dart';
-import 'package:fpt_ojt/features/home/presentation/blocs/home_event.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_state.dart';
 import 'package:fpt_ojt/features/home/presentation/constants/text.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/mechant_deal_card.dart';
@@ -32,8 +31,7 @@ class MerchantSection extends StatelessWidget {
         return _buildErrorState(homeState.errorMessage);
       }
 
-      return BlocConsumer<LocationBloc, LocationState>(
-        listener: _handleLocationUpdate,
+      return BlocBuilder<LocationBloc, LocationState>(
         builder: (context, locationState) =>
             _buildContent(homeState, locationState),
       );
@@ -42,17 +40,6 @@ class MerchantSection extends StatelessWidget {
 
   Widget _buildErrorState(String? errorMessage) =>
       Text(errorMessage ?? 'An error occurred');
-
-  void _handleLocationUpdate(
-    BuildContext context,
-    LocationState locationState,
-  ) {
-    if (locationState.current != null) {
-      context.read<HomeBloc>().add(
-        HomeCoordinateUpdated(locationState.current!),
-      );
-    }
-  }
 
   Widget _buildContent(HomeState homeState, LocationState locationState) {
     if (homeState.agenciesStatus == HomeLoadStatus.loading) {
@@ -66,32 +53,36 @@ class MerchantSection extends StatelessWidget {
     return _buildMerchantCards(homeState, locationState);
   }
 
-  Widget _buildLoadingState() => Column(
-    spacing: UIGaps.size8,
-    children: List.generate(3, (_) => const MerchantDealCardSkeleton()),
+  Widget _buildLoadingState() => SizedBox(
+    height: 300,
+    child: ListView.separated(
+      physics: const BouncingScrollPhysics(),
+      itemCount: 3,
+      separatorBuilder: (_, __) => UIGaps.h8,
+      itemBuilder: (_, __) => const MerchantDealCardSkeleton(),
+    ),
   );
 
   bool _shouldShowEmptyState(
     HomeState homeState,
     LocationState locationState,
-  ) =>
-      homeState.nearestMerchantAgencies.isEmpty ||
-      locationState.current == null;
+  ) => homeState.merchantOffers.isEmpty || locationState.current == null;
 
   Widget _buildEmptyState() => const SizedBox(height: 80);
 
   Widget _buildMerchantCards(
     HomeState homeState,
     LocationState locationState,
-  ) => Column(
-    spacing: UIGaps.size8,
-    children: homeState.nearestMerchantAgencies
-        .map(
-          (agency) => MerchantDealCard(
-            merchantAgency: agency,
-            currentLocation: locationState.current!,
-          ),
-        )
-        .toList(),
+  ) => SizedBox(
+    height: 300,
+    child: ListView.separated(
+      physics: const BouncingScrollPhysics(),
+      itemCount: homeState.merchantOffers.length,
+      separatorBuilder: (_, _) => UIGaps.h8,
+      itemBuilder: (context, index) => MerchantDealCard(
+        merchantOffer: homeState.merchantOffers[index],
+        currentLocation: locationState.current!,
+      ),
+    ),
   );
 }

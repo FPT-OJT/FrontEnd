@@ -4,18 +4,18 @@ import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+import 'package:fpt_ojt/features/home/domain/entities/merchant_offer.dart';
 import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
-import 'package:fpt_ojt/features/merchants/domain/entities/merchant_agency.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MerchantDealCard extends StatelessWidget {
   const MerchantDealCard({
-    required this.merchantAgency,
+    required this.merchantOffer,
     required this.currentLocation,
     super.key,
   });
 
-  final MerchantAgency merchantAgency;
+  final MerchantOffer merchantOffer;
   final Coordinate currentLocation;
 
   // Distance constants
@@ -46,10 +46,11 @@ class MerchantDealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final location = merchantOffer.location;
     final distanceInMeters =
-        merchantAgency.distance ??
-        merchantAgency.location.distanceTo(currentLocation).toDouble();
-    final distanceText = distanceInMeters > meterPerKiloMeter
+        merchantOffer.distance ??
+        location?.distanceTo(currentLocation).toDouble();
+    final distanceText = distanceInMeters! > meterPerKiloMeter
         ? '${(distanceInMeters / meterPerKiloMeter).toStringAsFixed(1)}km'
         : '${distanceInMeters.toStringAsFixed(0)}m';
 
@@ -67,7 +68,7 @@ class MerchantDealCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  merchantAgency.name,
+                  merchantOffer.merchantAgencyName ?? '',
                   style: AppTextStyles.bodyExtraSmall.copyWith(
                     color: AppColors.primaryForest,
                     fontWeight: FontWeight.w700,
@@ -77,7 +78,7 @@ class MerchantDealCard extends StatelessWidget {
                 ),
                 const SizedBox(height: nameToDescriptionSpacing),
                 Text(
-                  merchantAgency.merchant.description,
+                  merchantOffer.merchantDealName ?? '',
                   style: AppTextStyles.bodyExtraSmall.copyWith(
                     color: AppColors.primaryForest.withValues(alpha: 0.5),
                   ),
@@ -98,16 +99,24 @@ class MerchantDealCard extends StatelessWidget {
               Row(
                 spacing: UIGaps.size4,
                 children: [
-                  _buildDealRateIcontionIcon(merchantAgency.discount),
-                  const Icon(
-                    Icons.notifications_active_outlined,
+                  _buildDealRateIcon(merchantOffer.totalDiscount ?? 0),
+                  Icon(
+                    merchantOffer.subscribed ?? false
+                        ? Icons.notifications_active
+                        : Icons.notifications_active_outlined,
                     size: actionIconSize,
-                    color: AppColors.primaryForest,
+                    color: merchantOffer.subscribed ?? false
+                        ? AppColors.primaryCoin
+                        : AppColors.primaryForest,
                   ),
-                  const Icon(
-                    Icons.favorite_border_outlined,
+                  Icon(
+                    merchantOffer.favorite ?? false
+                        ? Icons.favorite
+                        : Icons.favorite_border_outlined,
                     size: actionIconSize,
-                    color: AppColors.primaryForest,
+                    color: merchantOffer.favorite ?? false
+                        ? AppColors.secondaryCoral
+                        : AppColors.primaryForest,
                   ),
                 ],
               ),
@@ -126,7 +135,7 @@ class MerchantDealCard extends StatelessWidget {
     );
   }
 
-  Widget _buildDealRateIcontionIcon(double dealRate) => SizedBox(
+  Widget _buildDealRateIcon(double dealRate) => SizedBox(
     width: iconSize,
     height: dealRateContainerHeight,
     child: Stack(
@@ -164,7 +173,7 @@ class MerchantDealCard extends StatelessWidget {
         child: ClipRRect(
           borderRadius: Rounded.md,
           child: Image.network(
-            merchantAgency.merchant.logoUrl,
+            merchantOffer.imageUrl ?? '',
             fit: BoxFit.cover,
             errorBuilder: (_, _, _) =>
                 const Icon(Icons.store, size: errorIconSize),

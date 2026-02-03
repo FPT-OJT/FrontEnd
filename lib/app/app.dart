@@ -15,6 +15,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: goRouter,
       title: 'Minstant',
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: AppTheme.light(),
     );

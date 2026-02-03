@@ -57,8 +57,8 @@ class SearchSection extends StatelessWidget {
             children: state.categories
                 .map(
                   (c) => CategoryCard(
-                    label: c.categoryName,
-                    imageUrl: c.imageUrl,
+                    label: c.name ?? '',
+                    imageUrl: c.imageUrl ?? '',
                     onTap: () {
                       context.push(RouteNames.search);
                     },

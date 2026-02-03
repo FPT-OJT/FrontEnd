@@ -26,6 +26,11 @@ import 'package:fpt_ojt/features/auth/presentation/blocs/forgot_password/forgot_
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_cubit.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/register/register_bloc.dart';
+import 'package:fpt_ojt/features/home/data/datasources/home_datasource.dart';
+import 'package:fpt_ojt/features/home/data/datasources/impl/home_datasource_impl.dart';
+import 'package:fpt_ojt/features/home/data/repositories/home_repository_impl.dart';
+import 'package:fpt_ojt/features/home/domain/repositories/home_repository.dart';
+import 'package:fpt_ojt/features/home/domain/usecases/get_home_uc.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_bloc.dart';
 import 'package:fpt_ojt/features/intro/data/datasources/onboarding_datasource.dart';
 import 'package:fpt_ojt/features/intro/data/repository/onboarding_repository_impl.dart';

@@ -168,11 +168,24 @@ Future<void> _initMerchant() async {
 }
 
 Future<void> _initHome() async {
+  // Data sources
+  serviceLocator.registerLazySingleton<HomeDatasource>(
+    () => HomeDatasourceImpl(dio: serviceLocator()),
+  );
+
+  // Repositories
+  serviceLocator.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImpl(homeDatasource: serviceLocator()),
+  );
+
+  // Use cases
+  serviceLocator.registerLazySingleton<GetHomeUc>(
+    () => GetHomeUc(homeRepository: serviceLocator()),
+  );
+
+  // BLoC
   serviceLocator.registerFactory<HomeBloc>(
-    () => HomeBloc(
-      getMerchantCategoriesUseCase: serviceLocator(),
-      getNearestMerchantAgenciesUseCase: serviceLocator(),
-    ),
+    () => HomeBloc(getHomeUc: serviceLocator()),
   );
 }
 

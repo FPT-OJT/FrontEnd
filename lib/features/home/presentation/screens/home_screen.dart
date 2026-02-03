@@ -6,9 +6,11 @@ import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_state.dart';
-import 'package:fpt_ojt/features/home/presentation/widgets/ai_section.dart';
+import 'package:fpt_ojt/features/home/presentation/blocs/home_bloc.dart';
+import 'package:fpt_ojt/features/home/presentation/blocs/home_state.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/explore_section.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/first_card_prompt.dart';
+import 'package:fpt_ojt/features/home/presentation/widgets/food_deal_section.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/merchant_section.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/search_section.dart';
 import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
@@ -56,9 +58,7 @@ class _HomeScreenContent extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: UIGaps.size20),
-                child: const Column(
-                  children: [ExploreSection(), UIGaps.h24, FirstCardPrompt()],
-                ),
+                child: const _FirstCardPromptSection(),
               ),
               UIGaps.h24,
               const _ContentSection(),
@@ -66,6 +66,21 @@ class _HomeScreenContent extends StatelessWidget {
           ),
         ),
       ),
+    ),
+  );
+}
+
+class _FirstCardPromptSection extends StatelessWidget {
+  const _FirstCardPromptSection();
+
+  @override
+  Widget build(BuildContext context) => BlocBuilder<HomeBloc, HomeState>(
+    builder: (context, state) => Column(
+      children: [
+        const ExploreSection(),
+        UIGaps.h24,
+        FirstCardPrompt(hasCard: state.hasCard),
+      ],
     ),
   );
 }
@@ -91,7 +106,7 @@ class _ContentSection extends StatelessWidget {
     child: const Column(
       spacing: UIGaps.size20,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [SearchSection(), MerchantSection(), AiSection()],
+      children: [SearchSection(), MerchantSection(), FoodDealSection()],
     ),
   );
 }
