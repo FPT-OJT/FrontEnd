@@ -124,19 +124,9 @@ class SnackBarUtils {
       ),
       backgroundColor: backgroundColor,
       duration: duration,
-      behavior: SnackBarBehavior.floating,
+      behavior: SnackBarBehavior.fixed,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(_borderRadius),
-      ),
-      margin: EdgeInsets.only(
-        left: _horizontalMargin,
-        right: _horizontalMargin,
-        top: topPadding + _topMarginOffset,
-        bottom:
-            mediaQuery.size.height -
-            topPadding -
-            keyboardHeight -
-            _snackBarHeight,
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: _horizontalPadding,

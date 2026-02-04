@@ -19,6 +19,9 @@ Future<void> initDependencies() async {
     );
   _initIntro();
   await _initAuth();
+  await _initMerchant();
+  await _initHome();
+  await _initLocation();
 }
 
 void _initIntro() {
@@ -132,4 +135,80 @@ Future<void> _initAuth() async {
         resetPasswordUseCase: serviceLocator(),
       ),
     );
+}
+
+Future<void> _initMerchant() async {
+  serviceLocator
+    ..registerLazySingleton<MerchantCategoryDataSource>(
+      () => MerchantCategoryDataSourceImpl(dio: serviceLocator()),
+    )
+    ..registerLazySingleton<MerchantAgencyDatasource>(
+      () => MerchantAgencyDatasourceImpl(dio: serviceLocator()),
+    )
+    ..registerLazySingleton<MerchantCategoryRepository>(
+      () => MerchantCategoryRepositoryImpl(dataSource: serviceLocator()),
+    )
+    ..registerLazySingleton<MerchantAgencyRepository>(
+      () => MerchantAgencyRepositoryImpl(
+        locationDataSource: serviceLocator(),
+        merchantAgencyDataSource: serviceLocator(),
+      ),
+    )
+    ..registerLazySingleton<GetMerchantCategoriesUseCase>(
+      () => GetMerchantCategoriesUseCase(
+        merchantCategoryRepository: serviceLocator(),
+      ),
+    )
+    ..registerLazySingleton<GetNearestMerchantAgenciesUseCase>(
+      () => GetNearestMerchantAgenciesUseCase(
+        merchantAgencyRepository: serviceLocator(),
+        getShortestDistanceUseCase: serviceLocator(),
+      ),
+    );
+}
+
+Future<void> _initHome() async {
+  // Data sources
+  serviceLocator.registerLazySingleton<HomeDatasource>(
+    () => HomeDatasourceImpl(dio: serviceLocator()),
+  );
+
+  // Repositories
+  serviceLocator.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImpl(homeDatasource: serviceLocator()),
+  );
+
+  // Use cases
+  serviceLocator.registerLazySingleton<GetHomeUc>(
+    () => GetHomeUc(homeRepository: serviceLocator()),
+  );
+
+  // BLoC
+  serviceLocator.registerFactory<HomeBloc>(
+    () => HomeBloc(getHomeUc: serviceLocator()),
+  );
+}
+
+Future<void> _initLocation() async {
+  serviceLocator.registerLazySingleton<LocationDataSource>(
+    () => LocationDatasourceImpl(dio: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<LocationRepository>(
+    () => LocationRepositoryImpl(locationDataSource: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<CurrentCoordinateUseCase>(
+    () => CurrentCoordinateUseCase(locationRepository: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<CoordinateStreamUseCase>(
+    () => CoordinateStreamUseCase(locationRepository: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<GetShortestDistanceUseCase>(
+    () => GetShortestDistanceUseCase(locationRepository: serviceLocator()),
+  );
+  serviceLocator.registerFactory<LocationBloc>(
+    () => LocationBloc(
+      currentCoordinateUseCase: serviceLocator(),
+      coordinateStreamUseCase: serviceLocator(),
+    ),
+  );
 }
