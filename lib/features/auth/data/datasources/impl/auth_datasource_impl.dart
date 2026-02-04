@@ -36,18 +36,15 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<UserModel?> getCurrentUser() async {
-    await _dio.get<Map<String, dynamic>>('/home/test');
-    // TODO: Implement get current user
-    return UserModel(
-      id: '1',
-      name: 'Laffy',
-      email: 'test@test.com',
-      phone: '1234567890',
-      address: '1234567890',
-      avatar: 'https://via.placeholder.com/150',
-      role: 'admin',
-      status: 'active',
+    final response = await _dio.get<Map<String, dynamic>>('/auth/@me');
+    final apiResponse = ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => UserModel.fromJson(json! as Map<String, dynamic>),
     );
+    if (apiResponse.statusCode == 200) {
+      return apiResponse.data;
+    }
+    return null;
   }
 
   @override
