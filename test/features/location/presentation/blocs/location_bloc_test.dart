@@ -48,6 +48,9 @@ void main() {
         'emits [loading, success] when stream emits coordinate',
         build: () {
           when(
+            mockCurrentCoordinateUseCase.call(any),
+          ).thenAnswer((_) async => const Right(tCoordinate));
+          when(
             mockCoordinateStreamUseCase.call(any),
           ).thenAnswer((_) async => Right(Stream.value(tCoordinate)));
           return bloc;
@@ -63,8 +66,11 @@ void main() {
       );
 
       blocTest<LocationBloc, LocationState>(
-        'emits [loading, failure] when usecase returns failure',
+        'emits [loading, success, failure] when stream returns failure',
         build: () {
+          when(
+            mockCurrentCoordinateUseCase.call(any),
+          ).thenAnswer((_) async => const Right(tCoordinate));
           when(
             mockCoordinateStreamUseCase.call(any),
           ).thenAnswer((_) async => Left(Failure(tErrorMessage)));
@@ -73,6 +79,7 @@ void main() {
         act: (bloc) => bloc.add(const LocationStarted()),
         expect: () => [
           LocationState.loading(),
+          LocationState.success(tCoordinate),
           LocationState.failure(tErrorMessage),
         ],
       );

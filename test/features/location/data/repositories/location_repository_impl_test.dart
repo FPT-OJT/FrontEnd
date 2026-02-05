@@ -120,7 +120,7 @@ void main() {
           distance: tDistance,
           duration: 100,
           weight: 100,
-          weight_name: 'test',
+          weightName: 'test',
           geometry: OsrmGeometry(type: 'LineString', coordinates: []),
           legs: [],
         ),
