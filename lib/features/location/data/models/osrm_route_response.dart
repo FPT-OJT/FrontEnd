@@ -21,7 +21,8 @@ abstract class OsrmRoute with _$OsrmRoute {
     required double distance,
     required double duration,
     required double weight,
-    required String weight_name,
+    // ignore: invalid_annotation_target
+    @JsonKey(name: 'weight_name') required String weightName,
     required OsrmGeometry geometry,
     required List<OsrmLeg> legs,
   }) = _OsrmRoute;

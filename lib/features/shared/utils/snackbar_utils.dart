@@ -13,9 +13,6 @@ class SnackBarUtils {
   // Visual constants
   static const double _iconSize = 24;
   static const double _borderRadius = 12;
-  static const double _horizontalMargin = 16;
-  static const double _topMarginOffset = 16;
-  static const double _snackBarHeight = 80;
   static const double _horizontalPadding = 16;
   static const double _verticalPadding = 14;
 
@@ -103,9 +100,7 @@ class SnackBarUtils {
     // Dismiss any existing snackbar first
     ScaffoldMessenger.of(context).clearSnackBars();
 
-    final mediaQuery = MediaQuery.of(context);
-    final topPadding = mediaQuery.padding.top;
-    final keyboardHeight = mediaQuery.viewInsets.bottom;
+    MediaQuery.of(context);
 
     final snackBar = SnackBar(
       content: Row(

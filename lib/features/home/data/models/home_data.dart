@@ -22,9 +22,9 @@ abstract class HomeData with _$HomeData {
         imageUrl:
             'https://res.cloudinary.com/dzpv3mfjt/image/upload/v1770090200/food_deal_scfi3l.png',
         name: 'Seasoned coconut chicken bowl',
-        originalPrice: 40.00,
-        discountedPrice: 32.00,
-        discountPercentage: 20.00,
+        originalPrice: 40,
+        discountedPrice: 32,
+        discountPercentage: 20,
       ),
     );
 

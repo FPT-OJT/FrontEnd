@@ -58,8 +58,8 @@ class MerchantSection extends StatelessWidget {
     child: ListView.separated(
       physics: const BouncingScrollPhysics(),
       itemCount: 3,
-      separatorBuilder: (_, __) => UIGaps.h8,
-      itemBuilder: (_, __) => const MerchantDealCardSkeleton(),
+      separatorBuilder: (_, _) => UIGaps.h8,
+      itemBuilder: (_, _) => const MerchantDealCardSkeleton(),
     ),
   );
 
