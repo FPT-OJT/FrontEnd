@@ -9,6 +9,13 @@ jobs:
   build-release:
     runs-on: ubuntu-latest
     environment: prod
+    env:
+      WEB_GOOGLE_CLIENT_ID: ${{ vars.WEB_GOOGLE_CLIENT_ID }}
+      ANDROID_GOOGLE_CLIENT_ID: ${{ vars.ANDROID_GOOGLE_CLIENT_ID }}
+      API_URL: ${{ vars.API_URL }}
+      OSRM_URL: ${{ vars.OSRM_URL }}
+      ENV: production
+
     steps:
       - uses: actions/checkout@v4
         with:
