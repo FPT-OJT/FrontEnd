@@ -249,9 +249,20 @@ void main() {
         // Arrange
         when(mockDio.get<Map<String, dynamic>>(any)).thenAnswer(
           (_) async => Response(
-            data: {},
+            data: {
+              'statusCode': 200,
+              'message': 'Success',
+              'data': {
+                'id': '1',
+                'email': 'test@test.com',
+                'firstName': 'John',
+                'lastName': 'Doe',
+                'role': 'customer',
+                'userName': 'john_doe',
+              },
+            },
             statusCode: 200,
-            requestOptions: RequestOptions(path: '/home/test'),
+            requestOptions: RequestOptions(path: '/auth/@me'),
           ),
         );
 
@@ -260,7 +271,7 @@ void main() {
 
         // Assert
         expect(user!.email, 'test@test.com');
-        verify(mockDio.get<Map<String, dynamic>>('/home/test')).called(1);
+        verify(mockDio.get<Map<String, dynamic>>('/auth/@me')).called(1);
       });
     });
   });

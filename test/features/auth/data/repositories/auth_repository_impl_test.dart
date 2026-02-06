@@ -324,13 +324,11 @@ void main() {
   group('getCurrentUser', () {
     final userModel = UserModel(
       id: '1',
-      name: 'John Doe',
+      firstName: 'John',
+      lastName: 'Doe',
       email: 'john@test.com',
-      phone: '1234567890',
-      address: '123 Main St',
-      avatar: 'https://example.com/avatar.png',
-      role: 'USER',
-      status: 'active',
+      role: Role.customer,
+      userName: 'john_doe',
     );
 
     test(
@@ -355,7 +353,6 @@ void main() {
           expect(user.id, '1');
           expect(user.name, 'John Doe');
           expect(user.email, 'john@test.com');
-          expect(user.avatar, 'https://example.com/avatar.png');
         });
 
         verify(mockTokenStore.getRefreshToken()).called(1);
@@ -573,7 +570,6 @@ void main() {
       result.fold((failure) => fail('Should return Right'), (user) {
         expect(user.id, 'new_user_1');
         expect(user.name, 'USER');
-        expect(user.avatar, 'https://via.placeholder.com/150');
         expect(user.email, 'test@test.com');
       });
 

@@ -1,37 +1,21 @@
-class UserModel {
-  UserModel({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.address,
-    required this.avatar,
-    required this.role,
-    required this.status,
-  });
-  final String id;
-  final String name;
-  final String email;
-  final String phone;
-  final String address;
-  final String avatar;
-  final String role;
-  final String status;
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'login_reponse.freezed.dart';
+part 'login_reponse.g.dart';
+
+@freezed
+abstract class UserModel with _$UserModel {
+  const factory UserModel({
+    required String id,
+    required String email,
+    required String userName,
+    required String firstName,
+    required String lastName,
+    required Role role,
+  }) = _UserModel;
+
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 }
 
-class LoginResponse {
-  LoginResponse({
-    required this.user,
-    required this.token,
-    required this.refreshToken,
-    required this.tokenType,
-    required this.scope,
-    required this.idToken,
-  });
-  final UserModel user;
-  final String token;
-  final String refreshToken;
-  final String tokenType;
-  final String scope;
-  final String idToken;
-}
+enum Role { customer, admin }
