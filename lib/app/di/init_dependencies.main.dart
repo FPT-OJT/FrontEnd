@@ -22,6 +22,7 @@ Future<void> initDependencies() async {
   await _initMerchant();
   await _initHome();
   await _initLocation();
+  _initWallet();
 }
 
 void _initIntro() {
@@ -76,7 +77,9 @@ Future<void> _initAuth() async {
           BaseOptions(
             baseUrl: AppConfig.apiUrl,
             connectTimeout: const Duration(seconds: 10),
-            receiveTimeout: const Duration(seconds: 10),
+            receiveTimeout: const Duration(
+              seconds: 30, // TODO: Reset back to 10
+            ), // TODO: Reset back to 10
             headers: {'Content-Type': 'application/json'},
           ),
         ),
@@ -209,6 +212,39 @@ Future<void> _initLocation() async {
     () => LocationBloc(
       currentCoordinateUseCase: serviceLocator(),
       coordinateStreamUseCase: serviceLocator(),
+    ),
+  );
+}
+
+void _initWallet() {
+  // Data sources
+  serviceLocator.registerLazySingleton<WalletDatasource>(
+    () => WalletDatasourceImpl(dio: serviceLocator()),
+  );
+
+  // Repositories
+  serviceLocator.registerLazySingleton<WalletRepositories>(
+    () => WalletRepositoriesImpl(walletDatasource: serviceLocator()),
+  );
+
+  // Use cases
+  serviceLocator
+    ..registerLazySingleton<GetMyCards>(
+      () => GetMyCards(walletRepositories: serviceLocator()),
+    )
+    ..registerLazySingleton<GetMyApps>(
+      () => GetMyApps(walletRepositories: serviceLocator()),
+    )
+    ..registerLazySingleton<GetMyFavMerchants>(
+      () => GetMyFavMerchants(walletRepositories: serviceLocator()),
+    );
+
+  // BLoC
+  serviceLocator.registerFactory<WalletBloc>(
+    () => WalletBloc(
+      getMyCards: serviceLocator(),
+      getMyApps: serviceLocator(),
+      getMyFavMerchants: serviceLocator(),
     ),
   );
 }
