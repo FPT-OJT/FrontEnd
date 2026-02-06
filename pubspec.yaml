@@ -30,7 +30,11 @@ dependencies:
   icons_plus: ^5.0.0
   google_sign_in_android: ^7.2.7
   flutter_secure_storage: ^10.0.0
+  network_image_mock: ^2.1.1
   flutter_native_splash: ^2.4.7
+  shimmer: ^3.0.0
+  geolocator: ^14.0.2
+  flutter_svg: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +53,8 @@ flutter:
   assets:
     - assets/images/
     - assets/images/onboarding/
+    - assets/images/home/
+    - assets/icons/
 flutter_native_splash:
   color: "#FEF2EC"
   image: null

@@ -83,7 +83,8 @@ class AuthRefreshInterceptor extends Interceptor {
       final response = await _dio.fetch<dynamic>(retryOptions);
 
       return handler.resolve(response);
-    } on Exception catch (_) {
+      // ignore: avoid_catches_without_on_clauses
+    } catch (_) {
       // Refresh fail -> delete token and return error to logout app
       try {
         await _tokenStore.deleteAccessToken();
@@ -121,7 +122,9 @@ class AuthRefreshInterceptor extends Interceptor {
 
       _refreshCompleter?.complete();
     } catch (e) {
-      _refreshCompleter?.completeError(e);
+      if (!(_refreshCompleter?.isCompleted ?? true)) {
+        _refreshCompleter!.complete();
+      }
       rethrow;
     } finally {
       _refreshing = false;

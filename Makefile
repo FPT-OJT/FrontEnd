@@ -8,6 +8,8 @@ gen-code:
 	flutter pub run build_runner build --delete-conflicting-outputs
 gen-app-icons:
 	dart run flutter_launcher_icons
+gen-code:
+	flutter pub run build_runner build --delete-conflicting-outputs
 pre-built-prod:
 	dart scripts/pre_built.dart prod
 pre-built-dev:

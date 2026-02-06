@@ -4,6 +4,7 @@ class UIGaps {
   const UIGaps._();
   static const double size4 = 4;
   static const double size8 = 8;
+  static const double size10 = 10;
   static const double size12 = 12;
   static const double size16 = 16;
   static const double size20 = 20;

@@ -11,7 +11,7 @@ class ForgotPasswordBloc
     required ResetPasswordUseCase resetPasswordUseCase,
   }) : _forgotPasswordUseCase = forgotPasswordUseCase,
        _resetPasswordUseCase = resetPasswordUseCase,
-       super(ForgotPasswordInitial()) {
+       super(const ForgotPasswordInitial()) {
     on<SendResetCodeRequested>(_onSendResetCodeRequested);
     on<VerifyOtpRequested>(_onVerifyOtpRequested);
     on<ResetPasswordRequested>(_onResetPasswordRequested);
@@ -26,7 +26,7 @@ class ForgotPasswordBloc
     SendResetCodeRequested event,
     Emitter<ForgotPasswordState> emit,
   ) async {
-    emit(SendingResetCode());
+    emit(const SendingResetCode());
 
     final result = await _forgotPasswordUseCase.call(
       ForgotPasswordParams(email: event.email),
@@ -45,7 +45,7 @@ class ForgotPasswordBloc
     Emitter<ForgotPasswordState> emit,
   ) async {
     if (_email == null) {
-      emit(SendResetCodeFailure(message: 'Email not found'));
+      emit(const SendResetCodeFailure(message: 'Email not found'));
       return;
     }
 
@@ -70,11 +70,11 @@ class ForgotPasswordBloc
     Emitter<ForgotPasswordState> emit,
   ) async {
     if (_email == null || _otp == null) {
-      emit(PasswordResetFailure(message: 'Missing email or OTP'));
+      emit(const PasswordResetFailure(message: 'Missing email or OTP'));
       return;
     }
 
-    emit(ResettingPassword());
+    emit(const ResettingPassword());
 
     final result = await _resetPasswordUseCase.call(
       ResetPasswordParams(
@@ -86,7 +86,7 @@ class ForgotPasswordBloc
     result.fold(
       (failure) => emit(PasswordResetFailure(message: failure.message)),
       (user) {
-        emit(PasswordResetSuccess());
+        emit(const PasswordResetSuccess());
         _email = null;
         _otp = null;
       },
@@ -99,6 +99,6 @@ class ForgotPasswordBloc
   ) async {
     _email = null;
     _otp = null;
-    emit(ForgotPasswordInitial());
+    emit(const ForgotPasswordInitial());
   }
 }

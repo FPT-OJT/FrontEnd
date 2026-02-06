@@ -86,8 +86,8 @@ class AuthRepositoryImpl implements AuthRepository {
       return Right(
         User(
           id: user.id,
-          name: user.name,
-          avatar: user.avatar,
+          name: '${user.firstName} ${user.lastName}',
+          avatar: '',
           email: user.email,
         ),
       );

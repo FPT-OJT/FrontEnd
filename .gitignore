@@ -51,3 +51,7 @@ android/app/upload-keystore.jks
 # Generated files
 **/*.freezed.dart
 **/*.g.dart
+test/mocks/
+test/**/*_mock.dart
+test/**/*.mock.dart
+**/*.mocks.dart

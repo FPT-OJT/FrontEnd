@@ -18,6 +18,7 @@ class LoginWithEmailUseCase implements UseCase<User, LoginWithEmailParams> {
         rememberMe: params.rememberMe,
       );
 }
+
 @immutable
 class LoginWithEmailParams extends Equatable {
   const LoginWithEmailParams({
