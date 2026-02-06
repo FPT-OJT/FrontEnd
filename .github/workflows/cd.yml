@@ -65,12 +65,3 @@ jobs:
         with:
           name: release-aab
           path: build/app/outputs/bundle/prodRelease/app-prod-release.aab
-      - name: Create GitHub Release & Upload APK/AAB
-        uses: softprops/action-gh-release@v2
-        with:
-          name: Release ${{ github.ref_name }}
-          files: |
-            build/app/outputs/flutter-apk/app-prod-release.apk
-            build/app/outputs/bundle/prodRelease/app-prod-release.aab
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
