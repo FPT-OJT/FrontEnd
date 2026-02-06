@@ -1,5 +1,7 @@
 {
-    "ENV": "production",
-    "WEB_GOOGLE_CLIENT_ID": "817000100768-rbb3ffg4ohr0ef1htf1l31vpgegtqnlt.apps.googleusercontent.com",
-    "ANDROID_GOOGLE_CLIENT_ID": "491901238876-j2arnmh3at5lg7g0i45ud084k1c2561r.apps.googleusercontent.com"
+  "ENV": "production",
+  "WEB_GOOGLE_CLIENT_ID": "",
+  "ANDROID_GOOGLE_CLIENT_ID": "",
+  "API_URL": "",
+  "OSRM_URL": ""
 }
