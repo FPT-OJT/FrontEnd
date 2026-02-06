@@ -10,6 +10,7 @@ import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart'
 import 'package:fpt_ojt/features/merchants/presentations/screens/search_screen.dart';
 import 'package:fpt_ojt/features/shared/constants/navigation.dart';
 import 'package:fpt_ojt/features/shared/widgets/app_bottom_navbar.dart';
+import 'package:fpt_ojt/features/wallet/presentation/screens/wallet_screen.dart';
 import 'package:go_router/go_router.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -77,13 +78,11 @@ final goRouter = GoRouter(
             ),
           ],
         ),
-        // Tab 2: Chats
         StatefulShellBranch(
           routes: [
             GoRoute(
               path: RouteNames.wallet,
-              builder: (context, state) =>
-                  const Scaffold(body: Center(child: Text('Wallet'))),
+              builder: (context, state) => const WalletScreen(),
             ),
           ],
         ),

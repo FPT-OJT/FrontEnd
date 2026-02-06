@@ -54,6 +54,8 @@ flutter:
     - assets/images/
     - assets/images/onboarding/
     - assets/images/home/
+    - assets/images/wallet/images/
+    - assets/images/wallet/icons/
     - assets/icons/
 flutter_native_splash:
   color: "#FEF2EC"
