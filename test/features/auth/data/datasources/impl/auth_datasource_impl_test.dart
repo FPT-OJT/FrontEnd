@@ -257,7 +257,7 @@ void main() {
                 'email': 'test@test.com',
                 'firstName': 'John',
                 'lastName': 'Doe',
-                'role': 'customer',
+                'role': 'CUSTOMER',
                 'userName': 'john_doe',
               },
             },

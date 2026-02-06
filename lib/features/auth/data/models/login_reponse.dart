@@ -18,4 +18,9 @@ abstract class UserModel with _$UserModel {
       _$UserModelFromJson(json);
 }
 
-enum Role { customer, admin }
+enum Role {
+  @JsonValue('CUSTOMER')
+  customer,
+  @JsonValue('ADMIN')
+  admin,
+}

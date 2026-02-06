@@ -56,6 +56,14 @@ import 'package:fpt_ojt/features/merchants/domain/repositories/merchant_agency_r
 import 'package:fpt_ojt/features/merchants/domain/repositories/merchant_category_repository.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_categories.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_nearest_merchant_agencies.dart';
+import 'package:fpt_ojt/features/wallet/data/datasources/impl/wallet_datasource_impl.dart';
+import 'package:fpt_ojt/features/wallet/data/datasources/wallet_datasource.dart';
+import 'package:fpt_ojt/features/wallet/data/repositories/wallet_repositories_impl.dart';
+import 'package:fpt_ojt/features/wallet/domain/repositories/wallet_repositories.dart';
+import 'package:fpt_ojt/features/wallet/domain/usecases/get_my_apps.dart';
+import 'package:fpt_ojt/features/wallet/domain/usecases/get_my_cards.dart';
+import 'package:fpt_ojt/features/wallet/domain/usecases/get_my_fav_merchants.dart';
+import 'package:fpt_ojt/features/wallet/presentation/bloc/wallet_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
