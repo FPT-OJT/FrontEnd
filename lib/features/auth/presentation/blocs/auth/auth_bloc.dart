@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
 import 'package:fpt_ojt/features/auth/domain/entites/user.dart';
 import 'package:fpt_ojt/features/auth/domain/usecases/current_user.dart';
@@ -40,7 +41,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     result.fold(
       (failure) {
         _cachedUser = null; // Clear cache on failure
-        emit(AuthFailure(failure.message));
+        // If it's an authentication failure, emit unauthenticated state
+        if (failure is AuthenticationFailure) {
+          emit(const AuthUnAuthenticated());
+        } else {
+          emit(AuthFailure(failure.message));
+        }
       },
       (user) {
         _cachedUser = user; // Cache the user in memory

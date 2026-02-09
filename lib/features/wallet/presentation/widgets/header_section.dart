@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 
 class HeaderSection extends StatelessWidget {
-  @Preview(name: 'Wallet Header Section')
-  const HeaderSection({super.key, required this.firstName});
+  const HeaderSection({required this.firstName, super.key});
 
   final String firstName;
 
