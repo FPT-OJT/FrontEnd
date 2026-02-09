@@ -11,4 +11,5 @@ class RouteNames {
   static const String search = '/search';
   static const String profile = '/profile';
   static const String wallet = '/wallet';
+  static const String cardDetails = '/card-details';
 }

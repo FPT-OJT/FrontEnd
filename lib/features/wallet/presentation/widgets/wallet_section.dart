@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/features/wallet/presentation/bloc/wallet_bloc.dart';
 import 'package:fpt_ojt/features/wallet/presentation/bloc/wallet_event.dart';
 import 'package:fpt_ojt/features/wallet/presentation/bloc/wallet_state.dart';
 import 'package:fpt_ojt/features/wallet/presentation/widgets/wallet_dropbox.dart';
+import 'package:go_router/go_router.dart';
 
 class WalletSection extends StatelessWidget {
   const WalletSection({super.key});
@@ -34,6 +36,9 @@ class WalletSection extends StatelessWidget {
         isLoading: walletState.creditCardStatus == WalletLoadStatus.loading,
         walletItems: walletState.creditCards,
         onExpand: () => context.read<WalletBloc>().add(const LoadCreditCards()),
+        onAddNew: () {
+          context.push('${RouteNames.cardDetails}/new');
+        },
       );
     },
   );
@@ -49,6 +54,9 @@ class WalletSection extends StatelessWidget {
         isLoading: walletState.paymentAppsStatus == WalletLoadStatus.loading,
         walletItems: walletState.paymentApps,
         onExpand: () => context.read<WalletBloc>().add(const LoadPaymentApps()),
+        onAddNew: () {
+          context.push('${RouteNames.cardDetails}/new');
+        },
       );
     },
   );
@@ -66,6 +74,9 @@ class WalletSection extends StatelessWidget {
         walletItems: walletState.favoriteMerchants,
         onExpand: () =>
             context.read<WalletBloc>().add(const LoadFavoriteMerchants()),
+        onAddNew: () {
+          context.push('${RouteNames.cardDetails}/new');
+        },
       );
     },
   );
