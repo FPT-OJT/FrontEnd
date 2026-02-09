@@ -10,6 +10,7 @@ import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart'
 import 'package:fpt_ojt/features/merchants/presentations/screens/search_screen.dart';
 import 'package:fpt_ojt/features/shared/constants/navigation.dart';
 import 'package:fpt_ojt/features/shared/widgets/app_bottom_navbar.dart';
+import 'package:fpt_ojt/features/wallet/presentation/screens/card_details.dart';
 import 'package:fpt_ojt/features/wallet/presentation/screens/wallet_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -51,6 +52,13 @@ final goRouter = GoRouter(
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
       ),
+    ),
+    GoRoute(
+      path: '${RouteNames.cardDetails}/:cardId',
+      builder: (context, state) {
+        final cardId = state.pathParameters['cardId'] ?? '';
+        return CardDetails(cardId: cardId);
+      },
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) => Scaffold(
