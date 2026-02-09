@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/merchants/presentations/widgets/search_input_text_field.dart';
+import 'package:go_router/go_router.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -25,8 +26,37 @@ class SearchScreen extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: UIGaps.size20),
-                child: const Column(
-                  children: [UIGaps.h60, SearchInputTextField()],
+                child: Column(
+                  children: [
+                    UIGaps.h60,
+                    Row(
+                      children: [
+                        Container(
+                          width: 36,
+                          height: 36,
+                          decoration: BoxDecoration(
+                            color: AppColors.neutralWhite.withValues(
+                              alpha: 0.3,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            onPressed: () {
+                              context.pop();
+                            },
+                          ),
+                        ),
+                        UIGaps.w24,
+                        const Expanded(child: SearchInputTextField()),
+                      ],
+                    ),
+                  ],
                 ),
               ),
               UIGaps.h24,
