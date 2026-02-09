@@ -60,6 +60,27 @@ class SearchScreen extends StatelessWidget {
                 ),
               ),
               UIGaps.h24,
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: UIGaps.size20,
+                  vertical: UIGaps.size20,
+                ),
+                decoration: const BoxDecoration(
+                  color: AppColors.neutralEggShell20,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
+                ),
+                width: double.infinity,
+                constraints: const BoxConstraints(minHeight: 700),
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Add search results content here
+                  ],
+                ),
+              ),
             ],
           ),
         ),
