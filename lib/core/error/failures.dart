@@ -10,7 +10,7 @@ class Failure {
         // Check if the error is an AuthenticationException
         if (e.error is AuthenticationException) {
           return AuthenticationFailure(
-            (e.error as AuthenticationException).message,
+            (e.error! as AuthenticationException).message,
           );
         }
         return Failure(

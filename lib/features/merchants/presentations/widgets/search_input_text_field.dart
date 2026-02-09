@@ -7,7 +7,7 @@ class SearchInputTextField extends StatelessWidget {
   const SearchInputTextField({super.key, this.onSubmitted, this.controller});
   final ValueChanged<String>? onSubmitted;
   final TextEditingController? controller;
-  static const String hintText = "I'm looking for...";
+  static const String hintText = 'Search for a card...';
   static const double iconSize = 24;
   static const double inputHeight = 48;
   static const double inputWidth = 274;
