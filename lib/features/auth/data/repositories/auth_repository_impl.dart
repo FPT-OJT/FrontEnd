@@ -137,8 +137,15 @@ class AuthRepositoryImpl implements AuthRepository {
           await _saveUserToCache(user);
           return Right(_userModelToEntity(user));
         }
-      } catch (_) {
-        // If API fails, try to get from cache
+      } on Exception catch (e) {
+        // If it's an authentication error, clear cache and return auth failure
+        final failure = Failure.fromException(e);
+        if (failure is AuthenticationFailure) {
+          await _clearUserCache();
+          return Left(failure);
+        }
+
+        // If API fails for other reasons, try to get from cache
         final cachedUser = await _getUserFromCache();
         if (cachedUser != null) {
           return Right(_userModelToEntity(cachedUser));

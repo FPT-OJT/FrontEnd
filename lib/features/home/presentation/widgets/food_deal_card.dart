@@ -95,7 +95,7 @@ class FoodDealCard extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
-        'Seasoned123 coconut',
+        'Seasoned123 coconut\nchicken bowl',
         style: AppTextStyles.bodyExtraSmall.copyWith(
           color: AppColors.primaryForest,
           fontWeight: FontWeight.w700,
