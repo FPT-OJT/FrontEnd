@@ -32,7 +32,10 @@ class HomeScreen extends StatelessWidget {
       return;
     }
     if (state is AuthLoggedIn) {
-      SnackBarUtils.showSuccess(context, 'Welcome back ${state.user.name}');
+      SnackBarUtils.showSuccess(
+        context,
+        'Welcome back ${state.user.firstName}',
+      );
     }
   }
 }
