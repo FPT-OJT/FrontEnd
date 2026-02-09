@@ -77,9 +77,7 @@ Future<void> _initAuth() async {
           BaseOptions(
             baseUrl: AppConfig.apiUrl,
             connectTimeout: const Duration(seconds: 10),
-            receiveTimeout: const Duration(
-              seconds: 30, // TODO: Reset back to 10
-            ), // TODO: Reset back to 10
+            receiveTimeout: const Duration(seconds: 10),
             headers: {'Content-Type': 'application/json'},
           ),
         ),
@@ -93,6 +91,7 @@ Future<void> _initAuth() async {
         authDataSource: serviceLocator(),
         googleAuthDataSource: serviceLocator(),
         tokenDataSource: serviceLocator(),
+        localStorage: serviceLocator(instanceName: 'local_storage'),
       ),
     )
     ..registerLazySingleton<CurrentUserUseCase>(

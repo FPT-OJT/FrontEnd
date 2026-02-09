@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'package:fpdart/fpdart.dart';
 import 'package:fpt_ojt/core/common/token/token_store.dart';
 import 'package:fpt_ojt/core/error/failures.dart';
+import 'package:fpt_ojt/core/storages/key_value_storage.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/auth_datasource.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/google_auth_data_source.dart';
+import 'package:fpt_ojt/features/auth/data/models/login_reponse.dart';
 import 'package:fpt_ojt/features/auth/domain/entites/user.dart';
 import 'package:fpt_ojt/features/auth/domain/repository/auth_repository.dart';
 
@@ -11,12 +14,58 @@ class AuthRepositoryImpl implements AuthRepository {
     required AuthDataSource authDataSource,
     required GoogleAuthDataSource googleAuthDataSource,
     required TokenStore tokenDataSource,
+    required KeyValueStorage localStorage,
   }) : _authDataSource = authDataSource,
        _googleAuthDataSource = googleAuthDataSource,
-       _tokenDataSource = tokenDataSource;
+       _tokenDataSource = tokenDataSource,
+       _localStorage = localStorage;
   final AuthDataSource _authDataSource;
   final GoogleAuthDataSource _googleAuthDataSource;
   final TokenStore _tokenDataSource;
+  final KeyValueStorage _localStorage;
+
+  static const String _userCacheKey = 'cached_user_info';
+
+  // Save user to local storage
+  Future<void> _saveUserToCache(UserModel user) async {
+    try {
+      final userJson = jsonEncode(user.toJson());
+      await _localStorage.set(_userCacheKey, userJson);
+    } catch (_) {
+      // Ignore cache errors
+    }
+  }
+
+  // Get user from local storage
+  Future<UserModel?> _getUserFromCache() async {
+    try {
+      final userJson = await _localStorage.get<String>(_userCacheKey);
+      if (userJson == null) return null;
+      final userMap = jsonDecode(userJson) as Map<String, dynamic>;
+      return UserModel.fromJson(userMap);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  // Clear user cache
+  Future<void> _clearUserCache() async {
+    try {
+      await _localStorage.remove(_userCacheKey);
+    } catch (_) {
+      // Ignore cache errors
+    }
+  }
+
+  // Convert UserModel to User entity
+  User _userModelToEntity(UserModel user) => User(
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    avatar: '',
+    email: user.email,
+  );
+
   @override
   Future<Either<Failure, User>> loginWithEmail(
     String email,
@@ -34,14 +83,15 @@ class AuthRepositoryImpl implements AuthRepository {
         response.data!.refreshToken,
         rememberMe: rememberMe,
       );
-      return Right(
-        User(
-          id: response.data!.userId,
-          name: response.data!.role,
-          avatar: 'https://via.placeholder.com/150',
-          email: 'test@test.com',
-        ),
-      );
+
+      // Fetch and cache user info after login
+      final user = await _authDataSource.getCurrentUser();
+      if (user != null) {
+        await _saveUserToCache(user);
+        return Right(_userModelToEntity(user));
+      }
+
+      return Left(Failure('Failed to fetch user info'));
     } on Exception catch (e) {
       return Left(Failure.fromException(e));
     }
@@ -57,14 +107,15 @@ class AuthRepositoryImpl implements AuthRepository {
         response.data!.refreshToken,
         rememberMe: true,
       );
-      return Right(
-        User(
-          id: response.data!.userId,
-          name: response.data!.role,
-          avatar: 'https://via.placeholder.com/150',
-          email: 'test@test.com',
-        ),
-      );
+
+      // Fetch and cache user info after login
+      final user = await _authDataSource.getCurrentUser();
+      if (user != null) {
+        await _saveUserToCache(user);
+        return Right(_userModelToEntity(user));
+      }
+
+      return Left(Failure('Failed to fetch user info'));
     } on Exception catch (e) {
       return Left(Failure.fromException(e));
     }
@@ -78,19 +129,23 @@ class AuthRepositoryImpl implements AuthRepository {
         return Left(Failure('User not logged in!'));
       }
 
-      final user = await _authDataSource.getCurrentUser();
-      if (user == null) {
-        return Left(Failure('User not logged in!'));
+      // Try to get from API first
+      try {
+        final user = await _authDataSource.getCurrentUser();
+        if (user != null) {
+          // Update cache with fresh data
+          await _saveUserToCache(user);
+          return Right(_userModelToEntity(user));
+        }
+      } catch (_) {
+        // If API fails, try to get from cache
+        final cachedUser = await _getUserFromCache();
+        if (cachedUser != null) {
+          return Right(_userModelToEntity(cachedUser));
+        }
       }
 
-      return Right(
-        User(
-          id: user.id,
-          name: '${user.firstName} ${user.lastName}',
-          avatar: '',
-          email: user.email,
-        ),
-      );
+      return Left(Failure('User not logged in!'));
     } on Exception catch (e) {
       return Left(Failure.fromException(e));
     }
@@ -105,6 +160,9 @@ class AuthRepositoryImpl implements AuthRepository {
       // Clear tokens from local storage
       await _tokenDataSource.deleteAccessToken();
       await _tokenDataSource.deleteRefreshToken();
+
+      // Clear user cache
+      await _clearUserCache();
 
       return const Right(null);
     } on Exception catch (e) {
@@ -133,9 +191,10 @@ class AuthRepositoryImpl implements AuthRepository {
       return Right(
         User(
           id: response.data!.userId,
-          name: response.data!.role,
-          avatar: 'https://via.placeholder.com/150',
-          email: 'test@test.com',
+          firstName: '',
+          lastName: '',
+          avatar: '',
+          email: '',
         ),
       );
     } on Exception catch (e) {
