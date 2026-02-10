@@ -23,6 +23,7 @@ Future<void> initDependencies() async {
   await _initHome();
   await _initLocation();
   _initWallet();
+  _initCard();
 }
 
 void _initIntro() {
@@ -246,4 +247,37 @@ void _initWallet() {
       getMyFavMerchants: serviceLocator(),
     ),
   );
+}
+
+void _initCard() {
+  // Data sources
+  serviceLocator.registerLazySingleton<CardDatasource>(
+    () => CardDatasouceImpl(dio: serviceLocator()),
+  );
+
+  // Repositories
+  serviceLocator.registerLazySingleton<CardRepositories>(
+    () => CardRepositoriesImpl(cardDatasource: serviceLocator()),
+  );
+
+  // Use cases
+  serviceLocator
+    ..registerLazySingleton<SearchCardsUsecase>(
+      () => SearchCardsUsecase(cardRepositories: serviceLocator()),
+    )
+    ..registerLazySingleton<AddCardToUserUsecase>(
+      () => AddCardToUserUsecase(cardRepositories: serviceLocator()),
+    )
+    ..registerLazySingleton<IsCardExistInUserUsecase>(
+      () => IsCardExistInUserUsecase(cardRepositories: serviceLocator()),
+    );
+
+  // BLoC
+  serviceLocator
+    ..registerFactory<SearchCardBloc>(
+      () => SearchCardBloc(searchCardsUsecase: serviceLocator()),
+    )
+    ..registerFactory<DetailCardBloc>(
+      () => DetailCardBloc(addCardToUserUsecase: serviceLocator()),
+    );
 }

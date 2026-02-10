@@ -36,9 +36,6 @@ class WalletSection extends StatelessWidget {
         isLoading: walletState.creditCardStatus == WalletLoadStatus.loading,
         walletItems: walletState.creditCards,
         onExpand: () => context.read<WalletBloc>().add(const LoadCreditCards()),
-        onAddNew: () {
-          context.push('${RouteNames.cardDetails}/new');
-        },
       );
     },
   );

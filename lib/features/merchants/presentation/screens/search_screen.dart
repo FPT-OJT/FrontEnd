@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
-import 'package:fpt_ojt/features/merchants/presentations/widgets/search_input_text_field.dart';
+import 'package:fpt_ojt/features/merchants/presentation/widgets/merchant_list_section.dart';
+import 'package:fpt_ojt/features/merchants/presentation/widgets/search_input_text_field.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -60,31 +61,37 @@ class SearchScreen extends StatelessWidget {
                 ),
               ),
               UIGaps.h24,
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: UIGaps.size20,
-                  vertical: UIGaps.size20,
-                ),
-                decoration: const BoxDecoration(
-                  color: AppColors.neutralEggShell20,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
-                  ),
-                ),
-                width: double.infinity,
-                constraints: const BoxConstraints(minHeight: 700),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Add search results content here
-                  ],
-                ),
-              ),
+              const _ContentSection(),
             ],
           ),
         ),
       ),
+    ),
+  );
+}
+
+class _ContentSection extends StatelessWidget {
+  const _ContentSection();
+
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.symmetric(
+      horizontal: UIGaps.size20,
+      vertical: UIGaps.size20,
+    ),
+    decoration: const BoxDecoration(
+      color: AppColors.neutralEggShell20,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      ),
+    ),
+    width: double.infinity,
+    constraints: const BoxConstraints(minHeight: 700),
+    child: const Column(
+      spacing: UIGaps.size20,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [MerchantListSection()],
     ),
   );
 }

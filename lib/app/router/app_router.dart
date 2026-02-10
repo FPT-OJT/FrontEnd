@@ -3,11 +3,13 @@ import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/login_details_screen.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/login_options_screen.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/signup_details_screen.dart';
+import 'package:fpt_ojt/features/card/presentation/screens/search_screen.dart'
+    as card_search;
 import 'package:fpt_ojt/features/home/presentation/screens/home_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/onboarding_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/splash_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart';
-import 'package:fpt_ojt/features/merchants/presentations/screens/search_screen.dart';
+import 'package:fpt_ojt/features/merchants/presentation/screens/search_screen.dart';
 import 'package:fpt_ojt/features/shared/constants/navigation.dart';
 import 'package:fpt_ojt/features/shared/widgets/app_bottom_navbar.dart';
 import 'package:fpt_ojt/features/wallet/presentation/screens/card_details.dart';
@@ -49,6 +51,15 @@ final goRouter = GoRouter(
       pageBuilder: (context, state) => CustomTransitionPage(
         key: state.pageKey,
         child: const SearchScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(opacity: animation, child: child),
+      ),
+    ),
+    GoRoute(
+      path: RouteNames.cardSearch,
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: const card_search.SearchScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
       ),

@@ -64,6 +64,15 @@ import 'package:fpt_ojt/features/wallet/domain/usecases/get_my_apps.dart';
 import 'package:fpt_ojt/features/wallet/domain/usecases/get_my_cards.dart';
 import 'package:fpt_ojt/features/wallet/domain/usecases/get_my_fav_merchants.dart';
 import 'package:fpt_ojt/features/wallet/presentation/bloc/wallet_bloc.dart';
+import 'package:fpt_ojt/features/card/data/datasources/card_datasource.dart';
+import 'package:fpt_ojt/features/card/data/datasources/impl/card_datasouce_impl.dart';
+import 'package:fpt_ojt/features/card/data/repositories/card_repositories_impl.dart';
+import 'package:fpt_ojt/features/card/domain/repositories/card_repositories.dart';
+import 'package:fpt_ojt/features/card/domain/usecases/add_card_to_user_usecase.dart';
+import 'package:fpt_ojt/features/card/domain/usecases/is_card_exist_in_user_usecase.dart';
+import 'package:fpt_ojt/features/card/domain/usecases/search_cards_usecase.dart';
+import 'package:fpt_ojt/features/card/presentation/bloc/details/detail_card_bloc.dart';
+import 'package:fpt_ojt/features/card/presentation/bloc/search/search_card_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 

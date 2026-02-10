@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+import 'package:fpt_ojt/features/merchants/presentation/constants/merchant_text.dart';
 
 class SearchInputTextField extends StatelessWidget {
   const SearchInputTextField({super.key, this.onSubmitted, this.controller});
   final ValueChanged<String>? onSubmitted;
   final TextEditingController? controller;
-  static const String hintText = 'Search for a card...';
   static const double iconSize = 24;
   static const double inputHeight = 48;
   static const double inputWidth = 274;
@@ -32,7 +32,7 @@ class SearchInputTextField extends StatelessWidget {
           ),
           cursorColor: AppColors.primaryForest,
           decoration: InputDecoration(
-            hintText: hintText,
+            hintText: MerchantText.hintText,
             hintStyle: AppTextStyles.bodyExtraSmall.copyWith(
               color: AppColors.primaryForest,
             ),
