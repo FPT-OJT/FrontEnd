@@ -6,32 +6,33 @@ import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/shadows.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 
-class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({
+class OutlinedPrimaryButton extends StatelessWidget {
+  const OutlinedPrimaryButton({
     required this.onPressed,
     required this.text,
     super.key,
-    this.enabled = true,
     this.isLoading = false,
   });
 
   final VoidCallback onPressed;
   final String text;
-  final bool enabled;
   final bool isLoading;
+  static const double borderWidth = 2;
 
   @override
   Widget build(BuildContext context) => SizedBox(
     width: double.infinity,
     height: UIGaps.size48,
-    child: ElevatedButton(
-      onPressed: (enabled && !isLoading) ? onPressed : null,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.secondaryCoral,
-        foregroundColor: AppColors.neutralWhite,
+    child: OutlinedButton(
+      onPressed: isLoading ? null : onPressed,
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.secondaryCoral,
+        side: const BorderSide(
+          color: AppColors.secondaryCoral,
+          width: borderWidth,
+        ),
         shape: RoundedRectangleBorder(borderRadius: Rounded.md),
         elevation: Shadows.none,
-        disabledBackgroundColor: AppColors.secondaryCoralDisabled,
       ),
       child: isLoading
           ? const SizedBox(
@@ -40,7 +41,7 @@ class PrimaryButton extends StatelessWidget {
               child: CircularProgressIndicator(
                 strokeWidth: Borders.xs,
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  AppColors.neutralWhite,
+                  AppColors.secondaryCoral,
                 ),
               ),
             )

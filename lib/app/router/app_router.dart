@@ -8,6 +8,10 @@ import 'package:fpt_ojt/features/intro/presentation/screens/onboarding_screen.da
 import 'package:fpt_ojt/features/intro/presentation/screens/splash_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart';
 import 'package:fpt_ojt/features/merchants/presentations/screens/search_screen.dart';
+import 'package:fpt_ojt/features/profile/presentations/screens/edit_profile_screen.dart';
+import 'package:fpt_ojt/features/profile/presentations/screens/notification_setting.dart';
+import 'package:fpt_ojt/features/profile/presentations/screens/profle_tab.dart';
+import 'package:fpt_ojt/features/profile/presentations/screens/terms_screen.dart';
 import 'package:fpt_ojt/features/shared/constants/navigation.dart';
 import 'package:fpt_ojt/features/shared/widgets/app_bottom_navbar.dart';
 import 'package:fpt_ojt/features/wallet/presentation/screens/card_details.dart';
@@ -52,6 +56,18 @@ final goRouter = GoRouter(
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
       ),
+    ),
+    GoRoute(
+      path: RouteNames.editAccount,
+      builder: (context, state) => const EditProfileScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.notificationSettings,
+      builder: (context, state) => const NotificationSettingScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.termsConditions,
+      builder: (context, state) => const TermsScreen(),
     ),
     GoRoute(
       path: '${RouteNames.cardDetails}/:cardId',
@@ -99,8 +115,7 @@ final goRouter = GoRouter(
           routes: [
             GoRoute(
               path: RouteNames.profile,
-              builder: (context, state) =>
-                  const Scaffold(body: Center(child: Text('Profile'))),
+              builder: (context, state) => const ProfileTab(),
             ),
           ],
         ),

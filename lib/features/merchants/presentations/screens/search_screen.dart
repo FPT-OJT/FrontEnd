@@ -76,9 +76,6 @@ class SearchScreen extends StatelessWidget {
                 constraints: const BoxConstraints(minHeight: 700),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Add search results content here
-                  ],
                 ),
               ),
             ],

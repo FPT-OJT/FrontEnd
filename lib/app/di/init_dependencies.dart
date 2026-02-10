@@ -56,6 +56,16 @@ import 'package:fpt_ojt/features/merchants/domain/repositories/merchant_agency_r
 import 'package:fpt_ojt/features/merchants/domain/repositories/merchant_category_repository.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_categories.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_nearest_merchant_agencies.dart';
+import 'package:fpt_ojt/features/profile/data/datasource/country_datasource.dart';
+import 'package:fpt_ojt/features/profile/data/datasource/impl/country_datasource_impl.dart';
+import 'package:fpt_ojt/features/profile/data/datasource/impl/profile_datasource_impl.dart';
+import 'package:fpt_ojt/features/profile/data/datasource/profile_datasource.dart';
+import 'package:fpt_ojt/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:fpt_ojt/features/profile/domain/repositories/profile_repository.dart';
+import 'package:fpt_ojt/features/profile/domain/usecases/get_countries.dart';
+import 'package:fpt_ojt/features/profile/domain/usecases/get_my_profile.dart';
+import 'package:fpt_ojt/features/profile/domain/usecases/update_my_profile.dart';
+import 'package:fpt_ojt/features/profile/presentations/blocs/update_profile/update_profile_bloc.dart';
 import 'package:fpt_ojt/features/wallet/data/datasources/impl/wallet_datasource_impl.dart';
 import 'package:fpt_ojt/features/wallet/data/datasources/wallet_datasource.dart';
 import 'package:fpt_ojt/features/wallet/data/repositories/wallet_repositories_impl.dart';
