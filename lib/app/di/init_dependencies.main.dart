@@ -24,6 +24,7 @@ Future<void> initDependencies() async {
   await _initLocation();
   _initWallet();
   _initCard();
+  _initProfile();
 }
 
 void _initIntro() {
@@ -280,4 +281,35 @@ void _initCard() {
     ..registerFactory<DetailCardBloc>(
       () => DetailCardBloc(addCardToUserUsecase: serviceLocator()),
     );
+}
+
+void _initProfile() {
+  serviceLocator.registerLazySingleton<ProfileDatasource>(
+    () => ProfileDatasourceImpl(dio: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<CountryDatasource>(
+    () => CountryDatasourceImpl(dio: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<ProfileRepository>(
+    () => ProfileRepositoryImpl(
+      profileDatasource: serviceLocator(),
+      countryDatasource: serviceLocator(),
+    ),
+  );
+  serviceLocator.registerLazySingleton<GetMyProfileUseCase>(
+    () => GetMyProfileUseCase(profileRepository: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<UpdateMyProfileUseCase>(
+    () => UpdateMyProfileUseCase(profileRepository: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<GetCountriesUseCase>(
+    () => GetCountriesUseCase(profileRepository: serviceLocator()),
+  );
+  serviceLocator.registerFactory<UpdateProfileBloc>(
+    () => UpdateProfileBloc(
+      getMyProfileUseCase: serviceLocator(),
+      updateMyProfileUseCase: serviceLocator(),
+      getCountriesUseCase: serviceLocator(),
+    ),
+  );
 }

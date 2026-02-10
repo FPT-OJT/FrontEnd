@@ -13,4 +13,7 @@ class RouteNames {
   static const String profile = '/profile';
   static const String wallet = '/wallet';
   static const String cardDetails = '/card-details';
+  static const String editAccount = '/edit-account';
+  static const String notificationSettings = '/notification-settings';
+  static const String termsConditions = '/terms-conditions';
 }

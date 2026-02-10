@@ -35,6 +35,7 @@ dependencies:
   shimmer: ^3.0.0
   geolocator: ^14.0.2
   flutter_svg: ^2.2.3
+  carousel_slider: ^5.1.2
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,7 @@ flutter:
     - assets/images/home/
     - assets/images/wallet/images/
     - assets/images/wallet/icons/
+    - assets/images/profile/
     - assets/icons/
 flutter_native_splash:
   color: "#FEF2EC"
