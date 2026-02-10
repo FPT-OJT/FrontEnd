@@ -1,4 +1,4 @@
-import 'package:fpdart/src/either.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/features/profile/data/datasource/country_datasource.dart';
 import 'package:fpt_ojt/features/profile/data/datasource/profile_datasource.dart';

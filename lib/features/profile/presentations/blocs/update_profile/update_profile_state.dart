@@ -1,43 +1,17 @@
-import 'package:equatable/equatable.dart';
 import 'package:fpt_ojt/features/profile/domain/entities/country.dart';
 import 'package:fpt_ojt/features/profile/domain/entities/profile.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class UpdateProfileState extends Equatable {
-  const UpdateProfileState();
+part 'update_profile_state.freezed.dart';
 
-  @override
-  List<Object?> get props => [];
-}
+enum UpdateProfileStatus { initial, loading, loaded, success, failure }
 
-class UpdateProfileInitial extends UpdateProfileState {
-  const UpdateProfileInitial();
-  @override
-  List<Object?> get props => [];
-}
-
-class UpdateProfileLoading extends UpdateProfileState {
-  const UpdateProfileLoading();
-  @override
-  List<Object?> get props => [];
-}
-
-class UpdateProfileLoaded extends UpdateProfileState {
-  const UpdateProfileLoaded({required this.countries, required this.profile});
-  final List<Country> countries;
-  final Profile profile;
-  @override
-  List<Object?> get props => [countries, profile];
-}
-
-class UpdateProfileSuccess extends UpdateProfileState {
-  const UpdateProfileSuccess();
-  @override
-  List<Object?> get props => [];
-}
-
-class UpdateProfileFailure extends UpdateProfileState {
-  const UpdateProfileFailure(this.message);
-  final String message;
-  @override
-  List<Object?> get props => [message];
+@freezed
+abstract class UpdateProfileState with _$UpdateProfileState {
+  const factory UpdateProfileState({
+    @Default(UpdateProfileStatus.initial) UpdateProfileStatus status,
+    @Default([]) List<Country> countries,
+    Profile? profile,
+    String? errorMessage,
+  }) = _UpdateProfileState;
 }

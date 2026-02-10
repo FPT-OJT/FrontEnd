@@ -4,6 +4,7 @@ import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_event.dart';
+import 'package:fpt_ojt/features/profile/presentations/constants/profile_tab.dart';
 import 'package:fpt_ojt/features/shared/widgets/outlined_primary_button.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,7 +20,7 @@ class LogoutSection extends StatelessWidget {
         context.read<AuthBloc>().add(const AuthLoggedOutEvent());
         context.go(RouteNames.loginOptions);
       },
-      text: 'Logout',
+      text: ProfileTabConstants.logoutButtonText,
     ),
   );
 }

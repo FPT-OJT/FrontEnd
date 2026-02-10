@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+import 'package:fpt_ojt/features/profile/presentations/constants/profile_update.dart';
 import 'package:go_router/go_router.dart';
 
 class EditProfileHeadSection extends StatelessWidget {
@@ -10,7 +11,7 @@ class EditProfileHeadSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: UIGaps.size12),
-    height: 120,
+    height: ProfileUpdateConstants.headerHeight,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -19,18 +20,22 @@ class EditProfileHeadSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 36,
-              height: 36,
+              width: ProfileUpdateConstants.backButtonSize,
+              height: ProfileUpdateConstants.backButtonSize,
               decoration: BoxDecoration(
-                color: AppColors.neutralWhite.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(5),
+                color: AppColors.neutralWhite.withValues(
+                  alpha: ProfileUpdateConstants.backButtonOpacity,
+                ),
+                borderRadius: BorderRadius.circular(
+                  ProfileUpdateConstants.backButtonRadius,
+                ),
               ),
               child: IconButton(
                 padding: EdgeInsets.zero,
                 icon: const Icon(
                   Icons.arrow_back_ios_new,
                   color: Colors.white,
-                  size: 20,
+                  size: ProfileUpdateConstants.backButtonIconSize,
                 ),
                 onPressed: () {
                   context.pop();
@@ -38,12 +43,16 @@ class EditProfileHeadSection extends StatelessWidget {
               ),
             ),
             Text(
-              'Edit profile info',
+              ProfileUpdateConstants.editProfileTitle,
               style: AppTextStyles.h2.copyWith(color: AppColors.neutralWhite),
             ),
           ],
         ),
-        Image.asset('assets/images/profile/head.png', height: 80, width: 100),
+        Image.asset(
+          ProfileUpdateConstants.headerImagePath,
+          height: ProfileUpdateConstants.headerImageHeight,
+          width: ProfileUpdateConstants.headerImageWidth,
+        ),
       ],
     ),
   );

@@ -19,7 +19,7 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
   }) : _getCountriesUseCase = getCountriesUseCase,
        _getMyProfileUseCase = getMyProfileUseCase,
        _updateMyProfileUseCase = updateMyProfileUseCase,
-       super(const UpdateProfileInitial()) {
+       super(const UpdateProfileState()) {
     on<UpdateProfileStarted>(_onUpdateProfileStarted);
     on<UpdateProfileRequested>(_onUpdateProfileRequested);
   }
@@ -31,7 +31,7 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
     UpdateProfileStarted event,
     Emitter<UpdateProfileState> emit,
   ) async {
-    emit(const UpdateProfileLoading());
+    emit(state.copyWith(status: UpdateProfileStatus.loading));
 
     final results = await Future.wait([
       _getCountriesUseCase(const NoParams()),
@@ -46,15 +46,25 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
     debugPrint(
       'profile: ${profileEither.fold((l) => l.message, (r) => r.toString())}',
     );
-    final state = countriesEither.flatMap(
+
+    final resultState = countriesEither.flatMap(
       (countries) => profileEither.map(
-        (profile) =>
-            UpdateProfileLoaded(countries: countries, profile: profile),
+        (profile) => state.copyWith(
+          status: UpdateProfileStatus.loaded,
+          countries: countries,
+          profile: profile,
+          errorMessage: null,
+        ),
       ),
     );
 
-    state.fold(
-      (failure) => emit(UpdateProfileFailure(failure.message)),
+    resultState.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: UpdateProfileStatus.failure,
+          errorMessage: failure.message,
+        ),
+      ),
       emit.call,
     );
   }
@@ -63,7 +73,8 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
     UpdateProfileRequested event,
     Emitter<UpdateProfileState> emit,
   ) async {
-    emit(const UpdateProfileLoading());
+    emit(state.copyWith(status: UpdateProfileStatus.loading));
+
     final result = await _updateMyProfileUseCase.call(
       UpdateMyProfileParams(
         firstName: event.profile.firstName,
@@ -73,9 +84,17 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
         phoneNumber: event.profile.phoneNumber,
       ),
     );
+
     result.fold(
-      (failure) => emit(UpdateProfileFailure(failure.message)),
-      (_) => emit(const UpdateProfileSuccess()),
+      (failure) => emit(
+        state.copyWith(
+          status: UpdateProfileStatus.failure,
+          errorMessage: failure.message,
+        ),
+      ),
+      (_) => emit(
+        state.copyWith(status: UpdateProfileStatus.success, errorMessage: null),
+      ),
     );
   }
 }
