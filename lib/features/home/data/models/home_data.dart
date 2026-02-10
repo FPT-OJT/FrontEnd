@@ -11,7 +11,7 @@ abstract class HomeData with _$HomeData {
     required List<MerchantCategory> merchantCategories,
     required List<MerchantOffer> merchantOffers,
     required List<ProductDeal> productDeals,
-    required bool hasCard,
+    required bool userCardEmpty,
   }) = _HomeData;
 
   factory HomeData.fromJson(Map<String, dynamic> json) {
@@ -44,7 +44,7 @@ abstract class HomeData with _$HomeData {
               ?.map((e) => ProductDeal.fromJson(e as Map<String, dynamic>))
               .toList() ??
           mockProductDeals,
-      hasCard: json['hasCard'] as bool? ?? false,
+      userCardEmpty: json['userCardEmpty'] as bool? ?? false,
     );
   }
 }

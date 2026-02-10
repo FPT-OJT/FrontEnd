@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-abstract class DetailCardEvent extends Equatable {
-  const DetailCardEvent();
+abstract class DetailCardSheetEvent extends Equatable {
+  const DetailCardSheetEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class OnCardAddEvent extends DetailCardEvent {
+class OnCardAddEvent extends DetailCardSheetEvent {
   const OnCardAddEvent(this.cardId);
   final String cardId;
 
@@ -15,7 +15,7 @@ class OnCardAddEvent extends DetailCardEvent {
   List<Object?> get props => [cardId];
 }
 
-class OnCardCloseEvent extends DetailCardEvent {
+class OnCardCloseEvent extends DetailCardSheetEvent {
   const OnCardCloseEvent(this.cardId);
   final String cardId;
 
@@ -23,7 +23,7 @@ class OnCardCloseEvent extends DetailCardEvent {
   List<Object?> get props => [cardId];
 }
 
-class OnViewMyWalletSelected extends DetailCardEvent {
+class OnViewMyWalletSelected extends DetailCardSheetEvent {
   const OnViewMyWalletSelected();
 
   @override

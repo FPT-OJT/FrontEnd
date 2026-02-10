@@ -8,9 +8,9 @@ import 'package:fpt_ojt/core/theme/borders.dart';
 import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/card/domain/usecases/is_card_exist_in_user_usecase.dart';
-import 'package:fpt_ojt/features/card/presentation/bloc/details/detail_card_bloc.dart';
-import 'package:fpt_ojt/features/card/presentation/bloc/details/detail_card_event.dart';
-import 'package:fpt_ojt/features/card/presentation/bloc/details/detail_card_state.dart';
+import 'package:fpt_ojt/features/card/presentation/bloc/add_details/detail_card_sheet_bloc.dart';
+import 'package:fpt_ojt/features/card/presentation/bloc/add_details/detail_card_sheet_event.dart';
+import 'package:fpt_ojt/features/card/presentation/bloc/add_details/detail_card_sheet_state.dart';
 import 'package:fpt_ojt/features/card/presentation/constants/card_text.dart';
 import 'package:go_router/go_router.dart';
 
@@ -63,7 +63,7 @@ class _CardDetailBottomSheetState extends State<CardDetailBottomSheet> {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-    create: (context) => serviceLocator<DetailCardBloc>(),
+    create: (context) => serviceLocator<DetailCardSheetBloc>(),
     child: Container(
       padding: const EdgeInsets.only(top: 50, left: 30, right: 30, bottom: 50),
       decoration: const BoxDecoration(
@@ -159,7 +159,7 @@ class _CardDetailBottomSheetState extends State<CardDetailBottomSheet> {
   );
 
   Widget _buildButton2(BuildContext context) =>
-      BlocConsumer<DetailCardBloc, DetailCardState>(
+      BlocConsumer<DetailCardSheetBloc, DetailCardSheetState>(
         listener: (context, state) {
           if (state.detailStatus == DetailCardLoadStatus.success) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -192,7 +192,7 @@ class _CardDetailBottomSheetState extends State<CardDetailBottomSheet> {
                         context.go(RouteNames.wallet);
                       } else {
                         // Add card
-                        context.read<DetailCardBloc>().add(
+                        context.read<DetailCardSheetBloc>().add(
                           OnCardAddEvent(widget.cardId),
                         );
                       }

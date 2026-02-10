@@ -1,12 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/features/card/domain/usecases/add_card_to_user_usecase.dart';
-import 'package:fpt_ojt/features/card/presentation/bloc/details/detail_card_event.dart';
-import 'package:fpt_ojt/features/card/presentation/bloc/details/detail_card_state.dart';
+import 'package:fpt_ojt/features/card/presentation/bloc/add_details/detail_card_sheet_event.dart';
+import 'package:fpt_ojt/features/card/presentation/bloc/add_details/detail_card_sheet_state.dart';
 
-class DetailCardBloc extends Bloc<DetailCardEvent, DetailCardState> {
-  DetailCardBloc({required AddCardToUserUsecase addCardToUserUsecase})
+class DetailCardSheetBloc
+    extends Bloc<DetailCardSheetEvent, DetailCardSheetState> {
+  DetailCardSheetBloc({required AddCardToUserUsecase addCardToUserUsecase})
     : _addCardToUserUsecase = addCardToUserUsecase,
-      super(const DetailCardState()) {
+      super(const DetailCardSheetState()) {
     on<OnCardAddEvent>(_onCardAdd);
   }
 
@@ -14,7 +15,7 @@ class DetailCardBloc extends Bloc<DetailCardEvent, DetailCardState> {
 
   Future<void> _onCardAdd(
     OnCardAddEvent event,
-    Emitter<DetailCardState> emit,
+    Emitter<DetailCardSheetState> emit,
   ) async {
     if (state.detailStatus == DetailCardLoadStatus.loading) {
       return;
