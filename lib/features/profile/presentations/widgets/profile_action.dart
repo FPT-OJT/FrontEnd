@@ -4,6 +4,7 @@ import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/profile/presentations/constants/data.dart';
+import 'package:fpt_ojt/features/profile/presentations/constants/profile_tab.dart';
 import 'package:fpt_ojt/features/profile/presentations/models/action_item.dart';
 import 'package:go_router/go_router.dart';
 
@@ -31,7 +32,7 @@ class ProfileAction extends StatelessWidget {
       borderRadius: Rounded.sm,
       child: Container(
         width: double.infinity,
-        height: UIGaps.size48,
+        height: ProfileTabConstants.actionItemHeight,
         decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
         ),
@@ -39,14 +40,22 @@ class ProfileAction extends StatelessWidget {
           children: [
             // Icon
             Padding(
-              padding: const EdgeInsets.only(top: UIGaps.size12),
-              child: Icon(item.icon, size: 24, color: AppColors.primaryForest),
+              padding: const EdgeInsets.only(
+                top: ProfileTabConstants.actionIconPaddingTop,
+              ),
+              child: Icon(
+                item.icon,
+                size: ProfileTabConstants.actionIconSize,
+                color: AppColors.primaryForest,
+              ),
             ),
             UIGaps.w16,
             // Label
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(top: UIGaps.size16),
+                padding: const EdgeInsets.only(
+                  top: ProfileTabConstants.actionTextPaddingTop,
+                ),
                 child: Text(
                   item.label,
                   style: AppTextStyles.bodySmall.copyWith(
@@ -57,10 +66,12 @@ class ProfileAction extends StatelessWidget {
             ),
             // Navigate arrow
             Padding(
-              padding: const EdgeInsets.only(top: 12),
+              padding: const EdgeInsets.only(
+                top: ProfileTabConstants.actionChevronPaddingTop,
+              ),
               child: Icon(
                 Icons.chevron_right,
-                size: 24,
+                size: ProfileTabConstants.actionIconSize,
                 color: Colors.grey.shade600,
               ),
             ),

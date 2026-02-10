@@ -1,22 +1,11 @@
-import 'package:equatable/equatable.dart';
 import 'package:fpt_ojt/features/profile/domain/entities/profile.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class UpdateProfileEvent extends Equatable {
-  const UpdateProfileEvent();
+part 'update_profile_event.freezed.dart';
 
-  @override
-  List<Object?> get props => [];
-}
-
-class UpdateProfileStarted extends UpdateProfileEvent {
-  const UpdateProfileStarted();
-  @override
-  List<Object?> get props => [];
-}
-
-class UpdateProfileRequested extends UpdateProfileEvent {
-  const UpdateProfileRequested({required this.profile});
-  final Profile profile;
-  @override
-  List<Object?> get props => [profile];
+@freezed
+class UpdateProfileEvent with _$UpdateProfileEvent {
+  const factory UpdateProfileEvent.started() = UpdateProfileStarted;
+  const factory UpdateProfileEvent.updateRequested({required Profile profile}) =
+      UpdateProfileRequested;
 }

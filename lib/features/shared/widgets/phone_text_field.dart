@@ -156,7 +156,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
                     ? AppColors.secondaryCoral
                     : _errorText != null
                     ? AppColors.notifyError
-                    : AppColors.neutralEggShell80,
+                    : AppColors.secondaryCoral,
               ),
             ),
           ),

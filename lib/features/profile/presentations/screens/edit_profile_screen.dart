@@ -6,8 +6,9 @@ import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/profile/presentations/blocs/update_profile/update_profile_bloc.dart';
 import 'package:fpt_ojt/features/profile/presentations/blocs/update_profile/update_profile_event.dart';
-import 'package:fpt_ojt/features/profile/presentations/widgets/edit_profile_head_section.dart';
-import 'package:fpt_ojt/features/profile/presentations/widgets/update_profile_section.dart';
+import 'package:fpt_ojt/features/profile/presentations/constants/profile_update.dart';
+import 'package:fpt_ojt/features/profile/presentations/widgets/update_profile/edit_profile_head_section.dart';
+import 'package:fpt_ojt/features/profile/presentations/widgets/update_profile/update_profile_section.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -20,7 +21,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<UpdateProfileBloc>().add(const UpdateProfileStarted());
+    context.read<UpdateProfileBloc>().add(const UpdateProfileEvent.started());
   }
 
   @override
@@ -66,12 +67,14 @@ class _ContentSection extends StatelessWidget {
     decoration: const BoxDecoration(
       color: AppColors.neutralEggShell20,
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(16),
-        topRight: Radius.circular(16),
+        topLeft: Radius.circular(ProfileUpdateConstants.contentBorderRadius),
+        topRight: Radius.circular(ProfileUpdateConstants.contentBorderRadius),
       ),
     ),
     width: double.infinity,
-    constraints: const BoxConstraints(minHeight: 700),
+    constraints: const BoxConstraints(
+      minHeight: ProfileUpdateConstants.contentMinHeight,
+    ),
     child: const Column(
       spacing: UIGaps.size20,
       crossAxisAlignment: CrossAxisAlignment.start,
