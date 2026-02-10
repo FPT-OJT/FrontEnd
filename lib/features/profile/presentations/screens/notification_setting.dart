@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/profile/presentations/constants/notification.dart';
-import 'package:fpt_ojt/features/profile/presentations/constants/terms_conditions.dart';
 import 'package:fpt_ojt/features/profile/presentations/widgets/notification/switch_item.dart';
 import 'package:fpt_ojt/features/profile/presentations/widgets/terms_conditions/terms_conditions_head_section.dart';
 
@@ -72,13 +70,13 @@ class _ContentSection extends StatelessWidget {
     decoration: const BoxDecoration(
       color: AppColors.neutralEggShell20,
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(TermsConditionsConstants.contentBorderRadius),
-        topRight: Radius.circular(TermsConditionsConstants.contentBorderRadius),
+        topLeft: Radius.circular(NotificationConstants.contentBorderRadius),
+        topRight: Radius.circular(NotificationConstants.contentBorderRadius),
       ),
     ),
     width: double.infinity,
     constraints: const BoxConstraints(
-      minHeight: TermsConditionsConstants.contentMinHeight,
+      minHeight: NotificationConstants.contentMinHeight,
     ),
     child: SingleChildScrollView(
       child: Column(
