@@ -19,7 +19,7 @@ class _TermsScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
     value: const SystemUiOverlayStyle(
-      statusBarColor:  Colors.transparent,
+      statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
       statusBarBrightness: Brightness.light,
       systemNavigationBarColor: AppColors.primaryForest,
@@ -39,7 +39,12 @@ class _TermsScreenContent extends StatelessWidget {
                 ),
               ),
               height: 250,
-              padding: const EdgeInsets.only(left: UIGaps.size20, right: UIGaps.size20, top: UIGaps.size48,bottom: UIGaps.size20),
+              padding: const EdgeInsets.only(
+                left: UIGaps.size20,
+                right: UIGaps.size20,
+                top: UIGaps.size48,
+                bottom: UIGaps.size20,
+              ),
               child: const TermsConditionsHeadSection(),
             ),
             const Expanded(

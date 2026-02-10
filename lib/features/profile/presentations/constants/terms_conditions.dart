@@ -15,7 +15,7 @@ We collect and store on a long-term basis any subtitle project submitted.ed.
 Collects and uses your personal data exclusively in. collects and uses your personal data exclusively in compliance with the requirements in Regulation (EU) 2016/679 of the European Parliament and Council of April 27, 2016 (General Data Protection Regulation, hereinafter GDPR) and Italian data protection law. In the following, we inform you about the type, scope, and purposes of the collection and use of personal 2016/679 of the European Parliament and Council of April 27, 2016 (General Data Protection Regulation, hereinafter GDPR) and Italian data protection law. In type, scope, and purposes of the collection and use of personal data.
   ''';
 
-    // Layout constants
+  // Layout constants
   static const double headerHeight = 120;
   static const double headerImageHeight = 80;
   static const double headerImageWidth = 100;
@@ -39,10 +39,9 @@ Collects and uses your personal data exclusively in. collects and uses your pers
   // Carousel card constants
   static const int carouselCardBgOpacity = 25;
 
-    // Layout constants
+  // Layout constants
   static const double backButtonSize = 36;
   static const double backButtonRadius = 5;
   static const double backButtonIconSize = 20;
   static const double backButtonOpacity = 0.3;
-
 }
