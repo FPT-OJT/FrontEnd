@@ -96,7 +96,6 @@ class AuthRefreshInterceptor extends Interceptor {
       final authError = DioException(
         requestOptions: err.requestOptions,
         response: err.response,
-        type: DioExceptionType.unknown,
         error: AuthenticationException('Session expired. Please login again.'),
       );
       return handler.next(authError);
