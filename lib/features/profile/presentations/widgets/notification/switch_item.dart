@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 
 class SwitchItem extends StatefulWidget {
-
   const SwitchItem({
-    required this.label, super.key,
+    required this.label,
+    super.key,
     this.initialValue = false,
     this.onChanged,
     this.onInfoTap,
@@ -23,24 +23,24 @@ class _SwitchItemState extends State<SwitchItem> {
   static const double _containerBorderRadius = 5;
   static const double _containerPaddingHorizontal = 16;
   static const double _containerPaddingVertical = 14;
-  
+
   // Shadow constants
   static const double _shadowBlurRadius = 8;
   static const double _shadowOffsetX = 0;
   static const double _shadowOffsetY = 2;
-  
+
   // Switch constants
   static const double _switchScale = 0.8;
   static const double _switchSpacing = 8;
-  
+
   // Text constants
   static const double _labelFontSize = 14;
   static const double _labelLineHeight = 1.5;
-  
+
   // Icon constants
   static const double _iconBorderRadius = 12;
   static const double _iconSize = 24;
-  
+
   late bool _isChecked;
 
   @override
