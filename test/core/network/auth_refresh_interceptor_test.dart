@@ -238,7 +238,15 @@ void main() {
       // Assert
       verify(mockTokenStore.deleteAccessToken()).called(1);
       verify(mockTokenStore.deleteRefreshToken()).called(1);
-      verify(handler.next(dioException)).called(1);
+
+      // Verify that handler.next was called with a DioException containing AuthenticationException
+      final captured =
+          verify(handler.next(captureAny)).captured.single as DioException;
+      expect(captured.requestOptions, requestOptions);
+      expect(
+        captured.error.toString(),
+        contains('Session expired. Please login again'),
+      );
     });
 
     test('should skip refresh for public paths', () async {
@@ -307,7 +315,12 @@ void main() {
       verify(mockTokenStore.deleteAccessToken()).called(1);
       verify(mockTokenStore.deleteRefreshToken()).called(1);
 
-      expect(handler.nextError, same(dioException));
+      expect(handler.nextError, isNotNull);
+      expect(handler.nextError, isA<DioException>());
+      expect(
+        handler.nextError!.error.toString(),
+        contains('Session expired. Please login again'),
+      );
       expect(handler.resolvedResponse, isNull);
       expect(handler.rejectedError, isNull);
     });

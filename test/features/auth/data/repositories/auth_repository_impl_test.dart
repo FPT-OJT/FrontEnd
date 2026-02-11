@@ -85,7 +85,9 @@ void main() {
           rememberMe: anyNamed('rememberMe'),
         ),
       ).thenAnswer((_) async => {});
-      when(mockAuthDataSource.getCurrentUser()).thenAnswer((_) async => userModel);
+      when(
+        mockAuthDataSource.getCurrentUser(),
+      ).thenAnswer((_) async => userModel);
       when(mockKeyValueStorage.set(any, any)).thenAnswer((_) async => {});
 
       // Act
@@ -145,7 +147,9 @@ void main() {
             rememberMe: anyNamed('rememberMe'),
           ),
         ).thenAnswer((_) async => {});
-        when(mockAuthDataSource.getCurrentUser()).thenAnswer((_) async => userModel);
+        when(
+          mockAuthDataSource.getCurrentUser(),
+        ).thenAnswer((_) async => userModel);
         when(mockKeyValueStorage.set(any, any)).thenAnswer((_) async => {});
 
         // Act
@@ -266,7 +270,9 @@ void main() {
             rememberMe: anyNamed('rememberMe'),
           ),
         ).thenAnswer((_) async => {});
-        when(mockAuthDataSource.getCurrentUser()).thenAnswer((_) async => userModel);
+        when(
+          mockAuthDataSource.getCurrentUser(),
+        ).thenAnswer((_) async => userModel);
         when(mockKeyValueStorage.set(any, any)).thenAnswer((_) async => {});
 
         // Act
@@ -472,7 +478,9 @@ void main() {
         when(
           mockAuthDataSource.getCurrentUser(),
         ).thenThrow(Exception('Network error'));
-        when(mockKeyValueStorage.get<String>(any)).thenAnswer((_) async => null);
+        when(
+          mockKeyValueStorage.get<String>(any),
+        ).thenAnswer((_) async => null);
 
         // Act
         final result = await repository.getCurrentUser();

@@ -20,7 +20,9 @@ void main() {
   setUpAll(() {
     // Provide dummy values for Either types
     provideDummy<Either<Failure, User>>(
-      const Right(User(id: '', firstName: '', lastName: '', email: '', avatar: '')),
+      const Right(
+        User(id: '', firstName: '', lastName: '', email: '', avatar: ''),
+      ),
     );
   });
 
