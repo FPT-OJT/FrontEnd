@@ -277,7 +277,7 @@ void _initCard() {
     ..registerFactory<SearchCardBloc>(
       () => SearchCardBloc(searchCardsUsecase: serviceLocator()),
     )
-    ..registerFactory<DetailCardBloc>(
-      () => DetailCardBloc(addCardToUserUsecase: serviceLocator()),
+    ..registerFactory<DetailCardSheetBloc>(
+      () => DetailCardSheetBloc(addCardToUserUsecase: serviceLocator()),
     );
 }

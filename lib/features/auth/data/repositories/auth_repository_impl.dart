@@ -31,7 +31,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final userJson = jsonEncode(user.toJson());
       await _localStorage.set(_userCacheKey, userJson);
-    } catch (_) {
+    } on Exception catch (_) {
       // Ignore cache errors
     }
   }
@@ -43,7 +43,7 @@ class AuthRepositoryImpl implements AuthRepository {
       if (userJson == null) return null;
       final userMap = jsonDecode(userJson) as Map<String, dynamic>;
       return UserModel.fromJson(userMap);
-    } catch (_) {
+    } on Exception catch (_) {
       return null;
     }
   }
@@ -52,7 +52,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> _clearUserCache() async {
     try {
       await _localStorage.remove(_userCacheKey);
-    } catch (_) {
+    } on Exception catch (_) {
       // Ignore cache errors
     }
   }

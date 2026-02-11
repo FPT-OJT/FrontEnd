@@ -33,7 +33,7 @@ import 'package:fpt_ojt/features/card/domain/repositories/card_repositories.dart
 import 'package:fpt_ojt/features/card/domain/usecases/add_card_to_user_usecase.dart';
 import 'package:fpt_ojt/features/card/domain/usecases/is_card_exist_in_user_usecase.dart';
 import 'package:fpt_ojt/features/card/domain/usecases/search_cards_usecase.dart';
-import 'package:fpt_ojt/features/card/presentation/bloc/details/detail_card_bloc.dart';
+import 'package:fpt_ojt/features/card/presentation/bloc/add_details/detail_card_sheet_bloc.dart';
 import 'package:fpt_ojt/features/card/presentation/bloc/search/search_card_bloc.dart';
 import 'package:fpt_ojt/features/home/data/datasources/home_datasource.dart';
 import 'package:fpt_ojt/features/home/data/datasources/impl/home_datasource_impl.dart';
