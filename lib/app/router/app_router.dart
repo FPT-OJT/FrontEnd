@@ -10,7 +10,6 @@ import 'package:fpt_ojt/features/intro/presentation/screens/onboarding_screen.da
 import 'package:fpt_ojt/features/intro/presentation/screens/splash_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart';
 import 'package:fpt_ojt/features/merchants/presentation/screens/search_screen.dart';
-import 'package:fpt_ojt/features/merchants/presentations/screens/search_screen.dart';
 import 'package:fpt_ojt/features/profile/presentations/screens/edit_profile_screen.dart';
 import 'package:fpt_ojt/features/profile/presentations/screens/notification_setting.dart';
 import 'package:fpt_ojt/features/profile/presentations/screens/profle_tab.dart';
@@ -68,6 +67,8 @@ final goRouter = GoRouter(
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
       ),
+    ),
+    GoRoute(
       path: RouteNames.editAccount,
       builder: (context, state) => const EditProfileScreen(),
     ),
