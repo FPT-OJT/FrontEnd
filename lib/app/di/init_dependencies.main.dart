@@ -168,6 +168,16 @@ Future<void> _initMerchant() async {
         merchantAgencyRepository: serviceLocator(),
         getShortestDistanceUseCase: serviceLocator(),
       ),
+    )
+    ..registerLazySingleton<GetMerchantAgencyDetailUseCase>(
+      () => GetMerchantAgencyDetailUseCase(
+        merchantAgencyRepository: serviceLocator(),
+      ),
+    )
+    ..registerFactory<MerchantDetailBloc>(
+      () => MerchantDetailBloc(
+        getMerchantAgencyDetailUseCase: serviceLocator(),
+      ),
     );
 }
 

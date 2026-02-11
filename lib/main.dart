@@ -14,6 +14,7 @@ import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_
 import 'package:fpt_ojt/features/location/blocs/location_bloc.dart';
 import 'package:fpt_ojt/features/location/blocs/location_event.dart';
 import 'package:fpt_ojt/features/profile/presentations/blocs/update_profile/update_profile_bloc.dart';
+import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_bloc.dart';
 import 'package:fpt_ojt/features/wallet/presentation/bloc/wallet_bloc.dart';
 
 void main() async {
@@ -48,6 +49,9 @@ void main() async {
         ),
         BlocProvider<UpdateProfileBloc>(
           create: (context) => serviceLocator<UpdateProfileBloc>(),
+        ),
+        BlocProvider<MerchantDetailBloc>(
+          create: (context) => serviceLocator<MerchantDetailBloc>(),
         ),
       ],
       child: const MainApp(),

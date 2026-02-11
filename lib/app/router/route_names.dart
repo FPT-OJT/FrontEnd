@@ -17,4 +17,6 @@ class RouteNames {
   static const String editAccount = '/edit-account';
   static const String notificationSettings = '/notification-settings';
   static const String termsConditions = '/terms-conditions';
+
+  static const String merchantDetail = '/merchants/:merchantId';
 }
