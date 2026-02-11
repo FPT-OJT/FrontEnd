@@ -9,6 +9,8 @@ enum SettingCardStateStatus {
   failure,
   updating,
   updated,
+  deleting,
+  deleted,
 }
 
 @freezed

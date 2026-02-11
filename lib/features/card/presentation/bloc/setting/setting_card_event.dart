@@ -32,3 +32,11 @@ class OnCardSettingUpdateEvent extends SettingCardEvent {
 class OnCardSettingDataChangedEvent extends SettingCardEvent {
   const OnCardSettingDataChangedEvent();
 }
+
+class OnCardSettingDeleteEvent extends SettingCardEvent {
+  const OnCardSettingDeleteEvent(this.userCardId);
+  final String userCardId;
+
+  @override
+  List<Object?> get props => [userCardId];
+}

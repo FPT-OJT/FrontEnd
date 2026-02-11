@@ -12,4 +12,5 @@ abstract interface class CardDatasource {
     DateTime? expiryDate,
   );
   Future<ApiResponse<UserCardDetailModel>> getUserCardDetail(String userCardId);
+  Future<ApiResponse<bool>> deleteUserCard(String userCardId);
 }

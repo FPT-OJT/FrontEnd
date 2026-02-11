@@ -18,4 +18,5 @@ abstract interface class CardRepositories {
   Future<Either<Failure, UserCardDetailEntity>> getUserCardDetail(
     String userCardId,
   );
+  Future<Either<Failure, bool>> deleteUserCard(String userCardId);
 }

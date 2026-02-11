@@ -103,4 +103,19 @@ class CardRepositoriesImpl implements CardRepositories {
       return Left(Failure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> deleteUserCard(String userCardId) async {
+    try {
+      final apiResponse = await _cardDatasource.deleteUserCard(userCardId);
+
+      if (apiResponse.data == null) {
+        return Left(Failure(apiResponse.message));
+      }
+
+      return Right(apiResponse.data!);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
 }

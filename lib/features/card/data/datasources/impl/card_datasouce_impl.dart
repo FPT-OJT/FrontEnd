@@ -57,9 +57,8 @@ class CardDatasouceImpl implements CardDatasource {
     final response = await _dio.put<Map<String, dynamic>>(
       '/user-cards/$cardId',
       data: {
-        if (firstPaymentDate != null) 
-          'firstPaymentDate': firstPaymentDate,
-        if (expiryDate != null) 
+        if (firstPaymentDate != null) 'firstPaymentDate': firstPaymentDate,
+        if (expiryDate != null)
           'expiryDate': expiryDate.toIso8601String().split('T')[0],
       },
     );
@@ -81,6 +80,18 @@ class CardDatasouceImpl implements CardDatasource {
     return ApiResponse.fromJson(
       response.data ?? {},
       (json) => UserCardDetailModel.fromJson(json! as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  Future<ApiResponse<bool>> deleteUserCard(String userCardId) async {
+    final response = await _dio.delete<Map<String, dynamic>>(
+      '/user-cards/$userCardId',
+    );
+
+    return ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => json == 'ok' || json == true,
     );
   }
 }

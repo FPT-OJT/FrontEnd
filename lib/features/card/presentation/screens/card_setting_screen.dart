@@ -64,6 +64,7 @@ class CardSettingScreen extends StatelessWidget {
                       firstPaymentDate: cardDetail?.firstPaymentDate,
                       expiryDate: cardDetail?.expiryDate,
                       warningMessage: state.warningMessage,
+                      imageUrl: cardDetail?.cardImageUrl,
                     ),
                   ],
                 ),
@@ -82,11 +83,13 @@ class _ContentSection extends StatelessWidget {
     this.firstPaymentDate,
     this.expiryDate,
     this.warningMessage,
+    this.imageUrl,
   });
   final String cardId;
   final int? firstPaymentDate;
   final DateTime? expiryDate;
   final String? warningMessage;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -108,6 +111,7 @@ class _ContentSection extends StatelessWidget {
       firstPaymentDate: firstPaymentDate,
       expiryDate: expiryDate,
       warningMessage: warningMessage,
+      imageUrl: imageUrl,
     ),
   );
 }

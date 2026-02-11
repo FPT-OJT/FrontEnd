@@ -9,6 +9,7 @@ import 'package:fpt_ojt/features/card/presentation/bloc/setting/setting_card_blo
 import 'package:fpt_ojt/features/card/presentation/bloc/setting/setting_card_event.dart';
 import 'package:fpt_ojt/features/card/presentation/bloc/setting/setting_card_state.dart';
 import 'package:fpt_ojt/features/card/presentation/constants/card_text.dart';
+import 'package:fpt_ojt/features/card/presentation/widgets/setting/delete_card_dialog.dart';
 import 'package:fpt_ojt/features/card/presentation/widgets/setting/setting_item_date.dart';
 import 'package:fpt_ojt/features/card/presentation/widgets/setting/setting_item_text.dart';
 import 'package:fpt_ojt/features/card/presentation/widgets/setting/setting_warning_item.dart';
@@ -20,6 +21,7 @@ class SettingSection extends StatefulWidget {
     this.firstPaymentDate,
     this.expiryDate,
     this.warningMessage,
+    this.imageUrl,
     super.key,
   });
 
@@ -27,6 +29,7 @@ class SettingSection extends StatefulWidget {
   final int? firstPaymentDate;
   final DateTime? expiryDate;
   final String? warningMessage;
+  final String? imageUrl;
 
   @override
   State<SettingSection> createState() => _SettingSectionState();
@@ -51,7 +54,17 @@ class _SettingSectionState extends State<SettingSection> {
         ),
       );
     } else {
-      context.go(RouteNames.wallet);
+      // Show delete dialog
+      showDialog<void>(
+        context: context,
+        builder: (dialogContext) => BlocProvider.value(
+          value: context.read<SettingCardBloc>(),
+          child: DeleteCardDialog(
+            userCardId: widget.cardId,
+            imageUrl: widget.imageUrl,
+          ),
+        ),
+      );
     }
   }
 

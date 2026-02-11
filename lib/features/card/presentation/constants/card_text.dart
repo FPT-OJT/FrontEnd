@@ -17,4 +17,7 @@ class CardText {
       'Please enter your card expiry date so we can remind you about your card card validity';
   static const String settingButton = 'Remove this card';
   static const String settingButtonDataChanged = 'Save your settings';
+  static const String deleteCardTitle = 'Are you sure you want to remove this card?';
+  static const String deleteCardButtonNo = 'No, I want to keep it';
+  static const String deleteCardButtonYes = 'Yes, remove this card';
 }

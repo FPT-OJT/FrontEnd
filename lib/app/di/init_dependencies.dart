@@ -69,6 +69,7 @@ import 'package:fpt_ojt/features/card/data/datasources/impl/card_datasouce_impl.
 import 'package:fpt_ojt/features/card/data/repositories/card_repositories_impl.dart';
 import 'package:fpt_ojt/features/card/domain/repositories/card_repositories.dart';
 import 'package:fpt_ojt/features/card/domain/usecases/add_card_to_user_usecase.dart';
+import 'package:fpt_ojt/features/card/domain/usecases/delete_user_card_usecase.dart';
 import 'package:fpt_ojt/features/card/domain/usecases/edit_user_card_usecase.dart';
 import 'package:fpt_ojt/features/card/domain/usecases/get_user_card_detail_usecase.dart';
 import 'package:fpt_ojt/features/card/domain/usecases/is_card_exist_in_user_usecase.dart';

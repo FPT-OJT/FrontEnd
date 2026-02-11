@@ -276,6 +276,9 @@ void _initCard() {
     )
     ..registerLazySingleton<EditUserCardUsecase>(
       () => EditUserCardUsecase(cardRepositories: serviceLocator()),
+    )
+    ..registerLazySingleton<DeleteUserCardUsecase>(
+      () => DeleteUserCardUsecase(cardRepositories: serviceLocator()),
     );
 
   // BLoC
@@ -290,6 +293,7 @@ void _initCard() {
       () => SettingCardBloc(
         getUserCardDetailUsecase: serviceLocator(),
         editUserCardUsecase: serviceLocator(),
+        deleteUserCardUsecase: serviceLocator(),
       ),
     );
 }
