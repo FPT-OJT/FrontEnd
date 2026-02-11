@@ -9,7 +9,7 @@ abstract class DetailCardSheetState with _$DetailCardSheetState {
   const factory DetailCardSheetState({
     @Default(DetailCardLoadStatus.initial) DetailCardLoadStatus detailStatus,
     @Default(null) CardEntity? selectedCard,
-    @Default(false) bool isCurrentCardInUser,
+    String? userCardId,
     String? errorMessage,
   }) = _DetailCardSheetState;
 }

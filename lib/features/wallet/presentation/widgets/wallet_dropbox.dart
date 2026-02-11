@@ -106,35 +106,46 @@ class _WalletDropboxState extends State<WalletDropbox> {
                                 children: widget.walletItems
                                     .where((item) => item.imageUrl != null)
                                     .map(
-                                      (item) => ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: Image.network(
-                                          item.imageUrl!,
-                                          width: widget.isCard
-                                              ? WalletDropbox.cardItemWidth
-                                              : WalletDropbox.otherItemSize,
-                                          height: widget.isCard
-                                              ? WalletDropbox.cardItemHeight
-                                              : WalletDropbox.otherItemSize,
-                                          fit: BoxFit.cover,
-                                          errorBuilder:
-                                              (context, error, stackTrace) =>
-                                                  Container(
-                                                    width: widget.isCard
-                                                        ? WalletDropbox
-                                                              .cardItemWidth
-                                                        : WalletDropbox
-                                                              .otherItemSize,
-                                                    height: widget.isCard
-                                                        ? WalletDropbox
-                                                              .cardItemHeight
-                                                        : WalletDropbox
-                                                              .otherItemSize,
-                                                    color: Colors.grey[300],
-                                                    child: const Icon(
-                                                      Icons.error,
+                                      (item) => GestureDetector(
+                                        onTap: () {
+                                          if (item.id != null) {
+                                            context.go(
+                                              '${RouteNames.cardSettings}/${item.id}',
+                                            );
+                                          }
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                          child: Image.network(
+                                            item.imageUrl!,
+                                            width: widget.isCard
+                                                ? WalletDropbox.cardItemWidth
+                                                : WalletDropbox.otherItemSize,
+                                            height: widget.isCard
+                                                ? WalletDropbox.cardItemHeight
+                                                : WalletDropbox.otherItemSize,
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) =>
+                                                    Container(
+                                                      width: widget.isCard
+                                                          ? WalletDropbox
+                                                                .cardItemWidth
+                                                          : WalletDropbox
+                                                                .otherItemSize,
+                                                      height: widget.isCard
+                                                          ? WalletDropbox
+                                                                .cardItemHeight
+                                                          : WalletDropbox
+                                                                .otherItemSize,
+                                                      color: Colors.grey[300],
+                                                      child: const Icon(
+                                                        Icons.error,
+                                                      ),
                                                     ),
-                                                  ),
+                                          ),
                                         ),
                                       ),
                                     )

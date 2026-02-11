@@ -1,8 +1,10 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/features/card/data/datasources/card_datasource.dart';
+import 'package:fpt_ojt/features/card/data/datasources/mapper/user_card_detail_mapper.dart';
 import 'package:fpt_ojt/features/card/data/models/card_model.dart';
 import 'package:fpt_ojt/features/card/domain/entities/card_entity.dart';
+import 'package:fpt_ojt/features/card/domain/entities/user_card_detail_entity.dart';
 import 'package:fpt_ojt/features/card/domain/repositories/card_repositories.dart';
 
 class CardRepositoriesImpl implements CardRepositories {
@@ -33,7 +35,7 @@ class CardRepositoriesImpl implements CardRepositories {
   }
 
   @override
-  Future<Either<Failure, bool>> addCardToUser(String cardId) async {
+  Future<Either<Failure, String>> addCardToUser(String cardId) async {
     try {
       final apiResponse = await _cardDatasource.addCardToUser(cardId);
 
@@ -80,6 +82,23 @@ class CardRepositoriesImpl implements CardRepositories {
       }
 
       return Right(apiResponse.data!);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserCardDetailEntity>> getUserCardDetail(
+    String userCardId,
+  ) async {
+    try {
+      final apiResponse = await _cardDatasource.getUserCardDetail(userCardId);
+
+      if (apiResponse.data == null) {
+        return Left(Failure(apiResponse.message));
+      }
+
+      return Right(apiResponse.data!.toEntity());
     } on Exception catch (e) {
       return Left(Failure.fromException(e));
     }

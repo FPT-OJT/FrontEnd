@@ -169,6 +169,9 @@ class _CardDetailBottomSheetState extends State<CardDetailBottomSheet> {
               ),
             );
             context.pop();
+            if (state.userCardId != null) {
+              context.go('${RouteNames.cardSettings}/${state.userCardId}');
+            }
           } else if (state.detailStatus == DetailCardLoadStatus.failure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -195,8 +198,6 @@ class _CardDetailBottomSheetState extends State<CardDetailBottomSheet> {
                         context.read<DetailCardSheetBloc>().add(
                           OnCardAddEvent(widget.cardId, null, null),
                         );
-
-                        //TODO: Navigate to card setting
                       }
                     },
               style: ElevatedButton.styleFrom(

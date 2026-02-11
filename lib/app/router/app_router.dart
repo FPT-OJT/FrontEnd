@@ -3,6 +3,7 @@ import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/login_details_screen.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/login_options_screen.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/signup_details_screen.dart';
+import 'package:fpt_ojt/features/card/presentation/screens/card_setting_screen.dart';
 import 'package:fpt_ojt/features/card/presentation/screens/search_screen.dart'
     as card_search;
 import 'package:fpt_ojt/features/home/presentation/screens/home_screen.dart';
@@ -69,6 +70,13 @@ final goRouter = GoRouter(
       builder: (context, state) {
         final cardId = state.pathParameters['cardId'] ?? '';
         return CardDetails(cardId: cardId);
+      },
+    ),
+    GoRoute(
+      path: '${RouteNames.cardSettings}/:cardId',
+      builder: (context, state) {
+        final cardId = state.pathParameters['cardId'] ?? '';
+        return CardSettingScreen(cardId: cardId);
       },
     ),
     StatefulShellRoute.indexedStack(

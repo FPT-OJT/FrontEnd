@@ -28,3 +28,7 @@ class OnCardSettingUpdateEvent extends SettingCardEvent {
   @override
   List<Object?> get props => [cardId, firstPaymentDate, expiryDate];
 }
+
+class OnCardSettingDataChangedEvent extends SettingCardEvent {
+  const OnCardSettingDataChangedEvent();
+}

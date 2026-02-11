@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fpt_ojt/features/card/data/datasources/card_datasource.dart';
 import 'package:fpt_ojt/features/card/data/models/card_model.dart';
+import 'package:fpt_ojt/features/card/data/models/user_card_detail_model.dart';
 import 'package:fpt_ojt/features/shared/models/api_response.dart';
 
 class CardDatasouceImpl implements CardDatasource {
@@ -26,16 +27,13 @@ class CardDatasouceImpl implements CardDatasource {
   }
 
   @override
-  Future<ApiResponse<bool>> addCardToUser(String cardId) async {
+  Future<ApiResponse<String>> addCardToUser(String cardId) async {
     final response = await _dio.post<Map<String, dynamic>>(
       '/user-cards',
       data: {'cardId': cardId},
     );
 
-    return ApiResponse.fromJson(
-      response.data ?? {},
-      (json) => json == 'ok' || json == true,
-    );
+    return ApiResponse.fromJson(response.data ?? {}, (json) => json as String);
   }
 
   @override
@@ -59,14 +57,30 @@ class CardDatasouceImpl implements CardDatasource {
     final response = await _dio.put<Map<String, dynamic>>(
       '/user-cards/$cardId',
       data: {
-        'firstPaymentDate': firstPaymentDate ?? '',
-        'expiryDate': expiryDate ?? '',
+        if (firstPaymentDate != null) 
+          'firstPaymentDate': firstPaymentDate,
+        if (expiryDate != null) 
+          'expiryDate': expiryDate.toIso8601String().split('T')[0],
       },
     );
 
     return ApiResponse.fromJson(
       response.data ?? {},
       (json) => json == 'ok' || json == true,
+    );
+  }
+
+  @override
+  Future<ApiResponse<UserCardDetailModel>> getUserCardDetail(
+    String userCardId,
+  ) async {
+    final response = await _dio.get<Map<String, dynamic>>(
+      '/user-cards/$userCardId',
+    );
+
+    return ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => UserCardDetailModel.fromJson(json! as Map<String, dynamic>),
     );
   }
 }

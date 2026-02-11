@@ -34,10 +34,10 @@ class DetailCardSheetBloc
           errorMessage: failure.message,
         ),
       ),
-      (success) => emit(
+      (userCardId) => emit(
         state.copyWith(
           detailStatus: DetailCardLoadStatus.success,
-          isCurrentCardInUser: success,
+          userCardId: userCardId,
         ),
       ),
     );

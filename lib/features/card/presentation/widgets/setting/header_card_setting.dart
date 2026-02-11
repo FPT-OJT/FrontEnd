@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,7 +9,7 @@ class HeaderCardSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+    padding: const EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 20),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,7 +35,7 @@ class HeaderCardSetting extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
-                    context.pop();
+                    context.go(RouteNames.wallet);
                   },
                 ),
               ),
@@ -53,8 +54,8 @@ class HeaderCardSetting extends StatelessWidget {
         const SizedBox(width: 16),
         // Image section
         Container(
-          width: 90,
-          height: 150,
+          width: 150,
+          height: 90,
           decoration: BoxDecoration(
             color: Colors.grey[300],
             borderRadius: BorderRadius.circular(8),

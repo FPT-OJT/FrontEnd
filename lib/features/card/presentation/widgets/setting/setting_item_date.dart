@@ -2,25 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 
-class SettingItem extends StatefulWidget {
-  const SettingItem({
+class SettingItemDate extends StatefulWidget {
+  const SettingItemDate({
     required this.datePickerTitle,
     required this.description,
-    required this.hasData,
     required this.title,
+    this.expiryDate,
+    this.onChanged,
     super.key,
   });
 
   final String title;
   final String description;
   final String datePickerTitle;
-  final bool hasData;
+  final DateTime? expiryDate;
+  final void Function(DateTime?)? onChanged;
 
   @override
-  State<SettingItem> createState() => _SettingItemState();
+  State<SettingItemDate> createState() => _SettingItemDateState();
 }
 
-class _SettingItemState extends State<SettingItem> {
+class _SettingItemDateState extends State<SettingItemDate> {
   bool _isExpanded = false;
   DateTime? _selectedDate;
 
@@ -33,7 +35,7 @@ class _SettingItemState extends State<SettingItem> {
   Future<void> _selectDate(BuildContext context) async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate ?? DateTime.now(),
+      initialDate: _selectedDate ?? widget.expiryDate ?? DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );
@@ -41,6 +43,7 @@ class _SettingItemState extends State<SettingItem> {
       setState(() {
         _selectedDate = picked;
       });
+      widget.onChanged?.call(picked);
     }
   }
 
@@ -70,7 +73,7 @@ class _SettingItemState extends State<SettingItem> {
                   ),
                 ),
               ),
-              if (!widget.hasData) ...[
+              if (widget.expiryDate == null) ...[
                 const SizedBox(width: 10),
                 Container(
                   width: 10,
@@ -120,6 +123,8 @@ class _SettingItemState extends State<SettingItem> {
                       Text(
                         _selectedDate != null
                             ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                            : widget.expiryDate != null
+                            ? '${widget.expiryDate!.day}/${widget.expiryDate!.month}/${widget.expiryDate!.year}'
                             : 'Select date',
                         style: AppTextStyles.bodyLarge.copyWith(
                           color: AppColors.neutralGrey,

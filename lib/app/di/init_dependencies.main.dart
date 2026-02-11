@@ -270,6 +270,12 @@ void _initCard() {
     )
     ..registerLazySingleton<IsCardExistInUserUsecase>(
       () => IsCardExistInUserUsecase(cardRepositories: serviceLocator()),
+    )
+    ..registerLazySingleton<GetUserCardDetailUsecase>(
+      () => GetUserCardDetailUsecase(cardRepositories: serviceLocator()),
+    )
+    ..registerLazySingleton<EditUserCardUsecase>(
+      () => EditUserCardUsecase(cardRepositories: serviceLocator()),
     );
 
   // BLoC
@@ -277,7 +283,13 @@ void _initCard() {
     ..registerFactory<SearchCardBloc>(
       () => SearchCardBloc(searchCardsUsecase: serviceLocator()),
     )
-    ..registerFactory<DetailCardBloc>(
-      () => DetailCardBloc(addCardToUserUsecase: serviceLocator()),
+    ..registerFactory<DetailCardSheetBloc>(
+      () => DetailCardSheetBloc(addCardToUserUsecase: serviceLocator()),
+    )
+    ..registerFactory<SettingCardBloc>(
+      () => SettingCardBloc(
+        getUserCardDetailUsecase: serviceLocator(),
+        editUserCardUsecase: serviceLocator(),
+      ),
     );
 }

@@ -7,9 +7,9 @@ import 'package:fpt_ojt/features/card/domain/entities/card_entity.dart';
 import 'package:fpt_ojt/features/card/presentation/bloc/search/search_card_bloc.dart';
 import 'package:fpt_ojt/features/card/presentation/bloc/search/search_card_state.dart';
 import 'package:fpt_ojt/features/card/presentation/constants/card_text.dart';
-import 'package:fpt_ojt/features/card/presentation/widgets/card_detail_bottom_sheet.dart';
-import 'package:fpt_ojt/features/card/presentation/widgets/card_item.dart';
-import 'package:fpt_ojt/features/card/presentation/widgets/card_item_skeleton.dart';
+import 'package:fpt_ojt/features/card/presentation/widgets/search/card_detail_bottom_sheet.dart';
+import 'package:fpt_ojt/features/card/presentation/widgets/search/card_item.dart';
+import 'package:fpt_ojt/features/card/presentation/widgets/search/card_item_skeleton.dart';
 
 class CardListSection extends StatelessWidget {
   const CardListSection({super.key});

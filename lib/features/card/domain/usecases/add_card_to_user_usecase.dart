@@ -4,13 +4,13 @@ import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
 import 'package:fpt_ojt/features/card/domain/repositories/card_repositories.dart';
 
-class AddCardToUserUsecase implements UseCase<bool, AddCardToUserParams> {
+class AddCardToUserUsecase implements UseCase<String, AddCardToUserParams> {
   AddCardToUserUsecase({required CardRepositories cardRepositories})
     : _cardRepositories = cardRepositories;
   final CardRepositories _cardRepositories;
 
   @override
-  Future<Either<Failure, bool>> call(AddCardToUserParams params) async =>
+  Future<Either<Failure, String>> call(AddCardToUserParams params) async =>
       _cardRepositories.addCardToUser(params.cardId);
 }
 
