@@ -61,4 +61,27 @@ class CardRepositoriesImpl implements CardRepositories {
       return Left(Failure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> editUserCard(
+    String cardId,
+    int? firstPaymentDate,
+    DateTime? expiryDate,
+  ) async {
+    try {
+      final apiResponse = await _cardDatasource.editUserCard(
+        cardId,
+        firstPaymentDate,
+        expiryDate,
+      );
+
+      if (apiResponse.data == null) {
+        return Left(Failure(apiResponse.message));
+      }
+
+      return Right(apiResponse.data!);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
 }

@@ -6,8 +6,8 @@ import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/card/presentation/bloc/search/search_card_bloc.dart';
 import 'package:fpt_ojt/features/card/presentation/bloc/search/search_card_event.dart';
-import 'package:fpt_ojt/features/card/presentation/widgets/card_list_section.dart';
-import 'package:fpt_ojt/features/card/presentation/widgets/search_input_text.dart';
+import 'package:fpt_ojt/features/card/presentation/widgets/search/card_list_section.dart';
+import 'package:fpt_ojt/features/card/presentation/widgets/search/search_input_text.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchScreen extends StatelessWidget {

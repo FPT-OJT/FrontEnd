@@ -193,8 +193,10 @@ class _CardDetailBottomSheetState extends State<CardDetailBottomSheet> {
                       } else {
                         // Add card
                         context.read<DetailCardSheetBloc>().add(
-                          OnCardAddEvent(widget.cardId),
+                          OnCardAddEvent(widget.cardId, null, null),
                         );
+
+                        //TODO: Navigate to card setting
                       }
                     },
               style: ElevatedButton.styleFrom(

@@ -5,4 +5,9 @@ abstract interface class CardDatasource {
   Future<ApiResponse<List<CardModel>>> searchCards(String keyWord, int limit);
   Future<ApiResponse<bool>> addCardToUser(String cardId);
   Future<ApiResponse<bool>> isCardExistInUser(String cardId);
+  Future<ApiResponse<bool>> editUserCard(
+    String cardId,
+    int? firstPaymentDate,
+    DateTime? expiryDate,
+  );
 }

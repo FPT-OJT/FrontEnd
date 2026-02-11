@@ -9,4 +9,9 @@ abstract interface class CardRepositories {
   );
   Future<Either<Failure, bool>> addCardToUser(String cardId);
   Future<Either<Failure, bool>> isCardExistInUser(String cardId);
+  Future<Either<Failure, bool>> editUserCard(
+    String cardId,
+    int? firstPaymentDate,
+    DateTime? expiryDate,
+  );
 }

@@ -49,4 +49,24 @@ class CardDatasouceImpl implements CardDatasource {
       (json) => json == 'ok' || json == true || json is bool && json,
     );
   }
+
+  @override
+  Future<ApiResponse<bool>> editUserCard(
+    String cardId,
+    int? firstPaymentDate,
+    DateTime? expiryDate,
+  ) async {
+    final response = await _dio.put<Map<String, dynamic>>(
+      '/user-cards/$cardId',
+      data: {
+        'firstPaymentDate': firstPaymentDate ?? '',
+        'expiryDate': expiryDate ?? '',
+      },
+    );
+
+    return ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => json == 'ok' || json == true,
+    );
+  }
 }

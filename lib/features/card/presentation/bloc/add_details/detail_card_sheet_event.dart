@@ -8,11 +8,13 @@ abstract class DetailCardSheetEvent extends Equatable {
 }
 
 class OnCardAddEvent extends DetailCardSheetEvent {
-  const OnCardAddEvent(this.cardId);
+  const OnCardAddEvent(this.cardId, this.firstPaymentDate, this.expiryDate);
   final String cardId;
+  final DateTime? firstPaymentDate;
+  final DateTime? expiryDate;
 
   @override
-  List<Object?> get props => [cardId];
+  List<Object?> get props => [cardId, firstPaymentDate, expiryDate];
 }
 
 class OnCardCloseEvent extends DetailCardSheetEvent {
