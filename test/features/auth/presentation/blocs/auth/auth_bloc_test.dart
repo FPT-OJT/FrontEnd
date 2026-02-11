@@ -23,7 +23,7 @@ void main() {
   setUpAll(() {
     // Provide dummy values for Either types
     provideDummy<Either<Failure, User>>(
-      const Right(User(id: '', name: '', email: '', avatar: '')),
+      const Right(User(id: '', firstName: '', lastName: '', email: '', avatar: '')),
     );
     provideDummy<Either<Failure, void>>(const Right(null));
   });
@@ -44,7 +44,8 @@ void main() {
   group('AuthBloc', () {
     const testUser = User(
       id: '1',
-      name: 'Test User',
+      firstName: 'Test',
+      lastName: 'User',
       email: 'test@test.com',
       avatar: 'https://example.com/avatar.png',
     );
@@ -114,7 +115,8 @@ void main() {
         act: (bloc) {
           const differentUser = User(
             id: '2',
-            name: 'Different User',
+            firstName: 'Different',
+            lastName: 'User',
             email: 'different@test.com',
             avatar: 'https://example.com/different.png',
           );

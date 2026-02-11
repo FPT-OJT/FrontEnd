@@ -20,7 +20,7 @@ void main() {
   setUpAll(() {
     // Provide dummy values for Either types
     provideDummy<Either<Failure, User>>(
-      const Right(User(id: '', name: '', email: '', avatar: '')),
+      const Right(User(id: '', firstName: '', lastName: '', email: '', avatar: '')),
     );
   });
 
@@ -43,7 +43,8 @@ void main() {
 
     const testUser = User(
       id: '1',
-      name: '$testFirstName $testLastName',
+      firstName: testFirstName,
+      lastName: testLastName,
       email: testEmail,
       avatar: 'https://example.com/avatar.png',
     );
@@ -496,8 +497,9 @@ void main() {
       test('RegisterSuccess should contain correct user data', () {
         const state = RegisterSuccess(user: testUser);
         expect(state.user.id, testUser.id);
+        expect(state.user.firstName, testUser.firstName);
+        expect(state.user.lastName, testUser.lastName);
         expect(state.user.email, testUser.email);
-        expect(state.user.name, testUser.name);
         expect(state.user.avatar, testUser.avatar);
       });
 

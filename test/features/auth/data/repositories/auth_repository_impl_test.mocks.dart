@@ -6,6 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:fpt_ojt/core/common/token/token_store.dart' as _i9;
+import 'package:fpt_ojt/core/storages/key_value_storage.dart' as _i10;
 import 'package:fpt_ojt/features/auth/data/datasources/auth_datasource.dart'
     as _i3;
 import 'package:fpt_ojt/features/auth/data/datasources/google_auth_data_source.dart'
@@ -325,6 +326,38 @@ class MockTokenStore extends _i1.Mock implements _i9.TokenStore {
   _i4.Future<void> replaceRefreshToken(String? newRefreshToken) =>
       (super.noSuchMethod(
             Invocation.method(#replaceRefreshToken, [newRefreshToken]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
+}
+
+/// A class which mocks [KeyValueStorage].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockKeyValueStorage extends _i1.Mock implements _i10.KeyValueStorage {
+  @override
+  _i4.Future<void> set<T extends Object>(String? key, T? value) =>
+      (super.noSuchMethod(
+            Invocation.method(#set, [key, value]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
+
+  @override
+  _i4.Future<T?> get<T extends Object>(String? key) =>
+      (super.noSuchMethod(
+            Invocation.method(#get, [key]),
+            returnValue: _i4.Future<T?>.value(),
+            returnValueForMissingStub: _i4.Future<T?>.value(),
+          )
+          as _i4.Future<T?>);
+
+  @override
+  _i4.Future<void> remove(String? key) =>
+      (super.noSuchMethod(
+            Invocation.method(#remove, [key]),
             returnValue: _i4.Future<void>.value(),
             returnValueForMissingStub: _i4.Future<void>.value(),
           )

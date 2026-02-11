@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:fpt_ojt/core/common/token/token_store.dart';
 import 'package:fpt_ojt/core/error/failures.dart';
+import 'package:fpt_ojt/core/storages/key_value_storage.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/auth_datasource.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/google_auth_data_source.dart';
 import 'package:fpt_ojt/features/auth/data/models/auth_models.dart';
@@ -16,6 +17,7 @@ import 'package:mockito/mockito.dart';
   MockSpec<AuthDataSource>(),
   MockSpec<GoogleAuthDataSource>(),
   MockSpec<TokenStore>(),
+  MockSpec<KeyValueStorage>(),
 ])
 import 'auth_repository_impl_test.mocks.dart';
 
@@ -23,16 +25,19 @@ void main() {
   late MockAuthDataSource mockAuthDataSource;
   late MockGoogleAuthDataSource mockGoogleAuthDataSource;
   late MockTokenStore mockTokenStore;
+  late MockKeyValueStorage mockKeyValueStorage;
   late AuthRepositoryImpl repository;
 
   setUp(() {
     mockAuthDataSource = MockAuthDataSource();
     mockGoogleAuthDataSource = MockGoogleAuthDataSource();
     mockTokenStore = MockTokenStore();
+    mockKeyValueStorage = MockKeyValueStorage();
     repository = AuthRepositoryImpl(
       authDataSource: mockAuthDataSource,
       googleAuthDataSource: mockGoogleAuthDataSource,
       tokenDataSource: mockTokenStore,
+      localStorage: mockKeyValueStorage,
     );
   });
 
@@ -56,6 +61,15 @@ void main() {
 
     test('should save tokens and return User on success', () async {
       // Arrange
+      final userModel = UserModel(
+        id: 'user_1',
+        firstName: 'John',
+        lastName: 'Doe',
+        email: email,
+        role: Role.customer,
+        userName: 'john_doe',
+      );
+
       when(
         mockAuthDataSource.loginWithEmail(
           email,
@@ -71,6 +85,8 @@ void main() {
           rememberMe: anyNamed('rememberMe'),
         ),
       ).thenAnswer((_) async => {});
+      when(mockAuthDataSource.getCurrentUser()).thenAnswer((_) async => userModel);
+      when(mockKeyValueStorage.set(any, any)).thenAnswer((_) async => {});
 
       // Act
       final result = await repository.loginWithEmail(
@@ -83,9 +99,9 @@ void main() {
       expect(result.isRight(), true);
       result.fold((failure) => fail('Should return Right'), (user) {
         expect(user.id, 'user_1');
-        expect(user.name, 'USER');
-        expect(user.avatar, 'https://via.placeholder.com/150');
-        expect(user.email, 'test@test.com');
+        expect(user.firstName, 'John');
+        expect(user.lastName, 'Doe');
+        expect(user.email, email);
       });
 
       verify(
@@ -102,12 +118,22 @@ void main() {
           rememberMe: rememberMe,
         ),
       ).called(1);
+      verify(mockAuthDataSource.getCurrentUser()).called(1);
     });
 
     test(
       'should save tokens with rememberMe false when not specified',
       () async {
         // Arrange
+        final userModel = UserModel(
+          id: 'user_1',
+          firstName: 'John',
+          lastName: 'Doe',
+          email: email,
+          role: Role.customer,
+          userName: 'john_doe',
+        );
+
         when(
           mockAuthDataSource.loginWithEmail(email, password, rememberMe: false),
         ).thenAnswer((_) async => apiResponse);
@@ -119,6 +145,8 @@ void main() {
             rememberMe: anyNamed('rememberMe'),
           ),
         ).thenAnswer((_) async => {});
+        when(mockAuthDataSource.getCurrentUser()).thenAnswer((_) async => userModel);
+        when(mockKeyValueStorage.set(any, any)).thenAnswer((_) async => {});
 
         // Act
         final result = await repository.loginWithEmail(email, password);
@@ -216,6 +244,15 @@ void main() {
       'should get id token, save tokens and return User on success',
       () async {
         // Arrange
+        final userModel = UserModel(
+          id: 'google_user_1',
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'john@test.com',
+          role: Role.customer,
+          userName: 'john_doe',
+        );
+
         when(
           mockGoogleAuthDataSource.getIdToken(),
         ).thenAnswer((_) async => idToken);
@@ -229,6 +266,8 @@ void main() {
             rememberMe: anyNamed('rememberMe'),
           ),
         ).thenAnswer((_) async => {});
+        when(mockAuthDataSource.getCurrentUser()).thenAnswer((_) async => userModel);
+        when(mockKeyValueStorage.set(any, any)).thenAnswer((_) async => {});
 
         // Act
         final result = await repository.loginWithGoogle();
@@ -237,9 +276,9 @@ void main() {
         expect(result.isRight(), true);
         result.fold((failure) => fail('Should return Right'), (user) {
           expect(user.id, 'google_user_1');
-          expect(user.name, 'USER');
-          expect(user.avatar, 'https://via.placeholder.com/150');
-          expect(user.email, 'test@test.com');
+          expect(user.firstName, 'John');
+          expect(user.lastName, 'Doe');
+          expect(user.email, 'john@test.com');
         });
 
         verify(mockGoogleAuthDataSource.getIdToken()).called(1);
@@ -251,6 +290,7 @@ void main() {
             rememberMe: true,
           ),
         ).called(1);
+        verify(mockAuthDataSource.getCurrentUser()).called(1);
       },
     );
 
@@ -351,7 +391,8 @@ void main() {
         expect(result.isRight(), true);
         result.fold((failure) => fail('Should return Right'), (user) {
           expect(user.id, '1');
-          expect(user.name, 'John Doe');
+          expect(user.firstName, 'John');
+          expect(user.lastName, 'Doe');
           expect(user.email, 'john@test.com');
         });
 
@@ -422,7 +463,7 @@ void main() {
     );
 
     test(
-      'should return Failure when getCurrentUser throws exception',
+      'should return Failure when getCurrentUser throws exception and cache is empty',
       () async {
         // Arrange
         when(
@@ -431,6 +472,7 @@ void main() {
         when(
           mockAuthDataSource.getCurrentUser(),
         ).thenThrow(Exception('Network error'));
+        when(mockKeyValueStorage.get<String>(any)).thenAnswer((_) async => null);
 
         // Act
         final result = await repository.getCurrentUser();
@@ -438,7 +480,7 @@ void main() {
         // Assert
         expect(result.isLeft(), true);
         result.fold(
-          (failure) => expect(failure.message, contains('Network error')),
+          (failure) => expect(failure.message, 'User not logged in!'),
           (user) => fail('Should return Left'),
         );
       },
@@ -569,8 +611,6 @@ void main() {
       expect(result.isRight(), true);
       result.fold((failure) => fail('Should return Right'), (user) {
         expect(user.id, 'new_user_1');
-        expect(user.name, 'USER');
-        expect(user.email, 'test@test.com');
       });
 
       verify(
