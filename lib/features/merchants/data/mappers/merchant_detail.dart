@@ -10,7 +10,7 @@ extension CartDealMapper on DealItem {
     description: description,
     discountRate: discountRate,
     pointsMultiplier: pointsMultiplier,
-    type: type == DealType.MERCHANT_DEAL ? CardDealType.merchantDeal : CardDealType.cardDeal,
+    type: type == DealType.merchantDeal ? CardDealType.merchantDeal : CardDealType.cardDeal,
     validFrom: validFrom,
     validTo: validTo,
   );

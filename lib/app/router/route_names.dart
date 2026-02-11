@@ -19,4 +19,5 @@ class RouteNames {
   static const String termsConditions = '/terms-conditions';
 
   static const String merchantDetail = '/merchants/:merchantId';
+  static String generateMerchantDetailRoute(String merchantId) => '/merchants/$merchantId';
 }

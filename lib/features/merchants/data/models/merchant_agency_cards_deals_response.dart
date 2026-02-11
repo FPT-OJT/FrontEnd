@@ -15,8 +15,7 @@ abstract class MerchantAgencyCardsDealsResponse
 
   factory MerchantAgencyCardsDealsResponse.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$MerchantAgencyCardsDealsResponseFromJson(json);
+  ) => _$MerchantAgencyCardsDealsResponseFromJson(json);
 }
 
 @freezed
@@ -35,17 +34,14 @@ abstract class CardWithDeals with _$CardWithDeals {
 }
 
 @JsonEnum(fieldRename: FieldRename.screamingSnake)
-enum DealType {
-  MERCHANT_DEAL,
-  CARD_DEAL,
-}
+enum DealType { merchantDeal, cardDeal }
 
 @freezed
 abstract class DealItem with _$DealItem {
   const factory DealItem({
     required DealType type,
-    required String dealId,
-    required String dealName,
+    String? dealId,
+    String? dealName,
     double? discountRate,
     double? cashbackRate,
     double? pointsMultiplier,
