@@ -4,6 +4,7 @@ import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/card.dart'
     as card_entity;
+
 class CardOption extends StatelessWidget {
   const CardOption({required this.card, this.isSelected = false, super.key});
   final card_entity.Card card;
@@ -11,10 +12,9 @@ class CardOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1. Safe access: Tránh crash nếu deals rỗng
-    final firstDeal = card.deals.firstOrNull; 
+    final firstDeal = card.deals.firstOrNull;
 
-    return Padding( // Dùng Padding thay Container nếu chỉ cần padding
+    return Padding(
       padding: const EdgeInsets.symmetric(vertical: UIGaps.size8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,10 +24,11 @@ class CardOption extends StatelessWidget {
           Icon(
             Icons.check_circle,
             size: 20,
-            color: isSelected ? AppColors.primaryCoin : AppColors.secondaryGreen,
+            color: isSelected
+                ? AppColors.primaryCoin
+                : AppColors.secondaryGreen,
           ),
-          
-          // Info Section -> Dùng Expanded để chiếm hết khoảng trống, đẩy phần giá sang phải
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +56,7 @@ class CardOption extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: UIGaps.size4),
               child: Row(
-                spacing: UIGaps.size4, // Thêm spacing giữa 2 số
+                spacing: UIGaps.size4, 
                 children: [
                   Text(
                     '${firstDeal.discountRate}%',
