@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:fpt_ojt/features/merchants/domain/entities/card.dart';
 
 class MerchantDetailEvent extends Equatable {
   const MerchantDetailEvent();
@@ -13,3 +14,16 @@ class MerchantDetailStarted extends MerchantDetailEvent {
   List<Object?> get props => [merchantId];
 }
 
+class MerchantDetailCardSelected extends MerchantDetailEvent {
+  const MerchantDetailCardSelected({required this.card});
+  final Card card;
+  @override
+  List<Object?> get props => [card];
+}
+
+class MerchantDetailDealIndexChanged extends MerchantDetailEvent {
+  const MerchantDetailDealIndexChanged({required this.dealIndex});
+  final int dealIndex;
+  @override
+  List<Object?> get props => [dealIndex];
+}

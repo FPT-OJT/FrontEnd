@@ -10,6 +10,8 @@ class MerchantDetailBloc
   }) : _getMerchantAgencyDetailUseCase = getMerchantAgencyDetailUseCase,
        super(const MerchantDetailInitial()) {
     on<MerchantDetailStarted>(_onMerchantDetailStarted);
+    on<MerchantDetailCardSelected>(_onMerchantDetailCardSelected);
+    on<MerchantDetailDealIndexChanged>(_onMerchantDetailDealIndexChanged);
   }
   final GetMerchantAgencyDetailUseCase _getMerchantAgencyDetailUseCase;
 
@@ -24,5 +26,25 @@ class MerchantDetailBloc
       (merchantDetail) =>
           emit(MerchantDetailLoaded(merchantDetail: merchantDetail)),
     );
+  }
+
+  Future<void> _onMerchantDetailCardSelected(
+    MerchantDetailCardSelected event,
+    Emitter<MerchantDetailState> emit,
+  ) async {
+    if (state is MerchantDetailLoaded) {
+      final loadedState = state as MerchantDetailLoaded;
+      emit(loadedState.copyWith(selectedCard: event.card, selectedDealIndex: 0));
+    } 
+  }
+
+  Future<void> _onMerchantDetailDealIndexChanged(
+    MerchantDetailDealIndexChanged event,
+    Emitter<MerchantDetailState> emit,
+  ) async {
+    if (state is MerchantDetailLoaded) {
+      final loadedState = state as MerchantDetailLoaded;
+      emit(loadedState.copyWith(selectedDealIndex: event.dealIndex));
+    }
   }
 }

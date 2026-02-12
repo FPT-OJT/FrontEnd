@@ -9,8 +9,7 @@ abstract class MerchantAgencyCardsDealsResponse
   const factory MerchantAgencyCardsDealsResponse({
     required String merchantAgencyId,
     required String merchantAgencyName,
-    String? imageUrl,
-    required List<CardWithDeals> cards,
+    required List<CardWithDeals> cards, String? imageUrl,
   }) = _MerchantAgencyCardsDealsResponse;
 
   factory MerchantAgencyCardsDealsResponse.fromJson(
@@ -24,9 +23,7 @@ abstract class CardWithDeals with _$CardWithDeals {
     required String userCardId,
     required String cardProductId,
     required String cardName,
-    String? cardImageUrl,
-    required String cardType,
-    required List<DealItem> deals,
+    required String cardType, required List<DealItem> deals, String? cardImageUrl,
   }) = _CardWithDeals;
 
   factory CardWithDeals.fromJson(Map<String, dynamic> json) =>

@@ -5,11 +5,14 @@ import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_bloc.dart';
 import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_event.dart';
+import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_state.dart';
 import 'package:fpt_ojt/features/merchants/presentations/widgets/agency_detail_section.dart';
+import 'package:fpt_ojt/features/merchants/presentations/widgets/bottom_selected_card_section.dart';
 import 'package:fpt_ojt/features/merchants/presentations/widgets/card_options_section.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MerchantDetailScreen extends StatefulWidget {
-  const MerchantDetailScreen({super.key, required this.merchantId});
+  const MerchantDetailScreen({required this.merchantId, super.key});
   final String merchantId;
 
   @override
@@ -35,39 +38,73 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> {
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
     child: Scaffold(
-      body: Container(
-        width: double.infinity,
-        color: AppColors.primaryForest,
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const NetworkImage(
-                    'https://eu-images.contentstack.com/v3/assets/bltea7aee2fca050a19/bltcc157be03a336644/6724e088ca36fb0e631eeb88/Starbucks-HOTC.jpg',
-                  ),
-                  fit: BoxFit.fitWidth,
-                  colorFilter: ColorFilter.mode(
-                    AppColors.primaryForest.withValues(alpha: 0.6), 
-                    BlendMode.darken,
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            color: AppColors.primaryForest,
+            child: Column(
+              children: [
+                BlocBuilder<MerchantDetailBloc, MerchantDetailState>(
+                  builder: (context, state) => Container(
+                    decoration:
+                        (state is MerchantDetailLoaded &&
+                            state.merchantDetail.imageUrl.isNotEmpty)
+                        ? BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(state.merchantDetail.imageUrl),
+                              fit: BoxFit.fitWidth,
+                              colorFilter: ColorFilter.mode(
+                                AppColors.primaryForest.withValues(alpha: 0.6),
+                                BlendMode.darken,
+                              ),
+                            ),
+                          )
+                        : null,
+                    height: 180,
+                    padding: const EdgeInsets.only(
+                      left: UIGaps.size20,
+                      right: UIGaps.size20,
+                      top: UIGaps.size48,
+                      bottom: UIGaps.size20,
+                    ),
+                    child: (state is MerchantDetailLoaded)
+                        ? const AgencyDetailSection(name: 'Starbucks New World')
+                        : Shimmer.fromColors(
+                            baseColor: AppColors.primaryForest.withValues(
+                              alpha: 0.1,
+                            ),
+                            highlightColor: AppColors.primaryForest.withValues(
+                              alpha: 0.05,
+                            ),
+                            child: Container(
+                              height: 180,
+                              width: double.infinity,
+                              color: AppColors.primaryForest.withValues(alpha: 0.1),
+                            ),
+                          ),
                   ),
                 ),
-              ),
-
-              height: 180,
-              padding: const EdgeInsets.only(
-                left: UIGaps.size20,
-                right: UIGaps.size20,
-                top: UIGaps.size48,
-                bottom: UIGaps.size20,
-              ),
-              child: const AgencyDetailSection(name: 'Starbucks New World'),
+                const Expanded(
+                  child:  _ContentSection(),
+                ),
+              ],
             ),
-            const Expanded(
-              child: SingleChildScrollView(child: _ContentSection()),
+          ),
+          
+          // Bottom Selected Card Section
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: BottomSelectedCardSection(
+              onContinue: () {
+                // TODO: Handle continue action
+                debugPrint('Continue pressed');
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     ),
   );
@@ -76,25 +113,35 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> {
 class _ContentSection extends StatelessWidget {
   const _ContentSection();
 
+  // UI Constants
+  static const double borderRadius = 16;
+  static const double minHeight = 700;
+  static const double bottomPadding = 140; // Add padding for bottom section
+
   @override
   Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(
-      horizontal: UIGaps.size20,
-      vertical: UIGaps.size20,
+    padding: const EdgeInsets.only(
+      left: UIGaps.size20,
+      right: UIGaps.size20,
+      bottom: _ContentSection.bottomPadding,
     ),
     decoration: const BoxDecoration(
       color: AppColors.neutralEggShell20,
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(16),
-        topRight: Radius.circular(16),
+        topLeft: Radius.circular(_ContentSection.borderRadius),
+        topRight: Radius.circular(_ContentSection.borderRadius),
       ),
     ),
     width: double.infinity,
-    constraints: const BoxConstraints(minHeight: 700),
-    child: const Column(
-      spacing: UIGaps.size20,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [ CardOptionsSection()],
+    constraints: const BoxConstraints(minHeight: _ContentSection.minHeight),
+    child: const SingleChildScrollView(
+      child: Column(
+        spacing: UIGaps.size20,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CardOptionsSection(),
+        ],
+      ),
     ),
   );
 }

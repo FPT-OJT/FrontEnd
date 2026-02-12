@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
-
 @immutable
 class Card extends Equatable {
   const Card({
@@ -19,13 +18,17 @@ class Card extends Equatable {
   final String productId;
   final String type;
   final List<CardDeal> deals;
+
+  double get maxReduceRate => deals.fold(
+    0,
+    (m, deal) => deal.maxReduceRate > m ? deal.maxReduceRate : m,
+  );
   @override
   List<Object?> get props => [imageUrl, name, productId, type, deals];
 }
-enum CardDealType {
-  merchantDeal,
-  cardDeal,
-}
+
+enum CardDealType { merchantDeal, cardDeal }
+
 @immutable
 class CardDeal extends Equatable {
   const CardDeal({
@@ -49,7 +52,7 @@ class CardDeal extends Equatable {
   final DateTime? validFrom;
   final DateTime? validTo;
 
-  double get maxReduceRate=> max(discountRate ?? 0, cashbackRate ?? 0);
+  double get maxReduceRate => max(discountRate ?? 0, cashbackRate ?? 0);
 
   @override
   List<Object?> get props => [

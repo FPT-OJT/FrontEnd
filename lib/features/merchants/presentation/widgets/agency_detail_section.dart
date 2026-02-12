@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+import 'package:fpt_ojt/features/merchants/presentations/constants/merchant_detail.dart';
 import 'package:fpt_ojt/features/shared/widgets/icon_button.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,10 +10,15 @@ class AgencyDetailSection extends StatelessWidget {
   const AgencyDetailSection({this.isFavorite, this.name, super.key});
   final String? name;
   final bool? isFavorite;
+  
+  // UI Constants
+  static const double containerHeight = 120;
+  static const int nameMaxLines = 2;
+  
   @override
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: UIGaps.size12),
-    height: 120,
+    height: AgencyDetailSection.containerHeight,
     width: double.infinity,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,9 +50,9 @@ class AgencyDetailSection extends StatelessWidget {
           ],
         ),
         Text(
-          name ?? '',
+          name ?? MerchantDetailText.emptyString,
           style: AppTextStyles.h2.copyWith(color: AppColors.neutralWhite),
-          maxLines: 2,
+          maxLines: AgencyDetailSection.nameMaxLines,
           overflow: TextOverflow.ellipsis,
         ),
       ],
