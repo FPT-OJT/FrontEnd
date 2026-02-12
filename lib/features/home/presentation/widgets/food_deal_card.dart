@@ -4,6 +4,7 @@ import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/home/domain/entities/product_deal.dart';
+import 'package:shimmer/shimmer.dart';
 
 class FoodDealCard extends StatelessWidget {
   const FoodDealCard({required this.productDeal, super.key});
@@ -129,5 +130,98 @@ class FoodDealCard extends StatelessWidget {
         ),
       ),
     ],
+  );
+}
+
+class FoodDealCardSkeleton extends StatelessWidget {
+  const FoodDealCardSkeleton({super.key});
+
+  static const double cardWidth = 150;
+  static const double cardHeight = 136;
+  static const double imageHeight = 62;
+  static const double discountBadgeSize = 32;
+
+  @override
+  Widget build(BuildContext context) => Shimmer.fromColors(
+    baseColor: AppColors.neutralGrey,
+    highlightColor: AppColors.neutralWhite,
+    child: Container(
+      width: cardWidth,
+      height: cardHeight,
+      decoration: BoxDecoration(
+        color: AppColors.neutralWhite,
+        borderRadius: Rounded.lg,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Image skeleton
+          Container(
+            height: imageHeight,
+            width: cardWidth,
+            decoration: const BoxDecoration(
+              color: AppColors.neutralWhite,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(UIGaps.size8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Product name skeleton
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: UIGaps.size4,
+                    children: [
+                      Container(
+                        height: 10,
+                        width: cardWidth - 16,
+                        decoration: BoxDecoration(
+                          color: AppColors.neutralWhite,
+                          borderRadius: Rounded.xs,
+                        ),
+                      ),
+                      Container(
+                        height: 10,
+                        width: (cardWidth - 16) * 0.7,
+                        decoration: BoxDecoration(
+                          color: AppColors.neutralWhite,
+                          borderRadius: Rounded.xs,
+                        ),
+                      ),
+                    ],
+                  ),
+                  // Price section skeleton
+                  Row(
+                    spacing: UIGaps.size4,
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          color: AppColors.neutralWhite,
+                          borderRadius: Rounded.xs,
+                        ),
+                      ),
+                      Container(
+                        height: 10,
+                        width: 35,
+                        decoration: BoxDecoration(
+                          color: AppColors.neutralWhite,
+                          borderRadius: Rounded.xs,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
   );
 }

@@ -6,6 +6,7 @@ import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_bloc.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_state.dart';
 import 'package:fpt_ojt/features/home/presentation/constants/text.dart';
+import 'package:fpt_ojt/features/home/presentation/widgets/food_deal_card.dart';
 
 class FoodDealSection extends StatelessWidget {
   const FoodDealSection({super.key});
@@ -46,7 +47,16 @@ class FoodDealSection extends StatelessWidget {
     return _buildFoodCards(state);
   }
 
-  Widget _buildLoadingState() => const SizedBox(height: 100);
+  Widget _buildLoadingState() => SizedBox(
+    height: 200,
+    child: ListView.separated(
+      scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
+      itemCount: 3,
+      separatorBuilder: (_, _) => UIGaps.w12,
+      itemBuilder: (_, _) => const FoodDealCardSkeleton(),
+    ),
+  );
 
   Widget _buildEmptyState() => const SizedBox(height: 80);
 
