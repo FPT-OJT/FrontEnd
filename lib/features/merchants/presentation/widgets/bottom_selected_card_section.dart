@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_bloc.dart';
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_state.dart';
-import 'package:fpt_ojt/features/merchants/presentations/constants/merchant_detail.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_bloc.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_state.dart';
+import 'package:fpt_ojt/features/merchants/presentation/constants/merchant_detail.dart';
 import 'package:fpt_ojt/features/shared/widgets/primary_button.dart';
 
 class BottomSelectedCardSection extends StatelessWidget {
@@ -33,7 +33,7 @@ class BottomSelectedCardSection extends StatelessWidget {
             return const SizedBox.shrink();
           }
 
-          final selectedCard = state.selectedCard!;
+          final selectedCard = state.selectedCard;
        
 
           return Container(
@@ -69,7 +69,7 @@ class BottomSelectedCardSection extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(MerchantDetailText.maxReduceRateTitle, style: AppTextStyles.h3.copyWith(color: AppColors.primaryForest),),
-                    Text('${selectedCard.maxReduceRate }%', style: AppTextStyles.h3.copyWith(color: AppColors.primaryForest),),
+                    Text('${selectedCard?.maxReduceRate ?? 0}%', style: AppTextStyles.h3.copyWith(color: AppColors.primaryForest),),
                   ],
                 ),
                 // Continue Button

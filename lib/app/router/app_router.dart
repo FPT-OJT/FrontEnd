@@ -10,7 +10,7 @@ import 'package:fpt_ojt/features/home/presentation/screens/home_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/onboarding_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/splash_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart';
-import 'package:fpt_ojt/features/merchants/presentations/screens/detail_screen.dart';
+import 'package:fpt_ojt/features/merchants/presentation/screens/detail_screen.dart';
 import 'package:fpt_ojt/features/merchants/presentation/screens/search_screen.dart';
 import 'package:fpt_ojt/features/profile/presentations/screens/edit_profile_screen.dart';
 import 'package:fpt_ojt/features/profile/presentations/screens/notification_setting.dart';

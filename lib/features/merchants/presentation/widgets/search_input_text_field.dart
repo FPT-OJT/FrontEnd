@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+import 'package:fpt_ojt/features/merchants/presentation/constants/merchant_detail.dart';
 import 'package:fpt_ojt/features/merchants/presentation/constants/merchant_text.dart';
-import 'package:fpt_ojt/features/merchants/presentations/constants/merchant_detail.dart';
 
 class SearchInputTextField extends StatelessWidget {
   const SearchInputTextField({super.key, this.onSubmitted, this.controller});

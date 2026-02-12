@@ -13,8 +13,8 @@ import 'package:fpt_ojt/features/home/presentation/blocs/home_event.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:fpt_ojt/features/location/blocs/location_bloc.dart';
 import 'package:fpt_ojt/features/location/blocs/location_event.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_bloc.dart';
 import 'package:fpt_ojt/features/profile/presentations/blocs/update_profile/update_profile_bloc.dart';
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_bloc.dart';
 import 'package:fpt_ojt/features/wallet/presentation/bloc/wallet_bloc.dart';
 
 void main() async {

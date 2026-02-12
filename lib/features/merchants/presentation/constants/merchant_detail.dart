@@ -1,4 +1,5 @@
 class MerchantDetailText {
+  MerchantDetailText._();
   // CardOption texts
   static const String selectOptions = 'Select options';
   static const String rewardSuffix = '% Reward';

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_agency_detail.dart';
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_event.dart';
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_state.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_event.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_state.dart';
 
 class MerchantDetailBloc
     extends Bloc<MerchantDetailEvent, MerchantDetailState> {

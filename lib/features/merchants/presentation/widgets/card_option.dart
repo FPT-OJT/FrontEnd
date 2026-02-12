@@ -5,9 +5,9 @@ import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/card.dart'
     as card_entity;
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_bloc.dart';
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_event.dart';
-import 'package:fpt_ojt/features/merchants/presentations/constants/merchant_detail.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_bloc.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_event.dart';
+import 'package:fpt_ojt/features/merchants/presentation/constants/merchant_detail.dart';
 
 class CardOption extends StatefulWidget {
   const CardOption({required this.card, required this.selectOptionTap, this.isSelected = false, super.key});

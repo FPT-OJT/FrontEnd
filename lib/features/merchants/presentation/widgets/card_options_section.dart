@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_bloc.dart';
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_event.dart';
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_state.dart';
-import 'package:fpt_ojt/features/merchants/presentations/widgets/card_option.dart';
-import 'package:fpt_ojt/features/merchants/presentations/widgets/card_option_skeleton.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_bloc.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_event.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_state.dart';
+import 'package:fpt_ojt/features/merchants/presentation/widgets/card_option.dart';
+import 'package:fpt_ojt/features/merchants/presentation/widgets/card_option_skeleton.dart';
 
 class CardOptionsSection extends StatelessWidget {
   const CardOptionsSection({super.key});

@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_bloc.dart';
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_event.dart';
-import 'package:fpt_ojt/features/merchants/presentations/blocs/merchant_detail/merchant_detail_state.dart';
-import 'package:fpt_ojt/features/merchants/presentations/widgets/agency_detail_section.dart';
-import 'package:fpt_ojt/features/merchants/presentations/widgets/bottom_selected_card_section.dart';
-import 'package:fpt_ojt/features/merchants/presentations/widgets/card_options_section.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_bloc.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_event.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_state.dart';
+import 'package:fpt_ojt/features/merchants/presentation/widgets/agency_detail_section.dart';
+import 'package:fpt_ojt/features/merchants/presentation/widgets/bottom_selected_card_section.dart';
+import 'package:fpt_ojt/features/merchants/presentation/widgets/card_options_section.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MerchantDetailScreen extends StatefulWidget {
@@ -52,7 +52,9 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> {
                             state.merchantDetail.imageUrl.isNotEmpty)
                         ? BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage(state.merchantDetail.imageUrl),
+                              image: NetworkImage(
+                                state.merchantDetail.imageUrl,
+                              ),
                               fit: BoxFit.fitWidth,
                               colorFilter: ColorFilter.mode(
                                 AppColors.primaryForest.withValues(alpha: 0.6),
@@ -80,18 +82,18 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> {
                             child: Container(
                               height: 180,
                               width: double.infinity,
-                              color: AppColors.primaryForest.withValues(alpha: 0.1),
+                              color: AppColors.primaryForest.withValues(
+                                alpha: 0.1,
+                              ),
                             ),
                           ),
                   ),
                 ),
-                const Expanded(
-                  child:  _ContentSection(),
-                ),
+                const Expanded(child: _ContentSection()),
               ],
             ),
           ),
-          
+
           // Bottom Selected Card Section
           Positioned(
             bottom: 0,
@@ -138,9 +140,7 @@ class _ContentSection extends StatelessWidget {
       child: Column(
         spacing: UIGaps.size20,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CardOptionsSection(),
-        ],
+        children: [CardOptionsSection()],
       ),
     ),
   );
