@@ -186,9 +186,21 @@ Future<void> _initHome() async {
     () => GetHomeUc(homeRepository: serviceLocator()),
   );
 
+  serviceLocator.registerLazySingleton<SubscribeToMerchantUc>(
+    () => SubscribeToMerchantUc(homeRepository: serviceLocator()),
+  );
+
+  serviceLocator.registerLazySingleton<AddFavoriteMerchantUc>(
+    () => AddFavoriteMerchantUc(homeRepository: serviceLocator()),
+  );
+
   // BLoC
   serviceLocator.registerFactory<HomeBloc>(
-    () => HomeBloc(getHomeUc: serviceLocator()),
+    () => HomeBloc(
+      getHomeUc: serviceLocator(),
+      subscribeToMerchantUc: serviceLocator(),
+      addFavoriteMerchantUc: serviceLocator(),
+    ),
   );
 }
 

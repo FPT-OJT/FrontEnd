@@ -4,6 +4,7 @@ import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_bloc.dart';
+import 'package:fpt_ojt/features/home/presentation/blocs/home_event.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_state.dart';
 import 'package:fpt_ojt/features/home/presentation/constants/text.dart';
 import 'package:fpt_ojt/features/home/presentation/widgets/mechant_deal_card.dart';
@@ -79,10 +80,23 @@ class MerchantSection extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       itemCount: homeState.merchantOffers.length,
       separatorBuilder: (_, _) => UIGaps.h8,
-      itemBuilder: (context, index) => MerchantDealCard(
-        merchantOffer: homeState.merchantOffers[index],
-        currentLocation: locationState.current!,
-      ),
+      itemBuilder: (context, index) {
+        final merchantOffer = homeState.merchantOffers[index];
+        return MerchantDealCard(
+          merchantOffer: merchantOffer,
+          currentLocation: locationState.current!,
+          onSubscribeTap: () {
+            context.read<HomeBloc>().add(
+              SubscribeToMerchantToggled(merchantOffer.merchantAgencyId ?? ''),
+            );
+          },
+          onFavoriteTap: () {
+            context.read<HomeBloc>().add(
+              FavoriteMerchantToggled(merchantOffer.merchantAgencyId ?? ''),
+            );
+          },
+        );
+      },
     ),
   );
 }

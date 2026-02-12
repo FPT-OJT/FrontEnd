@@ -16,4 +16,23 @@ class HomeDatasourceImpl implements HomeDatasource {
       (json) => HomeData.fromJson(json! as Map<String, dynamic>),
     );
   }
+
+  @override
+  Future<ApiResponse<void>> subscribeToMerchant(String merchantAgencyId) async {
+    final response = await _dio.post<Map<String, dynamic>>(
+      '/users/subscribed-merchants/agencies/$merchantAgencyId',
+    );
+
+    return ApiResponse.fromJson(response.data ?? {}, (json) {});
+  }
+
+  @override
+  Future<ApiResponse<void>> addFavoriteMerchant(String merchantAgencyId) async {
+    final response = await _dio.post<Map<String, dynamic>>(
+      '/users/favorite-merchants',
+      data: {'merchantAgencyId': merchantAgencyId},
+    );
+
+    return ApiResponse.fromJson(response.data ?? {}, (json) {});
+  }
 }

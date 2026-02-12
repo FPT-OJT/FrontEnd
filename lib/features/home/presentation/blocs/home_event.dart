@@ -16,3 +16,19 @@ class HomeCoordinateUpdated extends HomeEvent {
   const HomeCoordinateUpdated(this.coordinate);
   final Coordinate coordinate;
 }
+
+class SubscribeToMerchantToggled extends HomeEvent {
+  const SubscribeToMerchantToggled(this.merchantAgencyId);
+  final String merchantAgencyId;
+
+  @override
+  List<Object?> get props => [merchantAgencyId];
+}
+
+class FavoriteMerchantToggled extends HomeEvent {
+  const FavoriteMerchantToggled(this.merchantAgencyId);
+  final String merchantAgencyId;
+
+  @override
+  List<Object?> get props => [merchantAgencyId];
+}

@@ -4,4 +4,6 @@ import 'package:fpt_ojt/features/home/data/models/home_data.dart';
 
 abstract interface class HomeRepository {
   Future<Either<Failure, HomeData>> getHomeData();
+  Future<Either<Failure, void>> subscribeToMerchant(String merchantAgencyId);
+  Future<Either<Failure, void>> addFavoriteMerchant(String merchantAgencyId);
 }

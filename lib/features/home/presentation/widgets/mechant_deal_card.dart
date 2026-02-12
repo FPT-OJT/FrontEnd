@@ -12,11 +12,15 @@ class MerchantDealCard extends StatelessWidget {
   const MerchantDealCard({
     required this.merchantOffer,
     required this.currentLocation,
+    this.onSubscribeTap,
+    this.onFavoriteTap,
     super.key,
   });
 
   final MerchantOffer merchantOffer;
   final Coordinate currentLocation;
+  final VoidCallback? onSubscribeTap;
+  final VoidCallback? onFavoriteTap;
 
   // Distance constants
   static const double meterPerKiloMeter = 1000;
@@ -100,23 +104,29 @@ class MerchantDealCard extends StatelessWidget {
                 spacing: UIGaps.size4,
                 children: [
                   _buildDealRateIcon(merchantOffer.totalDiscount ?? 0),
-                  Icon(
-                    merchantOffer.subscribed ?? false
-                        ? Icons.notifications_active
-                        : Icons.notifications_active_outlined,
-                    size: actionIconSize,
-                    color: merchantOffer.subscribed ?? false
-                        ? AppColors.primaryCoin
-                        : AppColors.primaryForest,
+                  GestureDetector(
+                    onTap: onSubscribeTap,
+                    child: Icon(
+                      merchantOffer.subscribed ?? false
+                          ? Icons.notifications_active
+                          : Icons.notifications_active_outlined,
+                      size: actionIconSize,
+                      color: merchantOffer.subscribed ?? false
+                          ? AppColors.primaryCoin
+                          : AppColors.primaryForest,
+                    ),
                   ),
-                  Icon(
-                    merchantOffer.favorite ?? false
-                        ? Icons.favorite
-                        : Icons.favorite_border_outlined,
-                    size: actionIconSize,
-                    color: merchantOffer.favorite ?? false
-                        ? AppColors.secondaryCoral
-                        : AppColors.primaryForest,
+                  GestureDetector(
+                    onTap: onFavoriteTap,
+                    child: Icon(
+                      merchantOffer.favorite ?? false
+                          ? Icons.favorite
+                          : Icons.favorite_border_outlined,
+                      size: actionIconSize,
+                      color: merchantOffer.favorite ?? false
+                          ? AppColors.secondaryCoral
+                          : AppColors.primaryForest,
+                    ),
                   ),
                 ],
               ),

@@ -23,4 +23,28 @@ class HomeRepositoryImpl implements HomeRepository {
       return Left(Failure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> subscribeToMerchant(
+    String merchantAgencyId,
+  ) async {
+    try {
+      await _homeDatasource.subscribeToMerchant(merchantAgencyId);
+      return const Right(null);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> addFavoriteMerchant(
+    String merchantAgencyId,
+  ) async {
+    try {
+      await _homeDatasource.addFavoriteMerchant(merchantAgencyId);
+      return const Right(null);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
 }
