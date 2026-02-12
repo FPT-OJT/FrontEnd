@@ -13,6 +13,7 @@ import 'package:fpt_ojt/features/home/presentation/blocs/home_event.dart';
 import 'package:fpt_ojt/features/intro/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:fpt_ojt/features/location/blocs/location_bloc.dart';
 import 'package:fpt_ojt/features/location/blocs/location_event.dart';
+import 'package:fpt_ojt/features/profile/presentations/blocs/update_profile/update_profile_bloc.dart';
 import 'package:fpt_ojt/features/wallet/presentation/bloc/wallet_bloc.dart';
 
 void main() async {
@@ -44,6 +45,9 @@ void main() async {
         ),
         BlocProvider<WalletBloc>(
           create: (context) => serviceLocator<WalletBloc>(),
+        ),
+        BlocProvider<UpdateProfileBloc>(
+          create: (context) => serviceLocator<UpdateProfileBloc>(),
         ),
       ],
       child: const MainApp(),

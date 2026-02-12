@@ -12,6 +12,7 @@ class UIGaps {
   static const double size32 = 32;
   static const double size40 = 40;
   static const double size48 = 48;
+  static const double size56 = 56;
   static const double size60 = 60;
 
   // width
