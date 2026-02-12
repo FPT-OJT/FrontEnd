@@ -22,7 +22,8 @@ void main() {
       Right(
         User(
           id: '1',
-          name: 'Dummy User',
+          firstName: 'Dummy',
+          lastName: 'User',
           email: 'dummy@example.com',
           avatar: 'avatar.png',
         ),
@@ -32,7 +33,8 @@ void main() {
 
   final testUser = User(
     id: '1',
-    name: 'Test User',
+    firstName: 'Test',
+    lastName: 'User',
     email: 'test@example.com',
     avatar: 'avatar.png',
   );

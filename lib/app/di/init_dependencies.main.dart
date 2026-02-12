@@ -23,6 +23,7 @@ Future<void> initDependencies() async {
   await _initHome();
   await _initLocation();
   _initWallet();
+  _initCard();
 }
 
 void _initIntro() {
@@ -77,9 +78,7 @@ Future<void> _initAuth() async {
           BaseOptions(
             baseUrl: AppConfig.apiUrl,
             connectTimeout: const Duration(seconds: 10),
-            receiveTimeout: const Duration(
-              seconds: 30, // TODO: Reset back to 10
-            ), // TODO: Reset back to 10
+            receiveTimeout: const Duration(seconds: 10),
             headers: {'Content-Type': 'application/json'},
           ),
         ),
@@ -93,6 +92,7 @@ Future<void> _initAuth() async {
         authDataSource: serviceLocator(),
         googleAuthDataSource: serviceLocator(),
         tokenDataSource: serviceLocator(),
+        localStorage: serviceLocator(instanceName: 'local_storage'),
       ),
     )
     ..registerLazySingleton<CurrentUserUseCase>(
@@ -247,4 +247,37 @@ void _initWallet() {
       getMyFavMerchants: serviceLocator(),
     ),
   );
+}
+
+void _initCard() {
+  // Data sources
+  serviceLocator.registerLazySingleton<CardDatasource>(
+    () => CardDatasouceImpl(dio: serviceLocator()),
+  );
+
+  // Repositories
+  serviceLocator.registerLazySingleton<CardRepositories>(
+    () => CardRepositoriesImpl(cardDatasource: serviceLocator()),
+  );
+
+  // Use cases
+  serviceLocator
+    ..registerLazySingleton<SearchCardsUsecase>(
+      () => SearchCardsUsecase(cardRepositories: serviceLocator()),
+    )
+    ..registerLazySingleton<AddCardToUserUsecase>(
+      () => AddCardToUserUsecase(cardRepositories: serviceLocator()),
+    )
+    ..registerLazySingleton<IsCardExistInUserUsecase>(
+      () => IsCardExistInUserUsecase(cardRepositories: serviceLocator()),
+    );
+
+  // BLoC
+  serviceLocator
+    ..registerFactory<SearchCardBloc>(
+      () => SearchCardBloc(searchCardsUsecase: serviceLocator()),
+    )
+    ..registerFactory<DetailCardSheetBloc>(
+      () => DetailCardSheetBloc(addCardToUserUsecase: serviceLocator()),
+    );
 }

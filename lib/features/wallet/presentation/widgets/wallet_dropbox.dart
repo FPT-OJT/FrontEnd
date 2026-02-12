@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
+import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/features/wallet/domain/entities/wallet_item.dart';
 import 'package:fpt_ojt/features/wallet/presentation/widgets/wallet_item_skeleton.dart';
+import 'package:go_router/go_router.dart';
 
 class WalletDropbox extends StatefulWidget {
   const WalletDropbox({
@@ -12,6 +16,7 @@ class WalletDropbox extends StatefulWidget {
     this.isCard = false,
     this.isLoading = false,
     this.onExpand,
+    this.onAddNew,
     super.key,
   });
 
@@ -21,6 +26,7 @@ class WalletDropbox extends StatefulWidget {
   final bool isLoading;
   final List<WalletItem> walletItems;
   final VoidCallback? onExpand;
+  final VoidCallback? onAddNew;
 
   static const double otherItemSize = 83;
   static const double cardItemHeight = 85;
@@ -92,43 +98,74 @@ class _WalletDropboxState extends State<WalletDropbox> {
                             (_) => WalletItemSkeleton(isCard: widget.isCard),
                           ),
                         )
-                      else if (widget.walletItems.isNotEmpty)
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
-                          children: widget.walletItems
-                              .where((item) => item.imageUrl != null)
-                              .map(
-                                (item) => ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    item.imageUrl!,
-                                    width: widget.isCard
-                                        ? WalletDropbox.cardItemWidth
-                                        : WalletDropbox.otherItemSize,
-                                    height: widget.isCard
-                                        ? WalletDropbox.cardItemHeight
-                                        : WalletDropbox.otherItemSize,
-                                    fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            Container(
-                                              width: widget.isCard
-                                                  ? WalletDropbox.cardItemWidth
-                                                  : WalletDropbox.otherItemSize,
-                                              height: widget.isCard
-                                                  ? WalletDropbox.cardItemHeight
-                                                  : WalletDropbox.otherItemSize,
-                                              color: Colors.grey[300],
-                                              child: const Icon(Icons.error),
-                                            ),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                        )
                       else
-                        const SizedBox.shrink(),
+                        widget.walletItems.isNotEmpty
+                            ? Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: widget.walletItems
+                                    .where((item) => item.imageUrl != null)
+                                    .map(
+                                      (item) => ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          item.imageUrl!,
+                                          width: widget.isCard
+                                              ? WalletDropbox.cardItemWidth
+                                              : WalletDropbox.otherItemSize,
+                                          height: widget.isCard
+                                              ? WalletDropbox.cardItemHeight
+                                              : WalletDropbox.otherItemSize,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  Container(
+                                                    width: widget.isCard
+                                                        ? WalletDropbox
+                                                              .cardItemWidth
+                                                        : WalletDropbox
+                                                              .otherItemSize,
+                                                    height: widget.isCard
+                                                        ? WalletDropbox
+                                                              .cardItemHeight
+                                                        : WalletDropbox
+                                                              .otherItemSize,
+                                                    color: Colors.grey[300],
+                                                    child: const Icon(
+                                                      Icons.error,
+                                                    ),
+                                                  ),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              )
+                            : const SizedBox.shrink(),
+                      if (!widget.isLoading)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: SizedBox(
+                            width: double.infinity,
+                            // height: 40,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                context.push(RouteNames.cardSearch);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.secondaryCoral,
+                                foregroundColor: AppColors.neutralWhite,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: Rounded.md,
+                                ),
+                                elevation: 0,
+                              ),
+                              child: Text(
+                                'Add new',
+                                style: AppTextStyles.button,
+                              ),
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 )

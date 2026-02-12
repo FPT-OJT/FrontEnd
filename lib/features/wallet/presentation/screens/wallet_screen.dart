@@ -8,8 +8,6 @@ import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_state.dart';
 import 'package:fpt_ojt/features/shared/utils/snackbar_utils.dart';
-import 'package:fpt_ojt/features/wallet/presentation/bloc/wallet_bloc.dart';
-import 'package:fpt_ojt/features/wallet/presentation/bloc/wallet_state.dart';
 import 'package:fpt_ojt/features/wallet/presentation/widgets/header_section.dart';
 import 'package:fpt_ojt/features/wallet/presentation/widgets/wallet_section.dart';
 import 'package:go_router/go_router.dart';
@@ -31,7 +29,10 @@ class WalletScreen extends StatelessWidget {
       return;
     }
     if (state is AuthLoggedIn) {
-      SnackBarUtils.showSuccess(context, 'Welcome back ${state.user.name}');
+      SnackBarUtils.showSuccess(
+        context,
+        'Welcome back ${state.user.firstName}',
+      );
     }
   }
 }
@@ -72,9 +73,18 @@ class _WalletPromptSection extends StatelessWidget {
   const _WalletPromptSection();
 
   @override
-  Widget build(BuildContext context) => BlocBuilder<WalletBloc, WalletState>(
-    builder: (context, state) =>
-        const Column(children: [HeaderSection(), UIGaps.h8]),
+  Widget build(BuildContext context) => BlocBuilder<AuthBloc, AuthState>(
+    builder: (context, authState) {
+      final firstName = authState is AuthLoggedIn
+          ? authState.user.firstName
+          : 'User';
+      return Column(
+        children: [
+          HeaderSection(firstName: firstName),
+          UIGaps.h8,
+        ],
+      );
+    },
   );
 }
 

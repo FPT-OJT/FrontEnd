@@ -50,7 +50,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             categories: entities.categories,
             merchantOffers: entities.offers,
             productDeals: entities.productDeals,
-            hasCard: homeData.hasCard,
+            hasCard: !homeData.userCardEmpty,
           ),
         );
       },

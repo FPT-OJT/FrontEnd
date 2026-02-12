@@ -26,3 +26,10 @@ class AuthLoggedInEvent extends AuthEvent {
   @override
   List<Object?> get props => [user];
 }
+
+class AuthUpdateUserEvent extends AuthEvent {
+  const AuthUpdateUserEvent({required this.user});
+  final User user;
+  @override
+  List<Object?> get props => [user];
+}

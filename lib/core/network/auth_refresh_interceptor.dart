@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:fpt_ojt/core/common/token/refresh_token_datasource.dart';
 import 'package:fpt_ojt/core/common/token/token_store.dart';
+import 'package:fpt_ojt/core/error/authentication_exception.dart';
 
 class AuthRefreshInterceptor extends Interceptor {
   AuthRefreshInterceptor({
@@ -85,12 +86,19 @@ class AuthRefreshInterceptor extends Interceptor {
       return handler.resolve(response);
       // ignore: avoid_catches_without_on_clauses
     } catch (_) {
-      // Refresh fail -> delete token and return error to logout app
+      // Refresh fail -> delete token and throw authentication exception
       try {
         await _tokenStore.deleteAccessToken();
         await _tokenStore.deleteRefreshToken();
       } on Exception catch (_) {}
-      return handler.next(err);
+
+      // Create a new DioException with AuthenticationException as error
+      final authError = DioException(
+        requestOptions: err.requestOptions,
+        response: err.response,
+        error: AuthenticationException('Session expired. Please login again.'),
+      );
+      return handler.next(authError);
     }
   }
 
