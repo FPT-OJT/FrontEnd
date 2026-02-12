@@ -98,7 +98,7 @@ class _CardDetailBottomSheetState extends State<CardDetailBottomSheet> {
                       width: 350,
                       height: 200,
                       decoration: BoxDecoration(
-                        color: AppColors.neutralGrey.withOpacity(0.2),
+                        color: AppColors.neutralGrey.withValues(alpha: 0.2),
                         borderRadius: Rounded.md,
                       ),
                       child: const Icon(
@@ -113,7 +113,7 @@ class _CardDetailBottomSheetState extends State<CardDetailBottomSheet> {
                     width: 335,
                     height: 190,
                     decoration: BoxDecoration(
-                      color: AppColors.neutralGrey.withOpacity(0.2),
+                      color: AppColors.neutralGrey.withValues(alpha: 0.2),
                       borderRadius: Rounded.md,
                     ),
                     child: const Icon(
