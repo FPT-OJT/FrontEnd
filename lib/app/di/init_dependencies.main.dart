@@ -200,6 +200,7 @@ Future<void> _initHome() async {
       getHomeUc: serviceLocator(),
       subscribeToMerchantUc: serviceLocator(),
       addFavoriteMerchantUc: serviceLocator(),
+      coordinateStreamUseCase: serviceLocator(),
     ),
   );
 }

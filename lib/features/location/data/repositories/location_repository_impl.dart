@@ -28,7 +28,7 @@ class LocationRepositoryImpl implements LocationRepository {
     _positionStream = _locationDataSource
         .getCurrentPositionStream(
           timeLimit: timeLimit,
-          accuracy: LocationAccuracy.lowest,
+          accuracy: LocationAccuracy.best,
           distanceFilterInMeters: distanceFilterInMeters,
         )
         .map((p) => Coordinate(latitude: p.latitude, longitude: p.longitude))

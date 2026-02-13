@@ -32,3 +32,7 @@ class FavoriteMerchantToggled extends HomeEvent {
   @override
   List<Object?> get props => [merchantAgencyId];
 }
+
+class HomeRefreshRequested extends HomeEvent {
+  const HomeRefreshRequested();
+}
