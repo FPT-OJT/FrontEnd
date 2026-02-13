@@ -30,6 +30,12 @@ class _UpdateProfileSectionState extends State<UpdateProfileSection> {
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
   @override
+  void initState() {
+    super.initState();
+    _countryCode = ProfileUpdateConstants.defaultCountryCode;
+  }
+
+  @override
   void dispose() {
     _firstNameController.dispose();
     _lastNameController.dispose();

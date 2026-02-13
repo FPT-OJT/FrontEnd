@@ -19,5 +19,11 @@ class RouteNames {
   static const String termsConditions = '/terms-conditions';
 
   static const String merchantDetail = '/merchants/:merchantId';
-  static String generateMerchantDetailRoute(String merchantId) => '/merchants/$merchantId';
+  static String generateMerchantDetailRoute(String merchantId) =>
+      '/merchants/$merchantId';
+
+  static const String merchantDealCalculator =
+      '/merchant/:merchantId/deal-calculator';
+  static String generateMerchantDealCalculatorRoute(String merchantId) =>
+      '/merchant/$merchantId/deal-calculator';
 }

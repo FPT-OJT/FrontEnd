@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
@@ -8,10 +9,18 @@ import 'package:fpt_ojt/features/merchants/domain/entities/card.dart'
 import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_bloc.dart';
 import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_event.dart';
 import 'package:fpt_ojt/features/merchants/presentation/constants/merchant_detail.dart';
+import 'package:go_router/go_router.dart';
 
 class CardOption extends StatefulWidget {
-  const CardOption({required this.card, required this.selectOptionTap, this.isSelected = false, super.key});
+  const CardOption({
+    required this.card,
+    required this.merchantAgencyId,
+    required this.selectOptionTap,
+    this.isSelected = false,
+    super.key,
+  });
   final card_entity.Card card;
+  final String merchantAgencyId;
   final bool isSelected;
   final VoidCallback selectOptionTap;
 
@@ -64,7 +73,9 @@ class _CardOptionState extends State<CardOption> {
               children: [
                 // Icon
                 Icon(
-                  widget.isSelected ? Icons.check_circle_outline : Icons.circle_outlined,
+                  widget.isSelected
+                      ? Icons.check_circle_outline
+                      : Icons.circle_outlined,
                   size: CardOption.iconSize,
                   color: AppColors.secondaryGreen,
                 ),
@@ -84,7 +95,9 @@ class _CardOptionState extends State<CardOption> {
                       Text(
                         MerchantDetailText.selectOptions,
                         style: AppTextStyles.bodyExtraSmall.copyWith(
-                          color: AppColors.primaryForest.withValues(alpha: CardOption.textOpacity),
+                          color: AppColors.primaryForest.withValues(
+                            alpha: CardOption.textOpacity,
+                          ),
                         ),
                       ),
                     ],
@@ -98,27 +111,33 @@ class _CardOptionState extends State<CardOption> {
                     child: Row(
                       spacing: UIGaps.size4,
                       children: [
-                        if (deals[_currentPage].discountRate != null && deals[_currentPage].discountRate != 0)
+                        if (deals[_currentPage].discountRate != null &&
+                            deals[_currentPage].discountRate != 0)
                           Text(
                             '${deals[_currentPage].discountRate}${MerchantDetailText.rewardSuffix}',
                             style: AppTextStyles.bodyExtraSmall.copyWith(
                               color: AppColors.primaryForest,
                             ),
                           )
-                        else if (deals[_currentPage].cashbackRate != null && deals[_currentPage].cashbackRate != 0)
+                        else if (deals[_currentPage].cashbackRate != null &&
+                            deals[_currentPage].cashbackRate != 0)
                           Text(
                             '${deals[_currentPage].cashbackRate}${MerchantDetailText.rewardSuffix}',
                             style: AppTextStyles.bodyExtraSmall.copyWith(
                               color: AppColors.primaryForest,
                             ),
                           ),
-                        const Icon(Icons.keyboard_arrow_down, size: CardOption.iconSize, color: AppColors.primaryForest,),
+                        const Icon(
+                          Icons.keyboard_arrow_down,
+                          size: CardOption.iconSize,
+                          color: AppColors.primaryForest,
+                        ),
                       ],
                     ),
                   ),
               ],
             ),
-            
+
             if (hasDeals)
               SizedBox(
                 height: CardOption.pageViewHeight,
@@ -140,7 +159,10 @@ class _CardOptionState extends State<CardOption> {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Image.network(widget.card.imageUrl, height: CardOption.cardImageHeight),
+                        Image.network(
+                          widget.card.imageUrl,
+                          height: CardOption.cardImageHeight,
+                        ),
                         Column(
                           spacing: UIGaps.size4,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,14 +174,16 @@ class _CardOptionState extends State<CardOption> {
                                 color: AppColors.primaryForest,
                               ),
                             ),
-                            if (deal.cashbackRate != null && deal.cashbackRate != 0)
+                            if (deal.cashbackRate != null &&
+                                deal.cashbackRate != 0)
                               Text(
                                 '${MerchantDetailText.cashbackPrefix}${deal.cashbackRate}${MerchantDetailText.percentSuffix}',
                                 style: AppTextStyles.bodyExtraSmall.copyWith(
                                   color: AppColors.primaryForest,
                                 ),
                               ),
-                            if (deal.discountRate != null && deal.discountRate != 0)
+                            if (deal.discountRate != null &&
+                                deal.discountRate != 0)
                               Text(
                                 '${MerchantDetailText.discountPrefix}${deal.discountRate}${MerchantDetailText.percentSuffix}',
                                 style: AppTextStyles.bodyExtraSmall.copyWith(
@@ -181,25 +205,32 @@ class _CardOptionState extends State<CardOption> {
                 ),
               ),
             Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: UIGaps.size4,
-                children: [
-                  Text(
-                    MerchantDetailText.detailedConditions,
-                    style: AppTextStyles.textLink.copyWith(
+              child: GestureDetector(
+                onTap: () {
+                  context.push(
+                    RouteNames.generateMerchantDealCalculatorRoute(widget.merchantAgencyId),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: UIGaps.size4,
+                  children: [
+                    Text(
+                      MerchantDetailText.detailedConditions,
+                      style: AppTextStyles.textLink.copyWith(
+                        color: AppColors.secondaryCoral,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.info_outline_rounded,
+                      size: CardOption.infoIconSize,
                       color: AppColors.secondaryCoral,
                     ),
-                  ),
-                  const Icon(
-                    Icons.info_outline_rounded,
-                    size: CardOption.infoIconSize,
-                    color: AppColors.secondaryCoral,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-            
+
             // Page indicator (three dots)
             if (hasDeals && deals.length > 1)
               Row(
@@ -207,14 +238,18 @@ class _CardOptionState extends State<CardOption> {
                 children: List.generate(
                   deals.length,
                   (index) => Container(
-                    margin: const EdgeInsets.symmetric(horizontal: CardOption.dotMarginHorizontal),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: CardOption.dotMarginHorizontal,
+                    ),
                     width: CardOption.dotSize,
                     height: CardOption.dotSize,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: _currentPage == index
                           ? AppColors.primaryForest
-                          : AppColors.primaryForest.withValues(alpha: CardOption.inactiveDotOpacity),
+                          : AppColors.primaryForest.withValues(
+                              alpha: CardOption.inactiveDotOpacity,
+                            ),
                     ),
                   ),
                 ),

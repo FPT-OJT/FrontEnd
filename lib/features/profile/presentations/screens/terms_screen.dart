@@ -48,7 +48,7 @@ class _TermsScreenContent extends StatelessWidget {
               child: const TermsConditionsHeadSection(),
             ),
             const Expanded(
-              child: SingleChildScrollView(child: _ContentSection()),
+              child: _ContentSection(),
             ),
           ],
         ),

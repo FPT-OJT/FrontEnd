@@ -16,6 +16,6 @@ class MerchantDetailText {
   static const String emptyString = '';
   
   // BottomSelectedCardSection texts
-  static const String continueButton = 'Go to ';
+  static const String continueButton = 'Go to payment page';
   static const String maxReduceRateTitle = 'Your maximum reward:';
 }

@@ -40,6 +40,7 @@ class CardOptionsSection extends StatelessWidget {
               final card = listCards[index];
               return CardOption(
                 card: card,
+                merchantAgencyId: state.merchantDetail.agencyId,
                 selectOptionTap: () {
                   context.read<MerchantDetailBloc>().add(
                     MerchantDetailCardSelected(card: card),
