@@ -47,7 +47,8 @@ void main() {
 
     const testUser = User(
       id: '1',
-      name: 'Test User',
+      firstName: 'Test',
+      lastName: 'User',
       email: testEmail,
       avatar: 'avatar.png',
     );

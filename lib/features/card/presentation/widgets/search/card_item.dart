@@ -39,7 +39,7 @@ class CardItem extends StatelessWidget {
                 width: 30,
                 height: 24,
                 decoration: BoxDecoration(
-                  color: AppColors.primaryForest.withOpacity(0.1),
+                  color: AppColors.primaryForest.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: const Icon(
@@ -54,7 +54,7 @@ class CardItem extends StatelessWidget {
               width: 30,
               height: 24,
               decoration: BoxDecoration(
-                color: AppColors.primaryForest.withOpacity(0.1),
+                color: AppColors.primaryForest.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(4),
               ),
               child: const Icon(

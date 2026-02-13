@@ -20,7 +20,9 @@ void main() {
   setUpAll(() {
     // Provide dummy values for Either types
     provideDummy<Either<Failure, User>>(
-      const Right(User(id: '', name: '', email: '', avatar: '')),
+      const Right(
+        User(id: '', firstName: '', lastName: '', email: '', avatar: ''),
+      ),
     );
   });
 
@@ -38,7 +40,8 @@ void main() {
   group('LoginOptionsCubit', () {
     const testUser = User(
       id: '1',
-      name: 'Test User',
+      firstName: 'Test',
+      lastName: 'User',
       email: 'test@test.com',
       avatar: 'https://example.com/avatar.png',
     );
@@ -219,7 +222,8 @@ void main() {
         const state = LoginWithGoogleSuccess(user: testUser);
         expect(state.user.id, testUser.id);
         expect(state.user.email, testUser.email);
-        expect(state.user.name, testUser.name);
+        expect(state.user.firstName, testUser.firstName);
+        expect(state.user.lastName, testUser.lastName);
         expect(state.user.avatar, testUser.avatar);
       });
 
