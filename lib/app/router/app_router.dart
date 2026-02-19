@@ -10,6 +10,7 @@ import 'package:fpt_ojt/features/home/presentation/screens/home_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/onboarding_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/splash_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart';
+import 'package:fpt_ojt/features/location/presentation/screens/live_map_screen.dart';
 import 'package:fpt_ojt/features/merchants/presentation/screens/calculator_screen.dart';
 import 'package:fpt_ojt/features/merchants/presentation/screens/detail_screen.dart';
 import 'package:fpt_ojt/features/merchants/presentation/screens/search_screen.dart';
@@ -101,6 +102,10 @@ final goRouter = GoRouter(
         final cardId = state.pathParameters['cardId'] ?? '';
         return CardSettingScreen(cardId: cardId);
       },
+    ),
+    GoRoute(
+      path: RouteNames.liveMap,
+      builder: (context, _) => const LiveMapScreen(),
     ),
     GoRoute(
       path: RouteNames.merchantDealCalculator,

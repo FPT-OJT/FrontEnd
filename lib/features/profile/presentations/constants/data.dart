@@ -41,4 +41,10 @@ final profileActionItems = [
     label: 'Terms & Conditions',
     routeName: RouteNames.termsConditions,
   ),
+  ActionItem(
+    id: 'live-map',
+    icon: Icons.map_outlined,
+    label: 'Live Map',
+    routeName: RouteNames.liveMap,
+  ),
 ];
