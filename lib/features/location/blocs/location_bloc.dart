@@ -54,7 +54,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         await emit.forEach<Coordinate>(
           stream,
           onData: (coordinate) {
-            debugPrint('coordinate: $coordinate');
+            debugPrint('on coordinate: $coordinate');
             return LocationState.success(coordinate);
           },
           onError: (error, _) {
