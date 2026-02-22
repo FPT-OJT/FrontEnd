@@ -13,17 +13,15 @@ import 'package:fpt_ojt/features/card/presentation/constants/card_text.dart';
 import 'package:go_router/go_router.dart';
 
 class DeleteCardDialog extends StatelessWidget {
-  const DeleteCardDialog({
-    required this.userCardId,
-    this.imageUrl,
-    super.key,
-  });
+  const DeleteCardDialog({required this.userCardId, this.imageUrl, super.key});
 
   final String userCardId;
   final String? imageUrl;
 
   @override
-  Widget build(BuildContext context) => BlocConsumer<SettingCardBloc, SettingCardState>(
+  Widget build(
+    BuildContext context,
+  ) => BlocConsumer<SettingCardBloc, SettingCardState>(
     listener: (context, state) {
       if (state.settingStatus == SettingCardStateStatus.deleted) {
         Navigator.of(context).pop();
@@ -74,7 +72,7 @@ class DeleteCardDialog extends StatelessWidget {
                       width: 250,
                       height: 142,
                       decoration: BoxDecoration(
-                        color: AppColors.neutralGrey.withOpacity(0.2),
+                        color: AppColors.neutralGrey.withValues(alpha: 0.2),
                         borderRadius: Rounded.md,
                       ),
                       child: const Icon(
@@ -90,7 +88,7 @@ class DeleteCardDialog extends StatelessWidget {
                   width: 250,
                   height: 142,
                   decoration: BoxDecoration(
-                    color: AppColors.neutralGrey.withOpacity(0.2),
+                    color: AppColors.neutralGrey.withValues(alpha: 0.2),
                     borderRadius: Rounded.md,
                   ),
                   child: const Icon(
@@ -104,7 +102,9 @@ class DeleteCardDialog extends StatelessWidget {
                 width: double.infinity,
                 height: UIGaps.size48,
                 child: ElevatedButton(
-                  onPressed: isDeleting ? null : () => Navigator.of(context).pop(),
+                  onPressed: isDeleting
+                      ? null
+                      : () => Navigator.of(context).pop(),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.neutralWhite,
                     foregroundColor: AppColors.secondaryCoral,
@@ -116,8 +116,7 @@ class DeleteCardDialog extends StatelessWidget {
                       ),
                     ),
                     elevation: 0,
-                    disabledBackgroundColor:
-                        AppColors.neutralWhite.withOpacity(0.5),
+                    disabledBackgroundColor: AppColors.neutralWhite.withValues(alpha: 0.5),
                   ),
                   child: Text(
                     CardText.deleteCardButtonNo,
@@ -136,8 +135,8 @@ class DeleteCardDialog extends StatelessWidget {
                   onPressed: isDeleting
                       ? null
                       : () => context.read<SettingCardBloc>().add(
-                            OnCardSettingDeleteEvent(userCardId),
-                          ),
+                          OnCardSettingDeleteEvent(userCardId),
+                        ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.secondaryCoral,
                     foregroundColor: AppColors.neutralWhite,

@@ -7,11 +7,9 @@ enum GeofenceLoadStatus { initial, loading, success, failure }
 @freezed
 abstract class GeofenceState with _$GeofenceState {
   const factory GeofenceState({
-    @Default(GeofenceLoadStatus.initial)
-    GeofenceLoadStatus status,
+    @Default(GeofenceLoadStatus.initial) GeofenceLoadStatus status,
 
-    @Default([])
-    List<AgencyGeofence> geofences,
+    @Default([]) List<AgencyGeofence> geofences,
 
     String? activeAgencyId,
 

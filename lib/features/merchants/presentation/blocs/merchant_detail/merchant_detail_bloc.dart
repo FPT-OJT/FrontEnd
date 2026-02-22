@@ -34,8 +34,10 @@ class MerchantDetailBloc
   ) async {
     if (state is MerchantDetailLoaded) {
       final loadedState = state as MerchantDetailLoaded;
-      emit(loadedState.copyWith(selectedCard: event.card, selectedDealIndex: 0));
-    } 
+      emit(
+        loadedState.copyWith(selectedCard: event.card, selectedDealIndex: 0),
+      );
+    }
   }
 
   Future<void> _onMerchantDetailDealIndexChanged(

@@ -10,11 +10,11 @@ class AgencyDetailSection extends StatelessWidget {
   const AgencyDetailSection({this.isFavorite, this.name, super.key});
   final String? name;
   final bool? isFavorite;
-  
+
   // UI Constants
   static const double containerHeight = 120;
   static const int nameMaxLines = 2;
-  
+
   @override
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: UIGaps.size12),

@@ -33,7 +33,7 @@ class CardDatasouceImpl implements CardDatasource {
       data: {'cardId': cardId},
     );
 
-    return ApiResponse.fromJson(response.data ?? {}, (json) => json as String);
+    return ApiResponse.fromJson(response.data ?? {}, (json) => json! as String);
   }
 
   @override

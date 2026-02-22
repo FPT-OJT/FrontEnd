@@ -10,7 +10,9 @@ extension CartDealMapper on DealItem {
     description: description,
     discountRate: discountRate,
     pointsMultiplier: pointsMultiplier,
-    type: type == DealType.merchantDeal ? CardDealType.merchantDeal : CardDealType.cardDeal,
+    type: type == DealType.merchantDeal
+        ? CardDealType.merchantDeal
+        : CardDealType.cardDeal,
     validFrom: validFrom,
     validTo: validTo,
   );
@@ -18,7 +20,7 @@ extension CartDealMapper on DealItem {
 
 extension CardDealMapper on CardWithDeals {
   Card toEntity() => Card(
-    imageUrl: cardImageUrl??'',
+    imageUrl: cardImageUrl ?? '',
     name: cardName,
     productId: cardProductId,
     type: cardType,
@@ -26,11 +28,12 @@ extension CardDealMapper on CardWithDeals {
   );
 }
 
-extension MerchantAgencyCardsDealsResponseMapper on MerchantAgencyCardsDealsResponse {
+extension MerchantAgencyCardsDealsResponseMapper
+    on MerchantAgencyCardsDealsResponse {
   MerchantDetailWithCardDeals toEntity() => MerchantDetailWithCardDeals(
     cards: cards.map((e) => e.toEntity()).toList(),
     agencyId: merchantAgencyId,
     agencyName: merchantAgencyName,
-    imageUrl: imageUrl??'',
+    imageUrl: imageUrl ?? '',
   );
 }

@@ -63,8 +63,9 @@ class MerchantDealCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.push(
-          RouteNames.generateMerchantDetailRoute(merchantOffer.merchantAgencyId!),
-        
+          RouteNames.generateMerchantDetailRoute(
+            merchantOffer.merchantAgencyId!,
+          ),
         );
       },
       child: SizedBox(

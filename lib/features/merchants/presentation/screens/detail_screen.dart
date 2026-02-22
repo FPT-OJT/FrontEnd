@@ -71,7 +71,9 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> {
                       bottom: UIGaps.size20,
                     ),
                     child: (state is MerchantDetailLoaded)
-                        ?  AgencyDetailSection(name: state.merchantDetail.agencyName)
+                        ? AgencyDetailSection(
+                            name: state.merchantDetail.agencyName,
+                          )
                         : Shimmer.fromColors(
                             baseColor: AppColors.primaryForest.withValues(
                               alpha: 0.1,

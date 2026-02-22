@@ -27,91 +27,46 @@ class CardOptionSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-      padding: const EdgeInsets.symmetric(vertical: UIGaps.size8),
-      child: Shimmer.fromColors(
-        baseColor: AppColors.primaryForest.withValues(alpha: CardOptionSkeleton.shimmerBaseAlpha),
-        highlightColor: AppColors.primaryForest.withValues(alpha: CardOptionSkeleton.shimmerHighlightAlpha),
-        child: Column(
-          spacing: UIGaps.size20,
-          children: [
-            // Header row
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: UIGaps.size8,
-              children: [
-                // Icon placeholder
-                Container(
-                  width: CardOptionSkeleton.iconPlaceholderSize,
-                  height: CardOptionSkeleton.iconPlaceholderSize,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
+    padding: const EdgeInsets.symmetric(vertical: UIGaps.size8),
+    child: Shimmer.fromColors(
+      baseColor: AppColors.primaryForest.withValues(
+        alpha: CardOptionSkeleton.shimmerBaseAlpha,
+      ),
+      highlightColor: AppColors.primaryForest.withValues(
+        alpha: CardOptionSkeleton.shimmerHighlightAlpha,
+      ),
+      child: Column(
+        spacing: UIGaps.size20,
+        children: [
+          // Header row
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: UIGaps.size8,
+            children: [
+              // Icon placeholder
+              Container(
+                width: CardOptionSkeleton.iconPlaceholderSize,
+                height: CardOptionSkeleton.iconPlaceholderSize,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
                 ),
+              ),
 
-                // Text placeholders
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: UIGaps.size4,
-                    children: [
-                      Container(
-                        height: CardOptionSkeleton.textHeightLarge,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(CardOptionSkeleton.borderRadius4),
-                        ),
-                      ),
-                      Container(
-                        height: CardOptionSkeleton.textHeightSmall,
-                        width: CardOptionSkeleton.textWidthSmall,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(CardOptionSkeleton.borderRadius4),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Right section placeholder
-                Container(
-                  height: CardOptionSkeleton.textHeightLarge,
-                  width: CardOptionSkeleton.textWidth80,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(CardOptionSkeleton.borderRadius4),
-                  ),
-                ),
-              ],
-            ),
-
-            // Card image and details section
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                // Card image placeholder
-                Container(
-                  width: CardOptionSkeleton.cardImageWidth,
-                  height: CardOptionSkeleton.cardImageHeight,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(CardOptionSkeleton.borderRadius8),
-                  ),
-                ),
-
-                // Card details placeholder
-                Column(
-                  spacing: UIGaps.size4,
+              // Text placeholders
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: UIGaps.size4,
                   children: [
                     Container(
                       height: CardOptionSkeleton.textHeightLarge,
-                      width: CardOptionSkeleton.textWidthMedium,
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(CardOptionSkeleton.borderRadius4),
+                        borderRadius: BorderRadius.circular(
+                          CardOptionSkeleton.borderRadius4,
+                        ),
                       ),
                     ),
                     Container(
@@ -119,52 +74,119 @@ class CardOptionSkeleton extends StatelessWidget {
                       width: CardOptionSkeleton.textWidthSmall,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(CardOptionSkeleton.borderRadius4),
-                      ),
-                    ),
-                    Container(
-                      height: CardOptionSkeleton.textHeightSmall,
-                      width: CardOptionSkeleton.textWidth90,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(CardOptionSkeleton.borderRadius4),
+                        borderRadius: BorderRadius.circular(
+                          CardOptionSkeleton.borderRadius4,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
 
-            // Detailed conditions placeholder
-            Center(
-              child: Container(
+              // Right section placeholder
+              Container(
                 height: CardOptionSkeleton.textHeightLarge,
-                width: CardOptionSkeleton.textWidthLarge,
+                width: CardOptionSkeleton.textWidth80,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(CardOptionSkeleton.borderRadius4),
-                ),
-              ),
-            ),
-
-            // Page indicator dots placeholder
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                CardOptionSkeleton.dotCount,
-                (index) => Container(
-                  margin: const EdgeInsets.symmetric(horizontal: CardOptionSkeleton.dotMarginHorizontal),
-                  width: CardOptionSkeleton.dotSize,
-                  height: CardOptionSkeleton.dotSize,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
+                  borderRadius: BorderRadius.circular(
+                    CardOptionSkeleton.borderRadius4,
                   ),
                 ),
               ),
+            ],
+          ),
+
+          // Card image and details section
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // Card image placeholder
+              Container(
+                width: CardOptionSkeleton.cardImageWidth,
+                height: CardOptionSkeleton.cardImageHeight,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(
+                    CardOptionSkeleton.borderRadius8,
+                  ),
+                ),
+              ),
+
+              // Card details placeholder
+              Column(
+                spacing: UIGaps.size4,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: CardOptionSkeleton.textHeightLarge,
+                    width: CardOptionSkeleton.textWidthMedium,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(
+                        CardOptionSkeleton.borderRadius4,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: CardOptionSkeleton.textHeightSmall,
+                    width: CardOptionSkeleton.textWidthSmall,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(
+                        CardOptionSkeleton.borderRadius4,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: CardOptionSkeleton.textHeightSmall,
+                    width: CardOptionSkeleton.textWidth90,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(
+                        CardOptionSkeleton.borderRadius4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+          // Detailed conditions placeholder
+          Center(
+            child: Container(
+              height: CardOptionSkeleton.textHeightLarge,
+              width: CardOptionSkeleton.textWidthLarge,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(
+                  CardOptionSkeleton.borderRadius4,
+                ),
+              ),
             ),
-          ],
-        ),
+          ),
+
+          // Page indicator dots placeholder
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              CardOptionSkeleton.dotCount,
+              (index) => Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: CardOptionSkeleton.dotMarginHorizontal,
+                ),
+                width: CardOptionSkeleton.dotSize,
+                height: CardOptionSkeleton.dotSize,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
-    );
+    ),
+  );
 }

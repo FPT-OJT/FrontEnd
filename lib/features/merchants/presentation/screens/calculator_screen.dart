@@ -6,11 +6,7 @@ class CalculatorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        title: const Text('Calculator'),
-      ),
-      body:  Center(
-        child: Text('Calculator $merchantId'),
-      ),
-    );
+    appBar: AppBar(title: const Text('Calculator')),
+    body: Center(child: Text('Calculator $merchantId')),
+  );
 }

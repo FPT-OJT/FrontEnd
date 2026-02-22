@@ -13,6 +13,7 @@ class MerchantDetailInitial extends MerchantDetailState {
   @override
   List<Object?> get props => [];
 }
+
 class MerchantDetailLoading extends MerchantDetailState {
   const MerchantDetailLoading();
   @override

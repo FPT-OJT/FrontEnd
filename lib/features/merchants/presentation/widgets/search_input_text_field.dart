@@ -9,14 +9,14 @@ class SearchInputTextField extends StatelessWidget {
   const SearchInputTextField({super.key, this.onSubmitted, this.controller});
   final ValueChanged<String>? onSubmitted;
   final TextEditingController? controller;
-  
+
   // UI Constants
   static const double iconSize = 24;
   static const double inputHeight = 48;
   static const double inputWidth = 274;
   static const double inputHorizontalPadding = 16;
   static const double inputVerticalPadding = 13;
-  
+
   @override
   Widget build(BuildContext context) => Hero(
     tag: MerchantDetailText.searchBoxTag,

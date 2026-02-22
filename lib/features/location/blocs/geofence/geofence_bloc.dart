@@ -22,6 +22,7 @@ class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
   ) async {
     emit(state.copyWith(status: GeofenceLoadStatus.loading));
     await PermissionService.requestGeofencePermissions();
+    // ignore: void_checks
     final result = await _initGeofenceUseCase.call(const NoParams());
     result.fold(
       (failure) => emit(
@@ -41,7 +42,6 @@ class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
       },
     );
     serviceLocator<GeofenceObserver>().start();
-
   }
 
   Future<void> _onEntered(
@@ -54,7 +54,7 @@ class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
 
     try {
       emit(state.copyWith(message: 'You are in ${event.agencyId}'));
-    } catch (_) {
+    } on Exception catch (_) {
       emit(state.copyWith(message: 'Cannot load agency information'));
     }
   }

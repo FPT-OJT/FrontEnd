@@ -11,5 +11,6 @@ class GetMerchantAgencyDetailUseCase
   }) : _merchantAgencyRepository = merchantAgencyRepository;
   final MerchantAgencyRepository _merchantAgencyRepository;
   @override
-  Future<Either<Failure, MerchantDetailWithCardDeals>> call(String params) => _merchantAgencyRepository.getMerchantAgencyDetail(agencyId: params);
+  Future<Either<Failure, MerchantDetailWithCardDeals>> call(String params) =>
+      _merchantAgencyRepository.getMerchantAgencyDetail(agencyId: params);
 }

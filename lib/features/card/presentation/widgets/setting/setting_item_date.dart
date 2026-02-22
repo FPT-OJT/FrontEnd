@@ -39,19 +39,15 @@ class _SettingItemDateState extends State<SettingItemDate> {
       initialDate: _selectedDate ?? widget.expiryDate ?? DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
-      builder: (context, child) {
-        return Theme(
+      builder: (context, child) => Theme(
           data: Theme.of(context).copyWith(
             colorScheme: const ColorScheme.light(
               primary: AppColors.primaryForest,
-              onPrimary: AppColors.neutralWhite,
-              surface: AppColors.neutralWhite,
               onSurface: AppColors.primaryForest,
             ),
           ),
           child: child!,
-        );
-      },
+        ),
     );
     if (picked != null && picked != _selectedDate) {
       setState(() {
@@ -141,7 +137,6 @@ class _SettingItemDateState extends State<SettingItemDate> {
                       color: AppColors.neutralWhite,
                       border: Border.all(
                         color: AppColors.neutralGrey,
-                        width: 1,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),

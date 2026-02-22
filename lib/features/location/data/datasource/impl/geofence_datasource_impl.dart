@@ -29,10 +29,9 @@ class GeofenceDatasourceImpl implements GeofenceDatasource {
 
   @override
   Future<void> update(List<AgencyGeofence> agencies) async {
-    final geofences = agencies.map((e) => e.toGeofence()).toList();
-    await this.unregisterAll();
-    await this._geofenceService.stop();
-    await this.register(agencies);
+    await unregisterAll();
+    await _geofenceService.stop();
+    await register(agencies);
   }
 
   @override

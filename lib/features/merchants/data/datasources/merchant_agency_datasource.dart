@@ -8,7 +8,6 @@ abstract class MerchantAgencyDatasource {
     required double longitude,
     required int limit,
   });
-  Future<ApiResponse<MerchantAgencyCardsDealsResponse>> getMerchantAgencyDetail({
-    required String agencyId,
-  });
+  Future<ApiResponse<MerchantAgencyCardsDealsResponse>>
+  getMerchantAgencyDetail({required String agencyId});
 }

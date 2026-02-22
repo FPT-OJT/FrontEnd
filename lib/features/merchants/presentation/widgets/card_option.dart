@@ -208,7 +208,9 @@ class _CardOptionState extends State<CardOption> {
               child: GestureDetector(
                 onTap: () {
                   context.push(
-                    RouteNames.generateMerchantDealCalculatorRoute(widget.merchantAgencyId),
+                    RouteNames.generateMerchantDealCalculatorRoute(
+                      widget.merchantAgencyId,
+                    ),
                   );
                 },
                 child: Row(

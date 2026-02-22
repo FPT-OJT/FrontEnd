@@ -76,38 +76,23 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
       ),
       border: OutlineInputBorder(
         borderRadius: Rounded.md,
-        borderSide: const BorderSide(
-          color: AppColors.neutralGrey,
-          width: 1,
-        ),
+        borderSide: const BorderSide(color: AppColors.neutralGrey),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: Rounded.md,
-        borderSide: const BorderSide(
-          color: AppColors.neutralGrey,
-          width: 1,
-        ),
+        borderSide: const BorderSide(color: AppColors.neutralGrey),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: Rounded.md,
-        borderSide: const BorderSide(
-          color: AppColors.secondaryCoral,
-          width: 2,
-        ),
+        borderSide: const BorderSide(color: AppColors.secondaryCoral, width: 2),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: Rounded.md,
-        borderSide: const BorderSide(
-          color: AppColors.notifyError,
-          width: 1,
-        ),
+        borderSide: const BorderSide(color: AppColors.notifyError),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: Rounded.md,
-        borderSide: const BorderSide(
-          color: AppColors.notifyError,
-          width: 2,
-        ),
+        borderSide: const BorderSide(color: AppColors.notifyError, width: 2),
       ),
       prefixIcon: _buildCountryCodeDropdown(),
     ),
@@ -126,10 +111,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                _selectedCountryCode,
-                style: AppTextStyles.bodyLarge,
-              ),
+              Text(_selectedCountryCode, style: AppTextStyles.bodyLarge),
               UIGaps.w4,
               const Icon(
                 Icons.keyboard_arrow_down,

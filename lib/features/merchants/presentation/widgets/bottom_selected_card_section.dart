@@ -34,7 +34,6 @@ class BottomSelectedCardSection extends StatelessWidget {
           }
 
           final selectedCard = state.selectedCard;
-       
 
           return Container(
             height: BottomSelectedCardSection.containerHeight,
@@ -68,8 +67,18 @@ class BottomSelectedCardSection extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(MerchantDetailText.maxReduceRateTitle, style: AppTextStyles.h3.copyWith(color: AppColors.primaryForest),),
-                    Text('${selectedCard?.maxReduceRate ?? 0}%', style: AppTextStyles.h3.copyWith(color: AppColors.primaryForest),),
+                    Text(
+                      MerchantDetailText.maxReduceRateTitle,
+                      style: AppTextStyles.h3.copyWith(
+                        color: AppColors.primaryForest,
+                      ),
+                    ),
+                    Text(
+                      '${selectedCard?.maxReduceRate ?? 0}%',
+                      style: AppTextStyles.h3.copyWith(
+                        color: AppColors.primaryForest,
+                      ),
+                    ),
                   ],
                 ),
                 // Continue Button
