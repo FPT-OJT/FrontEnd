@@ -8,8 +8,14 @@ class HomeDatasourceImpl implements HomeDatasource {
   final Dio _dio;
 
   @override
-  Future<ApiResponse<HomeData>> getHome() async {
-    final response = await _dio.get<Map<String, dynamic>>('/home');
+  Future<ApiResponse<HomeData>> getHome({
+    double? lat = 0,
+    double? long = 0,
+  }) async {
+    final response = await _dio.get<Map<String, dynamic>>(
+      '/home',
+      queryParameters: {'lat': lat, 'long': long},
+    );
 
     return ApiResponse.fromJson(
       response.data ?? {},

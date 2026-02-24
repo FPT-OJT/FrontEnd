@@ -35,7 +35,6 @@ class LocationDatasourceImpl extends LocationDataSource {
     required int distanceFilterInMeters,
   }) => Geolocator.getPositionStream(
     locationSettings: LocationSettings(
-      timeLimit: timeLimit,
       accuracy: accuracy,
       distanceFilter: distanceFilterInMeters,
     ),

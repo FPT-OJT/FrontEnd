@@ -34,5 +34,10 @@ class FavoriteMerchantToggled extends HomeEvent {
 }
 
 class HomeRefreshRequested extends HomeEvent {
-  const HomeRefreshRequested();
+  const HomeRefreshRequested({this.lat = 0, this.long = 0});
+  final double? lat;
+  final double? long;
+
+  @override
+  List<Object?> get props => [lat, long];
 }

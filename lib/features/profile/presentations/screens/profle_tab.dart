@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+import 'package:fpt_ojt/features/location/blocs/geofence/geofence_bloc.dart';
+import 'package:fpt_ojt/features/location/blocs/geofence/geofence_event.dart';
 import 'package:fpt_ojt/features/profile/presentations/constants/profile_tab.dart';
 import 'package:fpt_ojt/features/profile/presentations/widgets/logout_section.dart';
 import 'package:fpt_ojt/features/profile/presentations/widgets/profile_action.dart';
 import 'package:fpt_ojt/features/profile/presentations/widgets/profile_head_section.dart';
 import 'package:fpt_ojt/features/profile/presentations/widgets/promo_carousel.dart';
 
-class ProfileTab extends StatelessWidget {
+class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
 
   @override
-  Widget build(BuildContext context) => const _ProfileTabContent();
+  State<ProfileTab> createState() => _ProfileTabState();
 }
 
-class _ProfileTabContent extends StatelessWidget {
-  const _ProfileTabContent();
+class _ProfileTabState extends State<ProfileTab> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<GeofenceBloc>().add(const GeofenceStarted());
+  }
 
   @override
   Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(

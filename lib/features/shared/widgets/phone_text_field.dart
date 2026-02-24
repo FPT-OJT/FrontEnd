@@ -40,203 +40,24 @@ class PhoneTextField extends StatefulWidget {
 
 class _PhoneTextFieldState extends State<PhoneTextField> {
   late String _selectedCountryCode;
-  final FocusNode _focusNode = FocusNode();
-  bool _isFocused = false;
-  String? _errorText;
-  bool _hasContent = false;
 
   @override
   void initState() {
     super.initState();
     _selectedCountryCode = widget.initialCountryCode;
-    _focusNode.addListener(_onFocusChange);
-    widget.phoneController.addListener(_onTextChange);
-    _hasContent = widget.phoneController.text.isNotEmpty;
   }
 
   @override
-  void dispose() {
-    _focusNode.removeListener(_onFocusChange);
-    widget.phoneController.removeListener(_onTextChange);
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  void _onFocusChange() {
-    setState(() {
-      _isFocused = _focusNode.hasFocus;
-    });
-  }
-
-  void _onTextChange() {
-    setState(() {
-      _hasContent = widget.phoneController.text.isNotEmpty;
-    });
-  }
-
-  bool get _shouldShowLabel => _isFocused || _hasContent;
-
-  void _validateField() {
-    if (widget.validator != null) {
-      setState(() {
-        _errorText = widget.validator!(widget.phoneController.text);
-      });
-    }
-  }
-
-  Color _getBorderColor() {
-    if (_errorText != null) {
-      return AppColors.notifyError;
-    }
-    if (_isFocused) {
-      return AppColors.secondaryCoral;
-    }
-    return AppColors.neutralGrey;
-  }
-
-  double _getBorderWidth() {
-    if (_isFocused) {
-      return 2;
-    }
-    return 1;
-  }
-
-  @override
-  Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _buildCombinedField(),
-      if (_errorText != null) ...[
-        UIGaps.h8,
-        Text(
-          _errorText!,
-          style: AppTextStyles.bodySmall.copyWith(color: AppColors.notifyError),
-        ),
-      ],
-    ],
-  );
-
-  Widget _buildCombinedField() => Stack(
-    clipBehavior: Clip.none,
-    children: [
-      Container(
-        height: UIGaps.size56,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: Rounded.md,
-          border: Border.all(
-            color: _getBorderColor(),
-            width: _getBorderWidth(),
-          ),
-        ),
-        child: Row(
-          children: [
-            _buildCountryCodeButton(),
-            Container(
-              width: 1,
-              height: UIGaps.size24,
-              color: AppColors.neutralGrey,
-              margin: const EdgeInsets.symmetric(horizontal: UIGaps.size8),
-            ),
-            Expanded(child: _buildPhoneNumberField()),
-          ],
-        ),
-      ),
-      if (_shouldShowLabel)
-        Positioned(
-          top: -10,
-          left: 12,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            color: AppColors.neutralEggShell20,
-            child: Text(
-              widget.label,
-              style: AppTextStyles.bodyExtraSmall.copyWith(
-                color: _isFocused
-                    ? AppColors.secondaryCoral
-                    : _errorText != null
-                    ? AppColors.notifyError
-                    : AppColors.secondaryCoral,
-              ),
-            ),
-          ),
-        ),
-    ],
-  );
-
-  Widget _buildCountryCodeButton() => PopupMenuButton<String>(
-    initialValue: _selectedCountryCode,
-    enabled: widget.enabled,
-    offset: const Offset(0, 8),
-    shape: RoundedRectangleBorder(borderRadius: Rounded.md),
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: UIGaps.size12),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(_selectedCountryCode, style: AppTextStyles.bodyLarge),
-          UIGaps.w4,
-          const Icon(
-            Icons.keyboard_arrow_down,
-            color: AppColors.neutralEggShell80,
-            size: 20,
-          ),
-        ],
-      ),
-    ),
-    onSelected: (newValue) {
-      setState(() {
-        _selectedCountryCode = newValue;
-      });
-      widget.onCountryCodeChanged?.call(newValue);
-    },
-    itemBuilder: (context) => widget.countryCodes
-        .map(
-          (countryData) => PopupMenuItem<String>(
-            value: countryData.code,
-            child: Row(
-              children: [
-                Text(countryData.code, style: AppTextStyles.bodyLarge),
-                UIGaps.w8,
-                Text(
-                  countryData.name,
-                  style: AppTextStyles.bodySmall.copyWith(
-                    color: AppColors.neutralBlack,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
-        .toList(),
-  );
-
-  Widget _buildPhoneNumberField() => TextFormField(
+  Widget build(BuildContext context) => TextFormField(
     controller: widget.phoneController,
-    focusNode: _focusNode,
     keyboardType: TextInputType.phone,
     enabled: widget.enabled,
     cursorColor: AppColors.secondaryCoral,
     style: AppTextStyles.bodyLarge,
-    onChanged: (_) => _validateField(),
-    validator: (value) {
-      // Capture error from validator and sync with custom error display
-      final error = widget.validator?.call(value);
-
-      // Use post frame callback to update state after build
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted && _errorText != error) {
-          setState(() {
-            _errorText = error;
-          });
-        }
-      });
-
-      // Return error for Form system (but we hide it with errorStyle)
-      return error;
-    },
+    validator: widget.validator,
     decoration: InputDecoration(
-      hintText: _shouldShowLabel ? widget.hintText : widget.label,
+      labelText: widget.label,
+      hintText: widget.hintText,
       filled: true,
       fillColor: Colors.transparent,
       contentPadding: const EdgeInsets.symmetric(
@@ -244,12 +65,94 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         vertical: inputPadding,
       ),
       hintStyle: AppTextStyles.bodyLarge.copyWith(color: AppColors.neutralGrey),
-      border: InputBorder.none,
-      enabledBorder: InputBorder.none,
-      focusedBorder: InputBorder.none,
-      errorBorder: InputBorder.none,
-      focusedErrorBorder: InputBorder.none,
-      errorStyle: const TextStyle(height: 0),
+      labelStyle: AppTextStyles.bodyExtraSmall.copyWith(
+        color: AppColors.secondaryCoral,
+      ),
+      floatingLabelStyle: AppTextStyles.bodyLarge.copyWith(
+        color: AppColors.secondaryCoral,
+      ),
+      errorStyle: AppTextStyles.bodySmall.copyWith(
+        color: AppColors.notifyError,
+      ),
+      border: OutlineInputBorder(
+        borderRadius: Rounded.md,
+        borderSide: const BorderSide(color: AppColors.neutralGrey),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: Rounded.md,
+        borderSide: const BorderSide(color: AppColors.neutralGrey),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: Rounded.md,
+        borderSide: const BorderSide(color: AppColors.secondaryCoral, width: 2),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: Rounded.md,
+        borderSide: const BorderSide(color: AppColors.notifyError),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: Rounded.md,
+        borderSide: const BorderSide(color: AppColors.notifyError, width: 2),
+      ),
+      prefixIcon: _buildCountryCodeDropdown(),
+    ),
+  );
+
+  Widget _buildCountryCodeDropdown() => Container(
+    padding: const EdgeInsets.only(left: UIGaps.size8, right: UIGaps.size4),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        PopupMenuButton<String>(
+          initialValue: _selectedCountryCode,
+          enabled: widget.enabled,
+          offset: const Offset(0, 8),
+          shape: RoundedRectangleBorder(borderRadius: Rounded.md),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(_selectedCountryCode, style: AppTextStyles.bodyLarge),
+              UIGaps.w4,
+              const Icon(
+                Icons.keyboard_arrow_down,
+                color: AppColors.neutralEggShell80,
+                size: 20,
+              ),
+            ],
+          ),
+          onSelected: (newValue) {
+            setState(() {
+              _selectedCountryCode = newValue;
+            });
+            widget.onCountryCodeChanged?.call(newValue);
+          },
+          itemBuilder: (context) => widget.countryCodes
+              .map(
+                (countryData) => PopupMenuItem<String>(
+                  value: countryData.code,
+                  child: Row(
+                    children: [
+                      Text(countryData.code, style: AppTextStyles.bodyLarge),
+                      UIGaps.w8,
+                      Text(
+                        countryData.name,
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: AppColors.neutralBlack,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+        Container(
+          width: 1,
+          height: UIGaps.size24,
+          color: AppColors.neutralGrey,
+          margin: const EdgeInsets.only(left: UIGaps.size4),
+        ),
+      ],
     ),
   );
 }

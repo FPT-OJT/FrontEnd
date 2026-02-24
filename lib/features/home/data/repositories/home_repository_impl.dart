@@ -10,9 +10,12 @@ class HomeRepositoryImpl implements HomeRepository {
   final HomeDatasource _homeDatasource;
 
   @override
-  Future<Either<Failure, HomeData>> getHomeData() async {
+  Future<Either<Failure, HomeData>> getHomeData({
+    double? lat = 0,
+    double? long = 0,
+  }) async {
     try {
-      final apiResponse = await _homeDatasource.getHome();
+      final apiResponse = await _homeDatasource.getHome(lat: lat, long: long);
 
       if (apiResponse.data == null) {
         return Left(Failure(apiResponse.message));

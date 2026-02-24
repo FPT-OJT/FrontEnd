@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/home/domain/entities/merchant_offer.dart';
 import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MerchantDealCard extends StatelessWidget {
@@ -58,55 +60,61 @@ class MerchantDealCard extends StatelessWidget {
         ? '${(distanceInMeters / meterPerKiloMeter).toStringAsFixed(1)}km'
         : '${distanceInMeters.toStringAsFixed(0)}m';
 
-    return SizedBox(
-      height: cardHeight,
-      child: Row(
-        children: [
-          buildLogoWithBadge(),
-          UIGaps.w12,
-
-          /// Info
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  merchantOffer.merchantAgencyName ?? '',
-                  style: AppTextStyles.bodyExtraSmall.copyWith(
-                    color: AppColors.primaryForest,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: nameToDescriptionSpacing),
-                Text(
-                  merchantOffer.merchantDealName ?? '',
-                  style: AppTextStyles.bodyExtraSmall.copyWith(
-                    color: AppColors.primaryForest.withValues(alpha: 0.5),
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
+    return GestureDetector(
+      onTap: () {
+        context.push(
+          RouteNames.generateMerchantDetailRoute(
+            merchantOffer.merchantAgencyId!,
           ),
+        );
+      },
+      child: SizedBox(
+        height: cardHeight,
+        child: Row(
+          children: [
+            buildLogoWithBadge(),
+            UIGaps.w12,
 
-          UIGaps.w8,
-
-          /// Distance + actions
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Row(
-                spacing: UIGaps.size4,
+            /// Info
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildDealRateIcon(merchantOffer.totalDiscount ?? 0),
-                  GestureDetector(
-                    onTap: onSubscribeTap,
-                    child: Icon(
+                  Text(
+                    merchantOffer.merchantAgencyName ?? '',
+                    style: AppTextStyles.bodyExtraSmall.copyWith(
+                      color: AppColors.primaryForest,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: nameToDescriptionSpacing),
+                  Text(
+                    merchantOffer.merchantDealName ?? '',
+                    style: AppTextStyles.bodyExtraSmall.copyWith(
+                      color: AppColors.primaryForest.withValues(alpha: 0.5),
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+
+            UIGaps.w8,
+
+            /// Distance + actions
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Row(
+                  spacing: UIGaps.size4,
+                  children: [
+                    _buildDealRateIcon(merchantOffer.totalDiscount ?? 0),
+                    Icon(
                       merchantOffer.subscribed ?? false
                           ? Icons.notifications_active
                           : Icons.notifications_active_outlined,
@@ -115,10 +123,7 @@ class MerchantDealCard extends StatelessWidget {
                           ? AppColors.primaryCoin
                           : AppColors.primaryForest,
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: onFavoriteTap,
-                    child: Icon(
+                    Icon(
                       merchantOffer.favorite ?? false
                           ? Icons.favorite
                           : Icons.favorite_border_outlined,
@@ -127,20 +132,20 @@ class MerchantDealCard extends StatelessWidget {
                           ? AppColors.secondaryCoral
                           : AppColors.primaryForest,
                     ),
-                  ),
-                ],
-              ),
-              UIGaps.h8,
-
-              Text(
-                distanceText,
-                style: AppTextStyles.bodyExtraSmall.copyWith(
-                  color: AppColors.primaryForest.withValues(alpha: 0.5),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ],
+                UIGaps.h8,
+
+                Text(
+                  distanceText,
+                  style: AppTextStyles.bodyExtraSmall.copyWith(
+                    color: AppColors.primaryForest.withValues(alpha: 0.5),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

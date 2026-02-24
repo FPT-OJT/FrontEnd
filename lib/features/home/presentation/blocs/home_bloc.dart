@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
 import 'package:fpt_ojt/features/home/data/mappers/home_mapper.dart';
 import 'package:fpt_ojt/features/home/domain/entities/merchant_offer.dart';
 import 'package:fpt_ojt/features/home/domain/usecases/add_favorite_merchant_uc.dart';
@@ -47,7 +46,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ),
     );
 
-    final result = await _getHomeUc(const NoParams());
+    final result = await _getHomeUc(const GetHomeParams());
 
     result.fold(
       (failure) {
@@ -108,7 +107,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeRefreshRequested event,
     Emitter<HomeState> emit,
   ) async {
-    final result = await _getHomeUc(const NoParams());
+    final result = await _getHomeUc(
+      GetHomeParams(lat: event.lat ?? 0, long: event.long ?? 0),
+    );
 
     result.fold(
       (failure) {

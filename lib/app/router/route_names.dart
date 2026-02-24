@@ -17,4 +17,14 @@ class RouteNames {
   static const String editAccount = '/edit-account';
   static const String notificationSettings = '/notification-settings';
   static const String termsConditions = '/terms-conditions';
+  static const String liveMap = '/live-map';
+
+  static const String merchantDetail = '/merchants/:merchantId';
+  static String generateMerchantDetailRoute(String merchantId) =>
+      '/merchants/$merchantId';
+
+  static const String merchantDealCalculator =
+      '/merchant/:merchantId/deal-calculator';
+  static String generateMerchantDealCalculatorRoute(String merchantId) =>
+      '/merchant/$merchantId/deal-calculator';
 }

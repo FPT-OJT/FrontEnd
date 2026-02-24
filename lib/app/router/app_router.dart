@@ -10,6 +10,9 @@ import 'package:fpt_ojt/features/home/presentation/screens/home_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/onboarding_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/splash_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart';
+import 'package:fpt_ojt/features/location/presentation/screens/live_map_screen.dart';
+import 'package:fpt_ojt/features/merchants/presentation/screens/calculator_screen.dart';
+import 'package:fpt_ojt/features/merchants/presentation/screens/detail_screen.dart';
 import 'package:fpt_ojt/features/merchants/presentation/screens/search_screen.dart';
 import 'package:fpt_ojt/features/profile/presentations/screens/edit_profile_screen.dart';
 import 'package:fpt_ojt/features/profile/presentations/screens/notification_setting.dart';
@@ -61,6 +64,11 @@ final goRouter = GoRouter(
       ),
     ),
     GoRoute(
+      path: RouteNames.merchantDetail,
+      builder: (context, state) =>
+          MerchantDetailScreen(merchantId: state.pathParameters['merchantId']!),
+    ),
+    GoRoute(
       path: RouteNames.cardSearch,
       pageBuilder: (context, state) => CustomTransitionPage(
         key: state.pageKey,
@@ -94,6 +102,15 @@ final goRouter = GoRouter(
         final cardId = state.pathParameters['cardId'] ?? '';
         return CardSettingScreen(cardId: cardId);
       },
+    ),
+    GoRoute(
+      path: RouteNames.liveMap,
+      builder: (context, _) => const LiveMapScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.merchantDealCalculator,
+      builder: (context, state) =>
+          CalculatorScreen(merchantId: state.pathParameters['merchantId']!),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) => Scaffold(

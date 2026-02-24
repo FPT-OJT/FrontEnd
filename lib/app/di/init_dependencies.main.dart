@@ -25,6 +25,7 @@ Future<void> initDependencies() async {
   _initWallet();
   _initCard();
   _initProfile();
+  _initGeofence();
 }
 
 void _initIntro() {
@@ -168,6 +169,15 @@ Future<void> _initMerchant() async {
         merchantAgencyRepository: serviceLocator(),
         getShortestDistanceUseCase: serviceLocator(),
       ),
+    )
+    ..registerLazySingleton<GetMerchantAgencyDetailUseCase>(
+      () => GetMerchantAgencyDetailUseCase(
+        merchantAgencyRepository: serviceLocator(),
+      ),
+    )
+    ..registerFactory<MerchantDetailBloc>(
+      () =>
+          MerchantDetailBloc(getMerchantAgencyDetailUseCase: serviceLocator()),
     );
 }
 
@@ -340,5 +350,36 @@ void _initProfile() {
       updateMyProfileUseCase: serviceLocator(),
       getCountriesUseCase: serviceLocator(),
     ),
+  );
+}
+
+void _initGeofence() {
+  final geofenceService = GeofenceService.instance.setup(
+    interval: 5000,
+    accuracy: 100,
+    loiteringDelayMs: 5000,
+    statusChangeDelayMs: 1000,
+    useActivityRecognition: false,
+    allowMockLocations: true,
+    printDevLog: true,
+  );
+  serviceLocator.registerLazySingleton<GeofenceService>(() => geofenceService);
+  serviceLocator.registerLazySingleton<GeofenceDatasource>(
+    () => GeofenceDatasourceImpl(
+      geofenceService: serviceLocator(),
+      dio: serviceLocator(),
+    ),
+  );
+  serviceLocator.registerLazySingleton<GeofenceRepository>(
+    () => GeofenceRepositoryImpl(geofenceDatasource: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<InitGeofenceUseCase>(
+    () => InitGeofenceUseCase(geofenceRepository: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<GeofenceBloc>(
+    () => GeofenceBloc(serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<GeofenceObserver>(
+    () => GeofenceObserver(serviceLocator(), serviceLocator()),
   );
 }
