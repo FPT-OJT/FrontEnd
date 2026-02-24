@@ -116,7 +116,9 @@ class DeleteCardDialog extends StatelessWidget {
                       ),
                     ),
                     elevation: 0,
-                    disabledBackgroundColor: AppColors.neutralWhite.withValues(alpha: 0.5),
+                    disabledBackgroundColor: AppColors.neutralWhite.withValues(
+                      alpha: 0.5,
+                    ),
                   ),
                   child: Text(
                     CardText.deleteCardButtonNo,
