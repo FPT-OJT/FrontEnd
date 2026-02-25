@@ -12,16 +12,31 @@ class GenTextUseCase implements UseCase<AiMessage, GenTextParams> {
   final AiRepository aiRepository;
 
   @override
-  Future<Either<Failure, AiMessage>> call(GenTextParams params) => aiRepository
-      .genText(sessionId: params.sessionId, userMessage: params.userMessage);
+  Future<Either<Failure, AiMessage>> call(GenTextParams params) =>
+      aiRepository.genText(
+        sessionId: params.sessionId,
+        userMessage: params.userMessage,
+        fullName: params.fullName,
+        latitude: params.latitude,
+        longitude: params.longitude,
+      );
 }
 
 @immutable
 class GenTextParams extends Equatable {
-  const GenTextParams({required this.sessionId, required this.userMessage});
+  const GenTextParams({
+    required this.sessionId,
+    required this.userMessage,
+    this.fullName,
+    this.latitude,
+    this.longitude,
+  });
 
   final String sessionId;
   final String userMessage;
+  final String? fullName;
+  final double? latitude;
+  final double? longitude;
 
   @override
   List<Object?> get props => [sessionId, userMessage];

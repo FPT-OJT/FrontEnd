@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:fpt_ojt/core/common/token/refresh_token_datasource.dart';
 import 'package:fpt_ojt/core/common/token/token_store.dart';
 import 'package:fpt_ojt/core/error/authentication_exception.dart';
@@ -42,8 +43,10 @@ class AuthRefreshInterceptor extends Interceptor {
       }
 
       final accessToken = await _tokenStore.getAccessToken();
+      debugPrint('accessToken: $accessToken');
       if (accessToken.isNotEmpty) {
-        options.headers['Authorization'] = accessToken;
+        options.headers['Authorization'] = 'Bearer $accessToken';
+        debugPrint('Authorization: $accessToken');
       }
       // ignore: avoid_catches_without_on_clauses
     } catch (_) {}

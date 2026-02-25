@@ -6,6 +6,9 @@ import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/ai/presentation/blocs/ai_chat/ai_chat_bloc.dart';
 import 'package:fpt_ojt/features/ai/presentation/blocs/ai_chat/ai_chat_event.dart';
 import 'package:fpt_ojt/features/ai/presentation/constants/ai_text.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_state.dart';
+import 'package:fpt_ojt/features/location/blocs/location_bloc.dart';
 
 class SuggestionChips extends StatelessWidget {
   const SuggestionChips({super.key});
@@ -40,9 +43,22 @@ class _SuggestionChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-    onTap: () => context.read<AiChatBloc>().add(
-      AiChatSuggestionTapped(suggestion: label),
-    ),
+    onTap: () {
+      final fullName = context.read<AuthBloc>().state is AuthLoggedIn
+          ? (context.read<AuthBloc>().state as AuthLoggedIn).user.fullName
+          : null;
+      final currentLocation = context.read<LocationBloc>().state.current;
+      final latitude = currentLocation?.latitude;
+      final longitude = currentLocation?.longitude;
+      context.read<AiChatBloc>().add(
+        AiChatSuggestionTapped(
+          suggestion: label,
+          fullName: fullName,
+          latitude: latitude,
+          longitude: longitude,
+        ),
+      );
+    },
     child: Container(
       padding: const EdgeInsets.symmetric(
         horizontal: UIGaps.size12,

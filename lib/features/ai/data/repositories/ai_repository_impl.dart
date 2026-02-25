@@ -18,11 +18,17 @@ class AiRepositoryImpl implements AiRepository {
   Future<Either<Failure, AiMessage>> genText({
     required String sessionId,
     required String userMessage,
+    String? fullName,
+    double? latitude,
+    double? longitude,
   }) async {
     try {
       final model = await aiDatasource.genText(
         sessionId: sessionId,
         userMessage: userMessage,
+        fullName: fullName,
+        latitude: latitude,
+        longitude: longitude,
       );
       return Right(model.toEntity());
     } on Exception catch (e) {

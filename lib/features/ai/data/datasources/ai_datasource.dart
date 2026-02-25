@@ -4,5 +4,8 @@ abstract class AiDatasource {
   Future<AiMessageModel> genText({
     required String sessionId,
     required String userMessage,
+    String? fullName,
+    double? latitude,
+    double? longitude,
   });
 }

@@ -5,6 +5,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fpt_ojt/app/app.dart';
 import 'package:fpt_ojt/app/di/init_dependencies.dart';
 import 'package:fpt_ojt/core/config/app_config.dart';
+import 'package:fpt_ojt/features/ai/presentation/blocs/ai_chat/ai_chat_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_details/login_details_bloc.dart';
 import 'package:fpt_ojt/features/auth/presentation/blocs/login_options/login_options_cubit.dart';
@@ -56,6 +57,9 @@ void main() async {
         ),
         BlocProvider<GeofenceBloc>(
           create: (context) => serviceLocator<GeofenceBloc>(),
+        ),
+        BlocProvider<AiChatBloc>(
+          create: (context) => serviceLocator<AiChatBloc>(),
         ),
       ],
       child: const MainApp(),

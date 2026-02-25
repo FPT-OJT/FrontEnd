@@ -11,6 +11,9 @@ import 'package:fpt_ojt/features/ai/presentation/constants/ai_text.dart';
 import 'package:fpt_ojt/features/ai/presentation/widgets/chat_bubble.dart';
 import 'package:fpt_ojt/features/ai/presentation/widgets/chat_input_field.dart';
 import 'package:fpt_ojt/features/ai/presentation/widgets/suggestion_chips.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_bloc.dart';
+import 'package:fpt_ojt/features/auth/presentation/blocs/auth/auth_state.dart';
+import 'package:fpt_ojt/features/location/blocs/location_bloc.dart';
 
 class AiScreens extends StatefulWidget {
   const AiScreens({super.key});
@@ -75,9 +78,27 @@ class _AiScreensState extends State<AiScreens> {
           BlocBuilder<AiChatBloc, AiChatState>(
             builder: (context, state) => ChatInputField(
               disabled: state.isGenerating,
-              onSend: (message) => context.read<AiChatBloc>().add(
-                AiChatMessageSent(message: message),
-              ),
+              onSend: (message) {
+                final fullName = context.read<AuthBloc>().state is AuthLoggedIn
+                    ? (context.read<AuthBloc>().state as AuthLoggedIn)
+                          .user
+                          .fullName
+                    : null;
+                final currentLocation = context
+                    .read<LocationBloc>()
+                    .state
+                    .current;
+                final latitude = currentLocation?.latitude;
+                final longitude = currentLocation?.longitude;
+                context.read<AiChatBloc>().add(
+                  AiChatMessageSent(
+                    message: message,
+                    fullName: fullName,
+                    latitude: latitude,
+                    longitude: longitude,
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -118,7 +139,7 @@ class _AiScreensState extends State<AiScreens> {
               style: AppTextStyles.h3.copyWith(color: AppColors.neutralWhite),
             ),
             Text(
-              'Trợ lý tài chính thông minh',
+              AiText.appBarSubtitle,
               style: AppTextStyles.bodyExtraSmall.copyWith(
                 color: AppColors.primaryMint.withValues(alpha: 0.8),
                 fontSize: 11,

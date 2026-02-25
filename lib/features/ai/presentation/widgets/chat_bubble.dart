@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
@@ -76,7 +77,7 @@ class _BotBubble extends StatelessWidget {
         Flexible(
           child: Container(
             constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * 0.72,
+              maxWidth: MediaQuery.of(context).size.width * 0.82,
             ),
             padding: const EdgeInsets.symmetric(
               horizontal: UIGaps.size16,
@@ -98,10 +99,46 @@ class _BotBubble extends StatelessWidget {
                 ),
               ],
             ),
-            child: Text(
-              message.content,
-              style: AppTextStyles.bodySmall.copyWith(
-                color: AppColors.primaryForest,
+            child: MarkdownBody(
+              data: message.content,
+              styleSheet: MarkdownStyleSheet(
+                p: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.primaryForest,
+                ),
+                strong: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.primaryForest,
+                  fontWeight: FontWeight.w700,
+                ),
+                em: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.primaryForest.withValues(alpha: 0.75),
+                  fontStyle: FontStyle.italic,
+                ),
+                blockquote: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.primaryForest.withValues(alpha: 0.7),
+                ),
+                blockquoteDecoration: const BoxDecoration(
+                  border: Border(
+                    left: BorderSide(
+                      color: AppColors.primaryMint,
+                      width: 3,
+                    ),
+                  ),
+                ),
+                tableHead: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.primaryForest,
+                  fontWeight: FontWeight.w700,
+                ),
+                tableBody: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.primaryForest,
+                ),
+                tableBorder: TableBorder.all(
+                  color: AppColors.neutralGrey.withValues(alpha: 0.4),
+                ),
+                listBullet: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.primaryMint,
+                ),
+                tableColumnWidth: const FlexColumnWidth(),
+                blockSpacing: UIGaps.size8,
               ),
             ),
           ),

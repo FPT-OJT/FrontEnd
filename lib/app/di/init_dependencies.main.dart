@@ -388,7 +388,7 @@ void _initGeofence() {
 
 void _initAi() {
   serviceLocator
-    ..registerLazySingleton<AiDatasource>(AiDatasourceImpl.new)
+    ..registerLazySingleton<AiDatasource>(() => AiDatasourceImpl(dio: serviceLocator()))
     ..registerLazySingleton<AiRepository>(
       () => AiRepositoryImpl(aiDatasource: serviceLocator()),
     )

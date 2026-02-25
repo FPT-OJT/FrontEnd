@@ -7,6 +7,9 @@ abstract class AiRepository {
 
   Future<Either<Failure, AiMessage>> genText({
     required String sessionId,
-    required String userMessage,
+    required String userMessage, 
+    String? fullName,
+    double? latitude,
+    double? longitude,
   });
 }
