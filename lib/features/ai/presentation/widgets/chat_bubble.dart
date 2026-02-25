@@ -61,23 +61,11 @@ class _BotBubble extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       spacing: UIGaps.size8,
       children: [
-        Container(
-          width: 28,
-          height: 28,
-          decoration: BoxDecoration(
-            color: AppColors.primaryMint.withValues(alpha: 0.2),
-            shape: BoxShape.circle,
-          ),
-          child: const Icon(
-            Icons.auto_awesome_rounded,
-            size: 16,
-            color: AppColors.primaryMint,
-          ),
-        ),
+       
         Flexible(
           child: Container(
             constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * 0.82,
+              maxWidth: MediaQuery.of(context).size.width * 0.92,
             ),
             padding: const EdgeInsets.symmetric(
               horizontal: UIGaps.size16,
@@ -186,19 +174,7 @@ class _TypingIndicatorBubbleState extends State<TypingIndicatorBubble>
       crossAxisAlignment: CrossAxisAlignment.end,
       spacing: UIGaps.size8,
       children: [
-        Container(
-          width: 28,
-          height: 28,
-          decoration: BoxDecoration(
-            color: AppColors.primaryMint.withValues(alpha: 0.2),
-            shape: BoxShape.circle,
-          ),
-          child: const Icon(
-            Icons.auto_awesome_rounded,
-            size: 16,
-            color: AppColors.primaryMint,
-          ),
-        ),
+       
         Container(
           padding: const EdgeInsets.symmetric(
             horizontal: UIGaps.size16,

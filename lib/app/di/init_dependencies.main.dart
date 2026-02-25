@@ -176,9 +176,34 @@ Future<void> _initMerchant() async {
         merchantAgencyRepository: serviceLocator(),
       ),
     )
+    ..registerLazySingleton<GetIsMerchantFavoriteUseCase>(
+      () => GetIsMerchantFavoriteUseCase(
+        merchantAgencyRepository: serviceLocator(),
+      ),
+    )
+    ..registerLazySingleton<GetIsMerchantSubscribedUseCase>(
+      () => GetIsMerchantSubscribedUseCase(
+        merchantAgencyRepository: serviceLocator(),
+      ),
+    )
+    ..registerLazySingleton<ToggleFavoriteMerchantUseCase>(
+      () => ToggleFavoriteMerchantUseCase(
+        merchantAgencyRepository: serviceLocator(),
+      ),
+    )
+    ..registerLazySingleton<ToggleSubscribeMerchantUseCase>(
+      () => ToggleSubscribeMerchantUseCase(
+        merchantAgencyRepository: serviceLocator(),
+      ),
+    )
     ..registerFactory<MerchantDetailBloc>(
-      () =>
-          MerchantDetailBloc(getMerchantAgencyDetailUseCase: serviceLocator()),
+      () => MerchantDetailBloc(
+        getMerchantAgencyDetailUseCase: serviceLocator(),
+        getIsMerchantFavoriteUseCase: serviceLocator(),
+        getIsMerchantSubscribedUseCase: serviceLocator(),
+        toggleFavoriteMerchantUseCase: serviceLocator(),
+        toggleSubscribeMerchantUseCase: serviceLocator(),
+      ),
     );
 }
 

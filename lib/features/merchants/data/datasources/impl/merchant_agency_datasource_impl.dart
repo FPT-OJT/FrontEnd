@@ -39,4 +39,43 @@ class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
       ),
     );
   }
+
+  @override
+  Future<bool> isMerchantFavorite({required String agencyId}) async {
+    final response = await _dio.get<Map<String, dynamic>>(
+      '/users/favorite-merchants/agencies/$agencyId/is-favorite',
+    );
+    final apiResponse = ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => json! as bool,
+    );
+    return apiResponse.data ?? false;
+  }
+
+  @override
+  Future<bool> isMerchantSubscribed({required String agencyId}) async {
+    final response = await _dio.get<Map<String, dynamic>>(
+      '/users/subscribed-merchants/agencies/$agencyId/is-subscribed',
+    );
+    final apiResponse = ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => json! as bool,
+    );
+    return apiResponse.data ?? false;
+  }
+  @override
+  Future<void> toggleFavoriteMerchant({required String agencyId}) async {
+    await _dio.post<Map<String, dynamic>>(
+      '/users/favorite-merchants',
+      data: {'merchantAgencyId': agencyId},
+    );
+  }
+
+  @override
+  Future<void> toggleSubscribeMerchant({required String agencyId}) async {
+    await _dio.post<Map<String, dynamic>>(
+      '/users/subscribed-merchants/agencies/$agencyId',
+    );
+  }
+
 }

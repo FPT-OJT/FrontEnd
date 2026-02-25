@@ -8,12 +8,14 @@ class AppIconButton extends StatelessWidget {
     this.size = 36,
     this.iconSize = 20,
     this.onPressed,
+    this.color,
     super.key,
   });
   final IconData icon;
   final VoidCallback? onPressed;
   final double size;
   final double iconSize;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -25,7 +27,7 @@ class AppIconButton extends StatelessWidget {
     ),
     child: IconButton(
       padding: EdgeInsets.zero,
-      icon: Icon(icon, color: Colors.white, size: iconSize),
+      icon: Icon(icon, color: color ?? Colors.white, size: iconSize),
       onPressed: onPressed,
     ),
   );

@@ -42,4 +42,60 @@ class MerchantAgencyRepositoryImpl implements MerchantAgencyRepository {
       return Left(Failure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> isMerchantFavorite({
+    required String agencyId,
+  }) async {
+    try {
+      final result = await merchantAgencyDataSource.isMerchantFavorite(
+        agencyId: agencyId,
+      );
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> isMerchantSubscribed({
+    required String agencyId,
+  }) async {
+    try {
+      final result = await merchantAgencyDataSource.isMerchantSubscribed(
+        agencyId: agencyId,
+      );
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> toggleFavoriteMerchant({
+    required String agencyId,
+  }) async {
+    try {
+      await merchantAgencyDataSource.toggleFavoriteMerchant(
+        agencyId: agencyId,
+      );
+      return const Right(null);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> toggleSubscribeMerchant({
+    required String agencyId,
+  }) async {
+    try {
+      await merchantAgencyDataSource.toggleSubscribeMerchant(
+        agencyId: agencyId,
+      );
+      return const Right(null);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
 }

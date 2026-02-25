@@ -12,4 +12,15 @@ abstract class MerchantAgencyRepository {
   Future<Either<Failure, MerchantDetailWithCardDeals>> getMerchantAgencyDetail({
     required String agencyId,
   });
+
+  Future<Either<Failure, bool>> isMerchantFavorite({required String agencyId});
+  Future<Either<Failure, bool>> isMerchantSubscribed({
+    required String agencyId,
+  });
+  Future<Either<Failure, void>> toggleFavoriteMerchant({
+    required String agencyId,
+  });
+  Future<Either<Failure, void>> toggleSubscribeMerchant({
+    required String agencyId,
+  });
 }

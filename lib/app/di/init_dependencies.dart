@@ -82,9 +82,13 @@ import 'package:fpt_ojt/features/merchants/data/repositories/merchant_agency_rep
 import 'package:fpt_ojt/features/merchants/data/repositories/merchant_category_repository_impl.dart';
 import 'package:fpt_ojt/features/merchants/domain/repositories/merchant_agency_repository.dart';
 import 'package:fpt_ojt/features/merchants/domain/repositories/merchant_category_repository.dart';
+import 'package:fpt_ojt/features/merchants/domain/usecases/get_is_merchant_favorite.dart';
+import 'package:fpt_ojt/features/merchants/domain/usecases/get_is_merchant_subscribed.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_agency_detail.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_categories.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_nearest_merchant_agencies.dart';
+import 'package:fpt_ojt/features/merchants/domain/usecases/toggle_favorite_merchant.dart';
+import 'package:fpt_ojt/features/merchants/domain/usecases/toggle_subscribe_merchant.dart';
 import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_detail/merchant_detail_bloc.dart';
 import 'package:fpt_ojt/features/profile/data/datasource/country_datasource.dart';
 import 'package:fpt_ojt/features/profile/data/datasource/impl/country_datasource_impl.dart';

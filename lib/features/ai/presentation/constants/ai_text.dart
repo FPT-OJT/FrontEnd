@@ -11,10 +11,10 @@ class AiText {
   static const typingIndicator = 'Minstant AI is typing...';
 
   static const List<String> suggestions = [
-    'Which card gives the most cashback?',
+    'Which card did i have in my wallet?',
     'Deals near me today',
+    'Which card gives the most cashback?',
     'Compare my cards',
-    'Best restaurant discounts?',
-    'How to earn points faster?',
+
   ];
 }

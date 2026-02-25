@@ -25,22 +25,38 @@ class MerchantDetailLoaded extends MerchantDetailState {
     required this.merchantDetail,
     this.selectedCard,
     this.selectedDealIndex = 0,
+    this.isFavorite = false,
+    this.isSubscribed = false,
   });
+
   final MerchantDetailWithCardDeals merchantDetail;
   final Card? selectedCard;
   final int selectedDealIndex;
+  final bool isFavorite;
+  final bool isSubscribed;
 
   MerchantDetailLoaded copyWith({
     MerchantDetailWithCardDeals? merchantDetail,
     Card? selectedCard,
     int? selectedDealIndex,
+    bool? isFavorite,
+    bool? isSubscribed,
   }) => MerchantDetailLoaded(
     merchantDetail: merchantDetail ?? this.merchantDetail,
     selectedCard: selectedCard ?? this.selectedCard,
     selectedDealIndex: selectedDealIndex ?? this.selectedDealIndex,
+    isFavorite: isFavorite ?? this.isFavorite,
+    isSubscribed: isSubscribed ?? this.isSubscribed,
   );
+
   @override
-  List<Object?> get props => [merchantDetail, selectedCard, selectedDealIndex];
+  List<Object?> get props => [
+    merchantDetail,
+    selectedCard,
+    selectedDealIndex,
+    isFavorite,
+    isSubscribed,
+  ];
 }
 
 class MerchantDetailError extends MerchantDetailState {

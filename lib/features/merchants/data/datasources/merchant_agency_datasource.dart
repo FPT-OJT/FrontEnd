@@ -10,4 +10,9 @@ abstract class MerchantAgencyDatasource {
   });
   Future<ApiResponse<MerchantAgencyCardsDealsResponse>>
   getMerchantAgencyDetail({required String agencyId});
+
+  Future<bool> isMerchantFavorite({required String agencyId});
+  Future<bool> isMerchantSubscribed({required String agencyId});
+  Future<void> toggleFavoriteMerchant({required String agencyId});
+  Future<void> toggleSubscribeMerchant({required String agencyId});
 }

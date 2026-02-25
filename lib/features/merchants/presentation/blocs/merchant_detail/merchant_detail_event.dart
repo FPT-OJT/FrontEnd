@@ -27,3 +27,11 @@ class MerchantDetailDealIndexChanged extends MerchantDetailEvent {
   @override
   List<Object?> get props => [dealIndex];
 }
+
+class MerchantDetailFavoriteToggled extends MerchantDetailEvent {
+  const MerchantDetailFavoriteToggled();
+}
+
+class MerchantDetailSubscribeToggled extends MerchantDetailEvent {
+  const MerchantDetailSubscribeToggled();
+}
