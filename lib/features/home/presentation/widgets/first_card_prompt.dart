@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fpt_ojt/app/router/route_names.dart';
 import 'package:fpt_ojt/core/theme/app_colors.dart';
 import 'package:fpt_ojt/core/theme/app_text_styles.dart';
 import 'package:fpt_ojt/core/theme/rounded.dart';
 import 'package:fpt_ojt/core/theme/ui_gaps.dart';
 import 'package:fpt_ojt/features/home/presentation/constants/text.dart';
+import 'package:go_router/go_router.dart';
 
 class FirstCardPrompt extends StatelessWidget {
   const FirstCardPrompt({super.key, this.hasCard = false});
@@ -17,7 +19,7 @@ class FirstCardPrompt extends StatelessWidget {
     child: InkWell(
       borderRadius: Rounded.lg,
       onTap: () {
-        // TODO: Implement add card navigation
+        context.push(RouteNames.aiSuggestion);
       },
       child: Padding(
         padding: const EdgeInsets.all(UIGaps.size10),

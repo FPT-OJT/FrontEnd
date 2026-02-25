@@ -27,4 +27,6 @@ class RouteNames {
       '/merchant/:merchantId/deal-calculator';
   static String generateMerchantDealCalculatorRoute(String merchantId) =>
       '/merchant/$merchantId/deal-calculator';
+
+  static const String aiSuggestion = '/ai-suggestion';
 }

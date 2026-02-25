@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpt_ojt/core/usecase/usecase_interface.dart';
 import 'package:fpt_ojt/features/home/data/mappers/home_mapper.dart';
 import 'package:fpt_ojt/features/home/domain/entities/merchant_offer.dart';
 import 'package:fpt_ojt/features/home/domain/usecases/add_favorite_merchant_uc.dart';
@@ -10,6 +11,7 @@ import 'package:fpt_ojt/features/home/presentation/blocs/home_event.dart';
 import 'package:fpt_ojt/features/home/presentation/blocs/home_state.dart';
 import 'package:fpt_ojt/features/location/domain/entities/coordinate.dart';
 import 'package:fpt_ojt/features/location/domain/usecases/coordinate_stream.dart';
+import 'package:fpt_ojt/features/location/domain/usecases/current_coordinate.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc({
@@ -17,10 +19,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required SubscribeToMerchantUc subscribeToMerchantUc,
     required AddFavoriteMerchantUc addFavoriteMerchantUc,
     required CoordinateStreamUseCase coordinateStreamUseCase,
+    required CurrentCoordinateUseCase currentCoordinateUseCase,
   }) : _getHomeUc = getHomeUc,
        _subscribeToMerchantUc = subscribeToMerchantUc,
        _addFavoriteMerchantUc = addFavoriteMerchantUc,
        _coordinateStreamUseCase = coordinateStreamUseCase,
+       _currentCoordinateUseCase = currentCoordinateUseCase,
        super(const HomeState()) {
     on<HomeStarted>(_onHomeStarted);
     on<SubscribeToMerchantToggled>(_onSubscribeToMerchantToggled);
@@ -32,6 +36,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final SubscribeToMerchantUc _subscribeToMerchantUc;
   final AddFavoriteMerchantUc _addFavoriteMerchantUc;
   final CoordinateStreamUseCase _coordinateStreamUseCase;
+  final CurrentCoordinateUseCase _currentCoordinateUseCase;
   StreamSubscription<Coordinate>? _positionSubscription;
 
   Future<void> _onHomeStarted(
@@ -46,7 +51,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ),
     );
 
-    final result = await _getHomeUc(const GetHomeParams());
+    final currentCoordinate = await _currentCoordinateUseCase.call(
+      const NoParams(),
+    );
+    final coordinate = currentCoordinate.getOrElse(
+      (failure) => const Coordinate(latitude: 0, longitude: 0),
+    );
+    final result = await _getHomeUc(
+      GetHomeParams(lat: coordinate.latitude, long: coordinate.longitude),
+    );
 
     result.fold(
       (failure) {
@@ -86,7 +99,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     _coordinateStreamUseCase(
       const CoordinateStreamParams(
         timeLimit: Duration(seconds: 10),
-        distanceFilterInMeters: 10, // Cập nhật mỗi khi di chuyển 10m
+        distanceFilterInMeters: 30,
       ),
     ).then((streamResult) {
       streamResult.fold(
@@ -95,8 +108,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         },
         (stream) {
           _positionSubscription = stream.listen((coordinate) {
-            // Mỗi khi vị trí thay đổi >= 10m, dispatch event để refresh home data
-            add(const HomeRefreshRequested());
+            add(HomeRefreshRequested());
           });
         },
       );
@@ -107,8 +119,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeRefreshRequested event,
     Emitter<HomeState> emit,
   ) async {
+    final currentCoordinate = await _currentCoordinateUseCase.call(
+      const NoParams(),
+    );
+    final coordinate = currentCoordinate.getOrElse(
+      (failure) => const Coordinate(latitude: 0, longitude: 0),
+    );
     final result = await _getHomeUc(
-      GetHomeParams(lat: event.lat ?? 0, long: event.long ?? 0),
+      GetHomeParams(lat: coordinate.latitude, long: coordinate.longitude),
     );
 
     result.fold(

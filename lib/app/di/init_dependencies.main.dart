@@ -26,6 +26,7 @@ Future<void> initDependencies() async {
   _initCard();
   _initProfile();
   _initGeofence();
+  _initAi();
 }
 
 void _initIntro() {
@@ -212,6 +213,7 @@ Future<void> _initHome() async {
       subscribeToMerchantUc: serviceLocator(),
       addFavoriteMerchantUc: serviceLocator(),
       coordinateStreamUseCase: serviceLocator(),
+      currentCoordinateUseCase: serviceLocator(),
     ),
   );
 }
@@ -382,4 +384,21 @@ void _initGeofence() {
   serviceLocator.registerLazySingleton<GeofenceObserver>(
     () => GeofenceObserver(serviceLocator(), serviceLocator()),
   );
+}
+
+void _initAi() {
+  serviceLocator
+    ..registerLazySingleton<AiDatasource>(AiDatasourceImpl.new)
+    ..registerLazySingleton<AiRepository>(
+      () => AiRepositoryImpl(aiDatasource: serviceLocator()),
+    )
+    ..registerLazySingleton<GenTextUseCase>(
+      () => GenTextUseCase(aiRepository: serviceLocator()),
+    )
+    ..registerFactory<AiChatBloc>(
+      () => AiChatBloc(
+        aiRepository: serviceLocator(),
+        genTextUseCase: serviceLocator(),
+      ),
+    );
 }

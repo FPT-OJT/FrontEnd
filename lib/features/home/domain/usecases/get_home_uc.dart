@@ -15,9 +15,9 @@ class GetHomeUc implements UseCase<HomeData, GetHomeParams> {
 }
 
 class GetHomeParams extends Equatable {
-  const GetHomeParams({this.lat = 0, this.long = 0});
-  final double? lat;
-  final double? long;
+  const GetHomeParams({required this.lat, required this.long});
+  final double lat;
+  final double long;
   @override
   List<Object?> get props => [lat, long];
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
+import 'package:fpt_ojt/features/ai/presentation/blocs/ai_chat/ai_chat_bloc.dart';
+import 'package:fpt_ojt/features/ai/presentation/screens/ai_screens.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/login_details_screen.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/login_options_screen.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/signup_details_screen.dart';
@@ -22,6 +25,7 @@ import 'package:fpt_ojt/features/shared/constants/navigation.dart';
 import 'package:fpt_ojt/features/shared/widgets/app_bottom_navbar.dart';
 import 'package:fpt_ojt/features/wallet/presentation/screens/card_details.dart';
 import 'package:fpt_ojt/features/wallet/presentation/screens/wallet_screen.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -102,6 +106,13 @@ final goRouter = GoRouter(
         final cardId = state.pathParameters['cardId'] ?? '';
         return CardSettingScreen(cardId: cardId);
       },
+    ),
+    GoRoute(
+      path: RouteNames.aiSuggestion,
+      builder: (context, state) => BlocProvider(
+        create: (_) => GetIt.instance<AiChatBloc>(),
+        child: const AiScreens(),
+      ),
     ),
     GoRoute(
       path: RouteNames.liveMap,
