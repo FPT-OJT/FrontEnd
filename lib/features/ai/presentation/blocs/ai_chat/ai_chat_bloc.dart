@@ -28,22 +28,32 @@ class AiChatBloc extends Bloc<AiChatEvent, AiChatState> {
   Future<void> _onMessageSent(
     AiChatMessageSent event,
     Emitter<AiChatState> emit,
-  ) => _handleUserMessage(event.message, emit, fullName: event.fullName, latitude: event.latitude, longitude: event.longitude);
+  ) => _handleUserMessage(
+    event.message,
+    emit,
+    fullName: event.fullName,
+    latitude: event.latitude,
+    longitude: event.longitude,
+  );
 
   Future<void> _onSuggestionTapped(
     AiChatSuggestionTapped event,
     Emitter<AiChatState> emit,
-  ) => _handleUserMessage(event.suggestion, emit, fullName: event.fullName, latitude: event.latitude, longitude: event.longitude);
+  ) => _handleUserMessage(
+    event.suggestion,
+    emit,
+    fullName: event.fullName,
+    latitude: event.latitude,
+    longitude: event.longitude,
+  );
 
   Future<void> _handleUserMessage(
     String message,
-    Emitter<AiChatState> emit,
-    {
-      String? fullName,
-      double? latitude,
-      double? longitude,
-    }
-  ) async {
+    Emitter<AiChatState> emit, {
+    String? fullName,
+    double? latitude,
+    double? longitude,
+  }) async {
     final userMsg = AiMessage(
       content: message,
       isUser: true,
@@ -58,7 +68,13 @@ class AiChatBloc extends Bloc<AiChatEvent, AiChatState> {
     );
 
     final result = await _genTextUseCase(
-      GenTextParams(sessionId: state.sessionId, userMessage: message, fullName: fullName, latitude: latitude, longitude: longitude),
+      GenTextParams(
+        sessionId: state.sessionId,
+        userMessage: message,
+        fullName: fullName,
+        latitude: latitude,
+        longitude: longitude,
+      ),
     );
 
     result.fold(

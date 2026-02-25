@@ -76,9 +76,7 @@ class MerchantAgencyRepositoryImpl implements MerchantAgencyRepository {
     required String agencyId,
   }) async {
     try {
-      await merchantAgencyDataSource.toggleFavoriteMerchant(
-        agencyId: agencyId,
-      );
+      await merchantAgencyDataSource.toggleFavoriteMerchant(agencyId: agencyId);
       return const Right(null);
     } on Exception catch (e) {
       return Left(Failure.fromException(e));
@@ -94,6 +92,28 @@ class MerchantAgencyRepositoryImpl implements MerchantAgencyRepository {
         agencyId: agencyId,
       );
       return const Right(null);
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MerchantAgency>>> searchMerchantAgencies({
+    required String keyword,
+    double latitude = 0,
+    double longitude = 0,
+    int limit = 10,
+    String sort = 'NAME_ASC',
+  }) async {
+    try {
+      final models = await merchantAgencyDataSource.searchMerchantAgencies(
+        keyword: keyword,
+        latitude: latitude,
+        longitude: longitude,
+        limit: limit,
+        sort: sort,
+      );
+      return Right(models.toEntities());
     } on Exception catch (e) {
       return Left(Failure.fromException(e));
     }

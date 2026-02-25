@@ -5,6 +5,7 @@ import 'package:fpt_ojt/features/merchants/data/datasources/impl/mock.dart';
 import 'package:fpt_ojt/features/merchants/data/datasources/merchant_agency_datasource.dart';
 import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_cards_deals_response.dart';
 import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_model.dart';
+import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_search_result_model.dart';
 import 'package:fpt_ojt/features/shared/models/api_response.dart';
 
 class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
@@ -41,6 +42,37 @@ class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
   }
 
   @override
+  Future<List<MerchantAgencySearchResultModel>> searchMerchantAgencies({
+    required String keyword,
+    double latitude = 0,
+    double longitude = 0,
+    int limit = 10,
+    String sort = 'NAME_ASC',
+  }) async {
+    final response = await _dio.get<Map<String, dynamic>>(
+      '/merchants/agencies/nearest',
+      queryParameters: {
+        'keyword': keyword,
+        'latitude': latitude,
+        'longitude': longitude,
+        'limit': limit,
+        'sort': sort,
+      },
+    );
+    final apiResponse = ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => (json! as List<dynamic>)
+          .map(
+            (e) => MerchantAgencySearchResultModel.fromJson(
+              e as Map<String, dynamic>,
+            ),
+          )
+          .toList(),
+    );
+    return apiResponse.data ?? [];
+  }
+
+  @override
   Future<bool> isMerchantFavorite({required String agencyId}) async {
     final response = await _dio.get<Map<String, dynamic>>(
       '/users/favorite-merchants/agencies/$agencyId/is-favorite',
@@ -63,6 +95,7 @@ class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
     );
     return apiResponse.data ?? false;
   }
+
   @override
   Future<void> toggleFavoriteMerchant({required String agencyId}) async {
     await _dio.post<Map<String, dynamic>>(
@@ -77,5 +110,4 @@ class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
       '/users/subscribed-merchants/agencies/$agencyId',
     );
   }
-
 }

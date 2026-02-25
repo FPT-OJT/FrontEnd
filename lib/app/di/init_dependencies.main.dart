@@ -204,6 +204,34 @@ Future<void> _initMerchant() async {
         toggleFavoriteMerchantUseCase: serviceLocator(),
         toggleSubscribeMerchantUseCase: serviceLocator(),
       ),
+    )
+    ..registerLazySingleton<RecentSearchLocalDatasource>(
+      () => RecentSearchLocalDatasourceImpl(
+        storage: serviceLocator(instanceName: 'local_storage'),
+      ),
+    )
+    ..registerLazySingleton<RecentSearchRepository>(
+      () => RecentSearchRepositoryImpl(
+        recentSearchLocalDatasource: serviceLocator(),
+      ),
+    )
+    ..registerLazySingleton<SearchMerchantAgenciesUseCase>(
+      () => SearchMerchantAgenciesUseCase(
+        merchantAgencyRepository: serviceLocator(),
+      ),
+    )
+    ..registerLazySingleton<GetRecentSearchesUseCase>(
+      () => GetRecentSearchesUseCase(recentSearchRepository: serviceLocator()),
+    )
+    ..registerLazySingleton<PushRecentSearchUseCase>(
+      () => PushRecentSearchUseCase(recentSearchRepository: serviceLocator()),
+    )
+    ..registerFactory<MerchantSearchBloc>(
+      () => MerchantSearchBloc(
+        searchMerchantAgenciesUseCase: serviceLocator(),
+        getRecentSearchesUseCase: serviceLocator(),
+        pushRecentSearchUseCase: serviceLocator(),
+      ),
     );
 }
 
@@ -413,7 +441,9 @@ void _initGeofence() {
 
 void _initAi() {
   serviceLocator
-    ..registerLazySingleton<AiDatasource>(() => AiDatasourceImpl(dio: serviceLocator()))
+    ..registerLazySingleton<AiDatasource>(
+      () => AiDatasourceImpl(dio: serviceLocator()),
+    )
     ..registerLazySingleton<AiRepository>(
       () => AiRepositoryImpl(aiDatasource: serviceLocator()),
     )

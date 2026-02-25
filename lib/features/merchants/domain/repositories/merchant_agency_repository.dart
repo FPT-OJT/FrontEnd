@@ -23,4 +23,12 @@ abstract class MerchantAgencyRepository {
   Future<Either<Failure, void>> toggleSubscribeMerchant({
     required String agencyId,
   });
+
+  Future<Either<Failure, List<MerchantAgency>>> searchMerchantAgencies({
+    required String keyword,
+    double latitude = 0,
+    double longitude = 0,
+    int limit = 10,
+    String sort = 'NAME_ASC',
+  });
 }

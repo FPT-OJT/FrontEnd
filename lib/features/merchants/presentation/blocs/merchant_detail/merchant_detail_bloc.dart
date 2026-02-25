@@ -98,10 +98,7 @@ class MerchantDetailBloc
     );
 
     // Revert on failure
-    result.fold(
-      (_) => emit(loadedState),
-      (_) {},
-    );
+    result.fold((_) => emit(loadedState), (_) {});
   }
 
   Future<void> _onSubscribeToggled(
@@ -119,9 +116,6 @@ class MerchantDetailBloc
     );
 
     // Revert on failure
-    result.fold(
-      (_) => emit(loadedState),
-      (_) {},
-    );
+    result.fold((_) => emit(loadedState), (_) {});
   }
 }

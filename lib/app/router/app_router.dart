@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpt_ojt/app/router/route_names.dart';
+import 'package:fpt_ojt/features/ai/presentation/blocs/ai_chat/ai_chat_bloc.dart';
 import 'package:fpt_ojt/features/ai/presentation/screens/ai_screens.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/login_details_screen.dart';
 import 'package:fpt_ojt/features/auth/presentation/screens/login_options_screen.dart';
@@ -12,6 +14,7 @@ import 'package:fpt_ojt/features/intro/presentation/screens/onboarding_screen.da
 import 'package:fpt_ojt/features/intro/presentation/screens/splash_screen.dart';
 import 'package:fpt_ojt/features/intro/presentation/screens/welcome_screen.dart';
 import 'package:fpt_ojt/features/location/presentation/screens/live_map_screen.dart';
+import 'package:fpt_ojt/features/merchants/presentation/blocs/merchant_search/merchant_search_bloc.dart';
 import 'package:fpt_ojt/features/merchants/presentation/screens/calculator_screen.dart';
 import 'package:fpt_ojt/features/merchants/presentation/screens/detail_screen.dart';
 import 'package:fpt_ojt/features/merchants/presentation/screens/search_screen.dart';
@@ -23,6 +26,7 @@ import 'package:fpt_ojt/features/shared/constants/navigation.dart';
 import 'package:fpt_ojt/features/shared/widgets/app_bottom_navbar.dart';
 import 'package:fpt_ojt/features/wallet/presentation/screens/card_details.dart';
 import 'package:fpt_ojt/features/wallet/presentation/screens/wallet_screen.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -59,7 +63,10 @@ final goRouter = GoRouter(
       path: RouteNames.search,
       pageBuilder: (context, state) => CustomTransitionPage(
         key: state.pageKey,
-        child: const SearchScreen(),
+        child: BlocProvider(
+          create: (_) => GetIt.instance<MerchantSearchBloc>(),
+          child: const SearchScreen(),
+        ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
       ),
@@ -106,7 +113,10 @@ final goRouter = GoRouter(
     ),
     GoRoute(
       path: RouteNames.aiSuggestion,
-      builder: (context, state) => const AiScreens(),
+      builder: (context, state) => BlocProvider(
+        create: (_) => GetIt.instance<AiChatBloc>(),
+        child: const AiScreens(),
+      ),
     ),
     GoRoute(
       path: RouteNames.liveMap,

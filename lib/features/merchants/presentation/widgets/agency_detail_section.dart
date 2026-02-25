@@ -18,76 +18,66 @@ class AgencyDetailSection extends StatelessWidget {
   static const int nameMaxLines = 2;
 
   @override
-  Widget build(BuildContext context) =>
-      BlocBuilder<MerchantDetailBloc, MerchantDetailState>(
-        buildWhen: (prev, curr) =>
-            curr is MerchantDetailLoaded &&
-            (prev is! MerchantDetailLoaded ||
-                (prev as MerchantDetailLoaded).isFavorite !=
-                    curr.isFavorite ||
-                prev.isSubscribed != curr.isSubscribed),
-        builder: (context, state) {
-          final isFavorite =
-              state is MerchantDetailLoaded ? state.isFavorite : false;
-          final isSubscribed =
-              state is MerchantDetailLoaded ? state.isSubscribed : false;
+  Widget build(
+    BuildContext context,
+  ) => BlocBuilder<MerchantDetailBloc, MerchantDetailState>(
+    buildWhen: (prev, curr) =>
+        curr is MerchantDetailLoaded &&
+        (prev is! MerchantDetailLoaded ||
+            prev.isFavorite != curr.isFavorite ||
+            prev.isSubscribed != curr.isSubscribed),
+    builder: (context, state) {
+      final isFavorite = state is MerchantDetailLoaded && state.isFavorite;
+      final isSubscribed = state is MerchantDetailLoaded && state.isSubscribed;
 
-          return Container(
-            padding: const EdgeInsets.symmetric(horizontal: UIGaps.size12),
-            height: containerHeight,
-            width: double.infinity,
-            child: Column(
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: UIGaps.size12),
+        height: containerHeight,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                AppIconButton(
+                  icon: Icons.arrow_back_ios_new,
+                  onPressed: () => context.pop(),
+                ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: UIGaps.size4,
                   children: [
                     AppIconButton(
-                      icon: Icons.arrow_back_ios_new,
-                      onPressed: () => context.pop(),
+                      icon: isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? AppColors.secondaryPink : null,
+                      onPressed: () => context.read<MerchantDetailBloc>().add(
+                        const MerchantDetailFavoriteToggled(),
+                      ),
                     ),
-                    Row(
-                      spacing: UIGaps.size4,
-                      children: [
-                        AppIconButton(
-                          icon: isFavorite
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: isFavorite
-                              ? AppColors.secondaryPink
-                              : null,
-                          onPressed: () => context.read<MerchantDetailBloc>().add(
-                            const MerchantDetailFavoriteToggled(),
-                          ),
-                        ),
-                        AppIconButton(
-                          icon: isSubscribed
-                              ? Icons.notifications_active
-                              : Icons.notification_add_outlined,
-                          color: isSubscribed
-                              ? AppColors.primaryCoin
-                              : null,
-                          onPressed: () => context.read<MerchantDetailBloc>().add(
-                            const MerchantDetailSubscribeToggled(),
-                          ),
-                        ),
-                      ],
+                    AppIconButton(
+                      icon: isSubscribed
+                          ? Icons.notifications_active
+                          : Icons.notification_add_outlined,
+                      color: isSubscribed ? AppColors.primaryCoin : null,
+                      onPressed: () => context.read<MerchantDetailBloc>().add(
+                        const MerchantDetailSubscribeToggled(),
+                      ),
                     ),
                   ],
                 ),
-                Text(
-                  name ?? MerchantDetailText.emptyString,
-                  style: AppTextStyles.h2.copyWith(
-                    color: AppColors.neutralWhite,
-                  ),
-                  maxLines: nameMaxLines,
-                  overflow: TextOverflow.ellipsis,
-                ),
               ],
             ),
-          );
-        },
+            Text(
+              name ?? MerchantDetailText.emptyString,
+              style: AppTextStyles.h2.copyWith(color: AppColors.neutralWhite),
+              maxLines: nameMaxLines,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       );
+    },
+  );
 }

@@ -22,7 +22,14 @@ class AiDatasourceImpl implements AiDatasource {
       'lat': latitude,
       'long': longitude,
     };
-    final response = await _dio.post<String>(_apiUrl, data: params,options:Options(sendTimeout: const Duration(minutes: 10),receiveTimeout: const Duration(minutes: 10)) );
+    final response = await _dio.post<String>(
+      _apiUrl,
+      data: params,
+      options: Options(
+        sendTimeout: const Duration(minutes: 10),
+        receiveTimeout: const Duration(minutes: 10),
+      ),
+    );
     return AiMessageModel(
       content: response.data ?? '',
       isUser: false,

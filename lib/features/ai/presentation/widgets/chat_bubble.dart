@@ -12,8 +12,8 @@ class ChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => message.isUser
-        ? _UserBubble(message: message)
-        : _BotBubble(message: message);
+      ? _UserBubble(message: message)
+      : _BotBubble(message: message);
 }
 
 class _UserBubble extends StatelessWidget {
@@ -61,7 +61,6 @@ class _BotBubble extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       spacing: UIGaps.size8,
       children: [
-       
         Flexible(
           child: Container(
             constraints: BoxConstraints(
@@ -106,10 +105,7 @@ class _BotBubble extends StatelessWidget {
                 ),
                 blockquoteDecoration: const BoxDecoration(
                   border: Border(
-                    left: BorderSide(
-                      color: AppColors.primaryMint,
-                      width: 3,
-                    ),
+                    left: BorderSide(color: AppColors.primaryMint, width: 3),
                   ),
                 ),
                 tableHead: AppTextStyles.bodySmall.copyWith(
@@ -174,7 +170,6 @@ class _TypingIndicatorBubbleState extends State<TypingIndicatorBubble>
       crossAxisAlignment: CrossAxisAlignment.end,
       spacing: UIGaps.size8,
       children: [
-       
         Container(
           padding: const EdgeInsets.symmetric(
             horizontal: UIGaps.size16,

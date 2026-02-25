@@ -1,5 +1,6 @@
 import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_cards_deals_response.dart';
 import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_model.dart';
+import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_search_result_model.dart';
 import 'package:fpt_ojt/features/shared/models/api_response.dart';
 
 abstract class MerchantAgencyDatasource {
@@ -10,6 +11,14 @@ abstract class MerchantAgencyDatasource {
   });
   Future<ApiResponse<MerchantAgencyCardsDealsResponse>>
   getMerchantAgencyDetail({required String agencyId});
+
+  Future<List<MerchantAgencySearchResultModel>> searchMerchantAgencies({
+    required String keyword,
+    double latitude = 0,
+    double longitude = 0,
+    int limit = 10,
+    String sort = 'NAME_ASC',
+  });
 
   Future<bool> isMerchantFavorite({required String agencyId});
   Future<bool> isMerchantSubscribed({required String agencyId});
