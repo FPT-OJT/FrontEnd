@@ -3,6 +3,7 @@ import 'package:fpt_ojt/core/error/failures.dart';
 import 'package:fpt_ojt/features/location/data/datasource/location_datasource.dart';
 import 'package:fpt_ojt/features/merchants/data/datasources/merchant_agency_datasource.dart';
 import 'package:fpt_ojt/features/merchants/data/mappers/merchant.dart';
+import 'package:fpt_ojt/features/merchants/data/mappers/merchant_deal.dart';
 import 'package:fpt_ojt/features/merchants/data/mappers/merchant_detail.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/merchant_agency.dart';
 import 'package:fpt_ojt/features/merchants/domain/entities/merchant_deal_detail.dart';
@@ -114,6 +115,16 @@ class MerchantAgencyRepositoryImpl implements MerchantAgencyRepository {
         sort: sort,
       );
       return Right(models.toEntities());
+    } on Exception catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
+  
+  @override
+  Future<Either<Failure, List<MerchantDealDetail>>> getMerchantDealDetail({required String agencyId})async {
+    try {
+      final response = await merchantAgencyDataSource.getMerchantDealDetail(agencyId: agencyId);
+      return Right(response.toEntities());
     } on Exception catch (e) {
       return Left(Failure.fromException(e));
     }

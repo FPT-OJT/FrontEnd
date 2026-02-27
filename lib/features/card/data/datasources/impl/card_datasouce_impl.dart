@@ -14,7 +14,7 @@ class CardDatasouceImpl implements CardDatasource {
     int limit,
   ) async {
     final response = await _dio.get<Map<String, dynamic>>(
-      '/cards/search',
+      '/api/core/cards/search',
       queryParameters: {'keyword': keyword, 'limit': limit},
     );
 
@@ -29,7 +29,7 @@ class CardDatasouceImpl implements CardDatasource {
   @override
   Future<ApiResponse<String>> addCardToUser(String cardId) async {
     final response = await _dio.post<Map<String, dynamic>>(
-      '/user-cards',
+      '/api/core/user-cards',
       data: {'cardId': cardId},
     );
 
@@ -39,7 +39,7 @@ class CardDatasouceImpl implements CardDatasource {
   @override
   Future<ApiResponse<bool>> isCardExistInUser(String cardId) async {
     final response = await _dio.get<Map<String, dynamic>>(
-      '/user-cards/is-exists/$cardId',
+      '/api/core/user-cards/is-exists/$cardId',
     );
 
     return ApiResponse.fromJson(
@@ -55,7 +55,7 @@ class CardDatasouceImpl implements CardDatasource {
     DateTime? expiryDate,
   ) async {
     final response = await _dio.put<Map<String, dynamic>>(
-      '/user-cards/$cardId',
+      '/api/core/user-cards/$cardId',
       data: {
         if (firstPaymentDate != null) 'firstPaymentDate': firstPaymentDate,
         if (expiryDate != null)
@@ -74,7 +74,7 @@ class CardDatasouceImpl implements CardDatasource {
     String userCardId,
   ) async {
     final response = await _dio.get<Map<String, dynamic>>(
-      '/user-cards/$userCardId',
+      '/api/core/user-cards/$userCardId',
     );
 
     return ApiResponse.fromJson(
@@ -86,7 +86,7 @@ class CardDatasouceImpl implements CardDatasource {
   @override
   Future<ApiResponse<bool>> deleteUserCard(String userCardId) async {
     final response = await _dio.delete<Map<String, dynamic>>(
-      '/user-cards/$userCardId',
+      '/api/core/user-cards/$userCardId',
     );
 
     return ApiResponse.fromJson(

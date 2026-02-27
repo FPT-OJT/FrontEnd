@@ -6,6 +6,7 @@ import 'package:fpt_ojt/features/merchants/data/datasources/merchant_agency_data
 import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_cards_deals_response.dart';
 import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_model.dart';
 import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_search_result_model.dart';
+import 'package:fpt_ojt/features/merchants/data/models/merchant_deal_model.dart';
 import 'package:fpt_ojt/features/shared/models/api_response.dart';
 
 class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
@@ -31,7 +32,7 @@ class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
   Future<ApiResponse<MerchantAgencyCardsDealsResponse>>
   getMerchantAgencyDetail({required String agencyId}) async {
     final response = await _dio.get<Map<String, dynamic>>(
-      '/merchants/agencies/$agencyId/cards-deals',
+      '/api/core/merchants/agencies/$agencyId/cards-deals',
     );
     return ApiResponse.fromJson(
       response.data ?? {},
@@ -50,7 +51,7 @@ class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
     String sort = 'NAME_ASC',
   }) async {
     final response = await _dio.get<Map<String, dynamic>>(
-      '/merchants/agencies/nearest',
+      '/api/core/merchants/agencies/nearest',
       queryParameters: {
         'keyword': keyword,
         'latitude': latitude,
@@ -75,7 +76,7 @@ class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
   @override
   Future<bool> isMerchantFavorite({required String agencyId}) async {
     final response = await _dio.get<Map<String, dynamic>>(
-      '/users/favorite-merchants/agencies/$agencyId/is-favorite',
+      '/api/core/users/favorite-merchants/agencies/$agencyId/is-favorite',
     );
     final apiResponse = ApiResponse.fromJson(
       response.data ?? {},
@@ -87,7 +88,7 @@ class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
   @override
   Future<bool> isMerchantSubscribed({required String agencyId}) async {
     final response = await _dio.get<Map<String, dynamic>>(
-      '/users/subscribed-merchants/agencies/$agencyId/is-subscribed',
+      '/api/core/users/subscribed-merchants/agencies/$agencyId/is-subscribed',
     );
     final apiResponse = ApiResponse.fromJson(
       response.data ?? {},
@@ -99,7 +100,7 @@ class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
   @override
   Future<void> toggleFavoriteMerchant({required String agencyId}) async {
     await _dio.post<Map<String, dynamic>>(
-      '/users/favorite-merchants',
+      '/api/core/users/favorite-merchants',
       data: {'merchantAgencyId': agencyId},
     );
   }
@@ -107,7 +108,25 @@ class MerchantAgencyDatasourceImpl implements MerchantAgencyDatasource {
   @override
   Future<void> toggleSubscribeMerchant({required String agencyId}) async {
     await _dio.post<Map<String, dynamic>>(
-      '/users/subscribed-merchants/agencies/$agencyId',
+      '/api/core/users/subscribed-merchants/agencies/$agencyId',
     );
+  }
+
+  @override
+  Future<List<MerchantDealModel>> getMerchantDealDetail({
+    required String agencyId,
+  }) async {
+    final response = await _dio.get<Map<String, dynamic>>(
+      '/api/core/merchants/agencies/$agencyId/deals',
+    );
+    final apiResponse = ApiResponse.fromJson(
+      response.data ?? {},
+      (json) => (json! as List<dynamic>)
+          .map(
+            (e) => MerchantDealModel.fromJson(e as Map<String, dynamic>),
+          )
+          .toList(),
+    );
+    return apiResponse.data ?? [];
   }
 }

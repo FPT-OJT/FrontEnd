@@ -90,6 +90,7 @@ import 'package:fpt_ojt/features/merchants/domain/usecases/get_is_merchant_favor
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_is_merchant_subscribed.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_agency_detail.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_categories.dart';
+import 'package:fpt_ojt/features/merchants/domain/usecases/get_merchant_deal.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_nearest_merchant_agencies.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/get_recent_searches.dart';
 import 'package:fpt_ojt/features/merchants/domain/usecases/push_recent_search.dart';

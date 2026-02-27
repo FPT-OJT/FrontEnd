@@ -8,7 +8,6 @@ abstract class UserModel with _$UserModel {
   const factory UserModel({
     required String id,
     required String email,
-    required String userName,
     required String firstName,
     required String lastName,
     required Role role,

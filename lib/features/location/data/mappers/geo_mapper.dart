@@ -7,7 +7,7 @@ extension AgencyGeofenceMapper on AgencyGeofence {
     id: id,
     latitude: latitude,
     longitude: longitude,
-    radius: [GeofenceRadius(id: '${id}_radius', length: radius)],
+    radius: [GeofenceRadius(id: '${id}_radius', length: 370)],
   );
 }
 

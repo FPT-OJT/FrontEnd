@@ -31,4 +31,8 @@ abstract class MerchantAgencyRepository {
     int limit = 10,
     String sort = 'NAME_ASC',
   });
+
+  Future<Either<Failure, List<MerchantDealDetail>>> getMerchantDealDetail({
+    required String agencyId,
+  });
 }

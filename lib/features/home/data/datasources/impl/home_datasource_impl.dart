@@ -13,7 +13,7 @@ class HomeDatasourceImpl implements HomeDatasource {
     double? long = 0,
   }) async {
     final response = await _dio.get<Map<String, dynamic>>(
-      '/home',
+      '/api/core/home',
       queryParameters: {'lat': lat, 'long': long},
     );
 
@@ -26,7 +26,7 @@ class HomeDatasourceImpl implements HomeDatasource {
   @override
   Future<ApiResponse<void>> subscribeToMerchant(String merchantAgencyId) async {
     final response = await _dio.post<Map<String, dynamic>>(
-      '/users/subscribed-merchants/agencies/$merchantAgencyId',
+      '/api/core/users/subscribed-merchants/agencies/$merchantAgencyId',
     );
 
     return ApiResponse.fromJson(response.data ?? {}, (json) {});
@@ -35,7 +35,7 @@ class HomeDatasourceImpl implements HomeDatasource {
   @override
   Future<ApiResponse<void>> addFavoriteMerchant(String merchantAgencyId) async {
     final response = await _dio.post<Map<String, dynamic>>(
-      '/users/favorite-merchants',
+      '/api/core/users/favorite-merchants',
       data: {'merchantAgencyId': merchantAgencyId},
     );
 

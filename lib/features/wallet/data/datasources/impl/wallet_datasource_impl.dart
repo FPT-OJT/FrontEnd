@@ -11,7 +11,7 @@ class WalletDatasourceImpl implements WalletDatasource {
   @override
   Future<ApiResponse<List<MyCard>>> getMyApps(String cardType) async {
     final response = await _dio.get<Map<String, dynamic>>(
-      '/user-cards/card-type/$cardType',
+      '/api/core/user-cards/card-type/$cardType',
     );
     return ApiResponse.fromJson(
       response.data ?? {},
@@ -23,7 +23,7 @@ class WalletDatasourceImpl implements WalletDatasource {
 
   @override
   Future<ApiResponse<List<MyCard>>> getMyCards() async {
-    final response = await _dio.get<Map<String, dynamic>>('/user-cards/@me');
+    final response = await _dio.get<Map<String, dynamic>>('/api/core/user-cards/@me');
     return ApiResponse.fromJson(
       response.data ?? {},
       (json) => (json! as List)
@@ -35,7 +35,7 @@ class WalletDatasourceImpl implements WalletDatasource {
   @override
   Future<ApiResponse<List<MyFavMerchant>>> getMyFavMerchants() async {
     final response = await _dio.get<Map<String, dynamic>>(
-      '/users/favorite-merchants',
+      '/api/core/users/favorite-merchants',
     );
     return ApiResponse.fromJson(
       response.data ?? {},

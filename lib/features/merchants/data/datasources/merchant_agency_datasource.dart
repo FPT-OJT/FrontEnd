@@ -1,6 +1,7 @@
 import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_cards_deals_response.dart';
 import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_model.dart';
 import 'package:fpt_ojt/features/merchants/data/models/merchant_agency_search_result_model.dart';
+import 'package:fpt_ojt/features/merchants/data/models/merchant_deal_model.dart';
 import 'package:fpt_ojt/features/shared/models/api_response.dart';
 
 abstract class MerchantAgencyDatasource {
@@ -24,4 +25,5 @@ abstract class MerchantAgencyDatasource {
   Future<bool> isMerchantSubscribed({required String agencyId});
   Future<void> toggleFavoriteMerchant({required String agencyId});
   Future<void> toggleSubscribeMerchant({required String agencyId});
+  Future<List<MerchantDealModel>> getMerchantDealDetail({required String agencyId});
 }

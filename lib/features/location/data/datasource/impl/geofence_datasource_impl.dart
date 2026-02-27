@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/rendering.dart';
 import 'package:fpt_ojt/features/location/data/datasource/geofence_datasource.dart';
 import 'package:fpt_ojt/features/location/data/mappers/geo_mapper.dart';
 import 'package:fpt_ojt/features/location/data/models/geofence_dto.dart';
@@ -18,6 +19,7 @@ class GeofenceDatasourceImpl implements GeofenceDatasource {
 
   @override
   Future<void> register(List<AgencyGeofence> agencies) async {
+    debugPrint('register geofences total: ${agencies.length}');
     final geofences = agencies.map((e) => e.toGeofence()).toList();
     await _geofenceService.start(geofences);
   }
@@ -37,7 +39,7 @@ class GeofenceDatasourceImpl implements GeofenceDatasource {
   @override
   Future<ApiResponse<List<GeofenceDto>>> getGeofences() async {
     final response = await _dio.get<Map<String, dynamic>>(
-      '/geofence/candidates',
+      '/api/core/geofence/candidates',
     );
     return ApiResponse.fromJson(
       response.data ?? {},

@@ -9,4 +9,9 @@ sealed class GeofenceEvent with _$GeofenceEvent {
 
   const factory GeofenceEvent.exited({required String agencyId}) =
       GeofenceExited;
+
+  const factory GeofenceEvent.fetchDealDetails({required String agencyId}) =
+      GeofenceFetchDealDetails;
+
+  const factory GeofenceEvent.closeDealDetails() = GeofenceCloseDealDetails;
 }

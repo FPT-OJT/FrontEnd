@@ -9,7 +9,7 @@ class CountryDatasourceImpl implements CountryDatasource {
 
   @override
   Future<ApiResponse<List<CountryModel>>> getCountries() async {
-    final response = await _dio.get<Map<String, dynamic>>('/countries');
+    final response = await _dio.get<Map<String, dynamic>>('/api/core/countries');
     return ApiResponse.fromJson(
       response.data ?? {},
       (json) => (json! as List)

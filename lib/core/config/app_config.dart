@@ -22,10 +22,6 @@ class AppConfig {
     if (apiUrl.isEmpty) {
       throw Exception('API_URL is not set');
     }
-    if (apiAiUrl.isEmpty) {
-      throw Exception('API_AI_URL is not set');
-    }
   }
 
-  static String get apiAiUrl => const String.fromEnvironment('API_AI_URL');
 }

@@ -1,12 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:fpt_ojt/core/config/app_config.dart';
 import 'package:fpt_ojt/features/ai/data/datasources/ai_datasource.dart';
 import 'package:fpt_ojt/features/ai/data/models/ai_message_model.dart';
 
 class AiDatasourceImpl implements AiDatasource {
   AiDatasourceImpl({required Dio dio}) : _dio = dio;
   final Dio _dio;
-  final String _apiUrl = AppConfig.apiAiUrl;
   @override
   Future<AiMessageModel> genText({
     required String sessionId,
@@ -23,7 +21,7 @@ class AiDatasourceImpl implements AiDatasource {
       'long': longitude,
     };
     final response = await _dio.post<String>(
-      _apiUrl,
+      '/api/ai/webhook/chat',
       data: params,
       options: Options(
         sendTimeout: const Duration(minutes: 10),

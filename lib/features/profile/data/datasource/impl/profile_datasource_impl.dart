@@ -9,7 +9,7 @@ class ProfileDatasourceImpl implements ProfileDatasource {
 
   @override
   Future<ApiResponse<ProfileModel>> getMyProfile() async {
-    final response = await _dio.get<Map<String, dynamic>>('/users/profile');
+    final response = await _dio.get<Map<String, dynamic>>('/api/core/users/profile');
     return ApiResponse.fromJson(
       response.data ?? {},
       (json) => ProfileModel.fromJson(json! as Map<String, dynamic>),
@@ -25,7 +25,7 @@ class ProfileDatasourceImpl implements ProfileDatasource {
     required String phoneNumber,
   }) async {
     final response = await _dio.patch<Map<String, dynamic>>(
-      '/users/profile',
+      '/api/core/users/profile',
       data: {
         'firstName': firstName,
         'lastName': lastName,
