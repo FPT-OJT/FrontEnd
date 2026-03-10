@@ -8,4 +8,12 @@ abstract class AiDatasource {
     double? latitude,
     double? longitude,
   });
+
+  Stream<String> genTextStream({
+    required String sessionId,
+    required String userMessage,
+    String? fullName,
+    double? latitude,
+    double? longitude,
+  });
 }

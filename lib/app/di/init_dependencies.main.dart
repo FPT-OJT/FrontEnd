@@ -450,13 +450,13 @@ void _initAi() {
     ..registerLazySingleton<AiRepository>(
       () => AiRepositoryImpl(aiDatasource: serviceLocator()),
     )
-    ..registerLazySingleton<GenTextUseCase>(
-      () => GenTextUseCase(aiRepository: serviceLocator()),
+    ..registerLazySingleton<GenTextStreamUseCase>(
+      () => GenTextStreamUseCase(aiRepository: serviceLocator()),
     )
     ..registerFactory<AiChatBloc>(
       () => AiChatBloc(
         aiRepository: serviceLocator(),
-        genTextUseCase: serviceLocator(),
+        genTextStreamUseCase: serviceLocator(),
       ),
     );
 }

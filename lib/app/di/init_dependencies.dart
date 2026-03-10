@@ -10,7 +10,7 @@ import 'package:fpt_ojt/features/ai/data/datasources/ai_datasource.dart';
 import 'package:fpt_ojt/features/ai/data/datasources/impl/ai_datasource_impl.dart';
 import 'package:fpt_ojt/features/ai/data/repositories/ai_repository_impl.dart';
 import 'package:fpt_ojt/features/ai/domain/repositories/ai_repository.dart';
-import 'package:fpt_ojt/features/ai/domain/usecases/gen_text_uc.dart';
+import 'package:fpt_ojt/features/ai/domain/usecases/gen_text_stream_uc.dart';
 import 'package:fpt_ojt/features/ai/presentation/blocs/ai_chat/ai_chat_bloc.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/auth_datasource.dart';
 import 'package:fpt_ojt/features/auth/data/datasources/google_auth_data_source.dart';

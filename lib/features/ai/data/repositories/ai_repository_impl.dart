@@ -35,4 +35,19 @@ class AiRepositoryImpl implements AiRepository {
       return Left(Failure.fromException(e));
     }
   }
+
+  @override
+  Stream<String> genTextStream({
+    required String sessionId,
+    required String userMessage,
+    String? fullName,
+    double? latitude,
+    double? longitude,
+  }) => aiDatasource.genTextStream(
+    sessionId: sessionId,
+    userMessage: userMessage,
+    fullName: fullName,
+    latitude: latitude,
+    longitude: longitude,
+  );
 }

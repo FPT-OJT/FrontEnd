@@ -220,10 +220,14 @@ class _ChatList extends StatelessWidget {
       horizontal: UIGaps.size16,
       vertical: UIGaps.size20,
     ),
-    itemCount: state.messages.length + (state.isGenerating ? 1 : 0),
+    itemCount: state.messages.length +
+        (state.isGenerating &&
+                (state.messages.isEmpty || state.messages.last.isUser)
+            ? 1
+            : 0),
     separatorBuilder: (_, __) => UIGaps.h12,
     itemBuilder: (context, index) {
-      if (index == state.messages.length && state.isGenerating) {
+      if (index == state.messages.length) {
         return const TypingIndicatorBubble();
       }
       return ChatBubble(message: state.messages[index]);
