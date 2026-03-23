@@ -1,0 +1,95 @@
+import 'package:flutter/material.dart';
+import 'package:fpt_ojt/core/theme/app_colors.dart';
+import 'package:fpt_ojt/core/theme/app_text_styles.dart';
+import 'package:fpt_ojt/core/theme/rounded.dart';
+import 'package:fpt_ojt/core/theme/ui_gaps.dart';
+
+class PasswordTextField extends StatefulWidget {
+  const PasswordTextField({
+    required this.label,
+    required this.controller,
+    super.key,
+    this.hintText,
+    this.validator,
+    this.enabled = true,
+  });
+  final String label;
+  final String? hintText;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final bool enabled;
+
+  @override
+  State<PasswordTextField> createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<PasswordTextField> {
+  bool _obscureText = true;
+
+  void _toggleVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return TextFormField(
+      controller: widget.controller,
+      validator: widget.validator,
+      obscureText: _obscureText,
+      enabled: widget.enabled,
+      cursorColor: AppColors.secondaryCoral,
+
+      style: theme.textTheme.bodyLarge?.copyWith(
+        color: AppColors.secondaryNavy,
+      ),
+      decoration: InputDecoration(
+        labelText: widget.label,
+        hintText: widget.hintText,
+        filled: true,
+        fillColor: Colors.transparent,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: UIGaps.size16,
+          vertical: UIGaps.size16,
+        ),
+        labelStyle: AppTextStyles.bodyLarge.copyWith(
+          color: AppColors.neutralGrey,
+        ),
+        floatingLabelStyle: AppTextStyles.bodyLarge.copyWith(
+          color: AppColors.secondaryCoral,
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility_off : Icons.visibility,
+            color: AppColors.secondaryNavyDisabled,
+            size: UIGaps.size20,
+          ),
+          onPressed: _toggleVisibility,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: Rounded.md,
+          borderSide: const BorderSide(color: AppColors.neutralGrey),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: Rounded.md,
+          borderSide: const BorderSide(color: AppColors.neutralGrey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: Rounded.md,
+          borderSide: const BorderSide(color: AppColors.secondaryCoral),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: Rounded.md,
+          borderSide: const BorderSide(color: AppColors.notifyError),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: Rounded.md,
+          borderSide: const BorderSide(color: AppColors.notifyError, width: 2),
+        ),
+      ),
+    );
+  }
+}

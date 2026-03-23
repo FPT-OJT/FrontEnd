@@ -1,0 +1,8 @@
+{
+  "ENV": "dev",
+  "WEB_GOOGLE_CLIENT_ID": "817000100768-rbb3ffg4ohr0ef1htf1l31vpgegtqnlt.apps.googleusercontent.com",
+  "ANDROID_GOOGLE_CLIENT_ID": "817000100768-uc0uglqc9dfhqj1gue53ld3iscsg8b4r.apps.googleusercontent.com",
+  "API_URL": "",
+  "OSRM_URL": "https://router.project-osrm.org/route/v1",
+  "TILE_URL": "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+}

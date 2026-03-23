@@ -1,0 +1,60 @@
+name: CD Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Decode Keystore & Create key.properties
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > android/app/upload-keystore.jks
+
+          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" > android/key.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
+          echo "storeFile=upload-keystore.jks" >> android/key.properties
+          echo "Checking environment variables"
+          echo "API_URL=$API_URL"
+      - name: Build APK Release
+        run: make build-release
+
+      - name: Build App Bundle
+        run: make build-play-store
+
+      - name: Upload Signed APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload App Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-aab
+          path: build/app/outputs/bundle/release/app-release.aab

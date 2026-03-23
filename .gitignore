@@ -43,3 +43,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+android/key.properties
+android/app/upload-keystore.jks
+.env.local
+.env
+
+# Generated files
+**/*.freezed.dart
+**/*.g.dart
+test/mocks/
+test/**/*_mock.dart
+test/**/*.mock.dart
+**/*.mocks.dart
